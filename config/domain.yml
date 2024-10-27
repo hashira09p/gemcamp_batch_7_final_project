@@ -1,0 +1,10 @@
+development:
+  admin:
+    - "admin.com"
+  client:
+    - "client.com"
+production:
+  admin:
+    - "admin.com"
+  client:
+    - "client.com"
