@@ -6,17 +6,14 @@ Rails.application.routes.draw do
   }
 
   constraints AdminDomainConstraint.new do
-    namespace :admin do
-      get 'home/login', to: 'home#login'
-    end
     authenticated :user, ->(u) { u.admin? } do
-      root to: 'admin/home#index', as: :admin_root
+      root to: 'home#index', as: :admin_root
     end
   end
 
   constraints ClientDomainConstraint.new do
     authenticated :user, ->(u) { u.client? } do
-      root to: 'client/home#index', as: :client_root
+      root to: 'home#index', as: :client_root
     end
   end
 
