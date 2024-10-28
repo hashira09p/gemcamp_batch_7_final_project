@@ -31,28 +31,46 @@
         <!-- Client Login Design -->
         <h2 class="text-center">Client Log in</h2>
 
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "needs-validation", novalidate: true }) do |f| %>
-          <div class="form-group">
-            <%= f.label :email, class: "form-label" %>
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", required: true %>
-          </div>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-4">
+              <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "needs-validation", novalidate: true }) do |f| %>
 
-          <div class="form-group">
-            <%= f.label :password, class: "form-label" %>
-            <%= f.password_field :password, autocomplete: "current-password", class: "form-control", required: true %>
-          </div>
+                <!-- Login/Register Tabs -->
+                <div class="btn-group w-100 mb-3" role="group">
+                  <button type="button" class="btn btn-warning active">Login</button>
+                  <%= link_to "Sign up", new_registration_path(resource_name), class: "btn btn-outline-secondary w-100", type: "button" %>
+                </div>
 
-          <% if devise_mapping.rememberable? %>
-            <div class="form-check">
-              <%= f.check_box :remember_me, class: "form-check-input" %>
-              <%= f.label :remember_me, class: "form-check-label" %>
+                <!-- Email Field -->
+                <div class="form-group mb-3">
+                  <%= f.label :email, "Email", class: "form-label" %>
+                  <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", required: true %>
+                </div>
+
+                <!-- Password Field -->
+                <div class="form-group mb-3">
+                  <%= f.label :password, "Password", class: "form-label" %>
+                  <%= f.password_field :password, autocomplete: "current-password", class: "form-control", required: true %>
+                </div>
+
+                <!-- Remember Me Checkbox -->
+                <% if devise_mapping.rememberable? %>
+                  <div class="form-check mb-3">
+                    <%= f.check_box :remember_me, class: "form-check-input" %>
+                    <%= f.label :remember_me, "Remember Me", class: "form-check-label" %>
+                  </div>
+                <% end %>
+
+                <!-- Submit Button -->
+                <div class="text-center">
+                  <%= f.submit "Login", class: "btn btn-primary w-100" %>
+                </div>
+              <% end %>
             </div>
-          <% end %>
-
-          <div class="text-center">
-            <%= f.submit "Client Log in", class: "btn btn-primary" %>
           </div>
-        <% end %>
+        </div>
+
 
         <%= render "devise/shared/links" %>
       <% else %>
