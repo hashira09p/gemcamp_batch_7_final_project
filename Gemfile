@@ -28,6 +28,7 @@ gem "stimulus-rails"
 gem 'devise'
 gem 'phonelib'
 gem 'faker'
+gem 'jquery-rails'
 
 # Bundle and process CSS [https://github.com/rails/cssbundling-rails]
 gem "cssbundling-rails"

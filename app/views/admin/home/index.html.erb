@@ -1,2 +1,55 @@
-<h1>Admin::Home#index</h1>
-<p>Find me in app/views/admin/home/index.html.erb</p>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+      <div class="position-sticky pt-3">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="#">Homepage</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Member Management</a>
+            <ul class="nav flex-column ms-3">
+              <li class="nav-item">
+                <a class="nav-link" href="#">User List</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Item List</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Example 2 Management</a>
+            <ul class="nav flex-column ms-3">
+              <li class="nav-item">
+                <a class="nav-link" href="#">Example 1</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Example 2</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <!-- Top Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <div class="navbar-nav ms-auto">
+            <button class="btn btn-outline-secondary me-2">Change Language</button>
+            <%= link_to 'Profile', destroy_user_session_path, class: 'btn btn-success' %>
+            <%= button_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'btn btn-danger' %>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Content Area -->
+      <div class="content mt-4">
+        <h2>Hi, <%= current_user.username %>></h2>
+      </div>
+    </main>
+  </div>
+</div>

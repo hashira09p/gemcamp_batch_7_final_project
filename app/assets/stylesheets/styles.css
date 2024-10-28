@@ -1,0 +1,13 @@
+
+#sidebar {
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 240px;
+    z-index: 1000;
+}
+
+.content {
+    padding-top: 20px;
+}
