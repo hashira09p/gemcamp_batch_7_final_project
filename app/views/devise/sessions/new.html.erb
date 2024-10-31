@@ -4,7 +4,7 @@
       <% if request.domain == 'admin.com' %>
         <!-- Admin Login Design -->
         <h2 class="text-center">Admin Log in</h2>
-
+        <%= alert %>
         <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "needs-validation", novalidate: true }) do |f| %>
           <div class="form-group">
             <%= f.label :email, class: "form-label" %>
@@ -29,12 +29,13 @@
         <% end %>
       <% elsif request.domain == 'client.com' %>
         <!-- Client Login Design -->
+        <%= alert %>
         <h2 class="text-center">Client Log in</h2>
 
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-md-4">
-              <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "needs-validation", novalidate: true }) do |f| %>
+              <%= form_with model: @user, url: session_path(resource_name), local: true do |f| %>
 
                 <!-- Login/Register Tabs -->
                 <div class="btn-group w-100 mb-3" role="group">
