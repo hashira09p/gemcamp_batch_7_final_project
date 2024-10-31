@@ -9,7 +9,7 @@ class Users::SessionsController < Devise::SessionsController
   # POST /resource/sign_in
    def create
      user = User.client.find_by(email: params[:user][:email])
-     if user && user&.valid_password?
+     if user
        super
        flash[:alert] = "Welcome, #{user.username}"
      elsif user.nil?
