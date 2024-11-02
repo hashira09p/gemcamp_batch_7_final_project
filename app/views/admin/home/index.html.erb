@@ -41,7 +41,7 @@
         <div class="container-fluid">
           <div class="navbar-nav ms-auto">
             <button class="btn btn-outline-secondary me-2">Change Language</button>
-            <%= link_to 'Profile', destroy_user_session_path, class: 'btn btn-success' %>
+            <%= link_to 'Profile', edit_admin_user_registration_path, class: 'btn btn-success' %>
             <%= button_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'btn btn-danger' %>
           </div>
         </div>

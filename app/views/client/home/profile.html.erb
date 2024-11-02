@@ -12,7 +12,7 @@
 
       <div class="nav flex-column">
         <a href="#" class="nav-link">Contact Us</a>
-        <a href="#" class="nav-link">My Profile</a>
+        <%= link_to 'My Profile', edit_user_registration_path, class: "nav-link" %>
         <%= button_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'nav-link' %>
       </div>
     </div>
