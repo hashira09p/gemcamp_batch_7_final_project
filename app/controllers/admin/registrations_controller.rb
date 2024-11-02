@@ -17,12 +17,13 @@ class Admin::RegistrationsController < Devise::RegistrationsController
    end
 
   def update
-    if @admin_user.update(set_params)
+    if params[:admin_user][:password] == params[:admin_user][:password_confirmation]
+      @admin_user.update(set_params)
       flash[:alert] = 'Update Successfully'
       redirect_to admin_root_path
     else
       flash[:alert] = 'Update failed'
-      redirect_to admin_root_path
+      redirect_to edit_admin_user_registration_path_path
     end
 
   end
@@ -33,7 +34,7 @@ class Admin::RegistrationsController < Devise::RegistrationsController
     @admin_user = User.admin.find_by(email: current_admin_user.email)
   end
   def set_params
-    params.require(:admin_user).permit(:email)
+    params.require(:admin_user).permit(:email, :username, :coins, :password, :password_confirmation)
   end
   # PUT /resource
   # def update
