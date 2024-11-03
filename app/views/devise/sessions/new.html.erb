@@ -1,84 +1,80 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <% if request.domain == 'admin.com' %>
-        <!-- Admin Login Design -->
-        <h2 class="text-center">Admin Log in</h2>
-        <%= alert %>
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "needs-validation", novalidate: true }) do |f| %>
-          <div class="form-group">
-            <%= f.label :email, class: "form-label" %>
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", required: true %>
-          </div>
+      <div class="card shadow-sm mt-5">
+        <div class="card-body">
+          <% if request.domain == 'admin.com' %>
+            <!-- Admin Login Design -->
+            <h2 class="text-center">Admin Log in</h2>
+            <%= alert %>
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "needs-validation", novalidate: true }) do |f| %>
+              <div class="form-group">
+                <%= f.label :email, class: "form-label" %>
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", required: true %>
+              </div>
 
-          <div class="form-group">
-            <%= f.label :password, class: "form-label" %>
-            <%= f.password_field :password, autocomplete: "current-password", class: "form-control", required: true %>
-          </div>
+              <div class="form-group">
+                <%= f.label :password, class: "form-label" %>
+                <%= f.password_field :password, autocomplete: "current-password", class: "form-control", required: true %>
+              </div>
 
-          <% if devise_mapping.rememberable? %>
-            <div class="form-check">
-              <%= f.check_box :remember_me, class: "form-check-input" %>
-              <%= f.label :remember_me, class: "form-check-label" %>
-            </div>
-          <% end %>
-
-          <div class="text-center">
-            <%= f.submit "Admin Log in", class: "btn btn-success" %>
-          </div>
-        <% end %>
-      <% elsif request.domain == 'client.com' %>
-        <!-- Client Login Design -->
-        <%= alert %>
-        <h2 class="text-center">Client Log in</h2>
-
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-md-4">
-              <%= form_with model: @user, url: session_path(resource_name), local: true do |f| %>
-
-                <!-- Login/Register Tabs -->
-                <div class="btn-group w-100 mb-3" role="group">
-                  <button type="button" class="btn btn-warning active">Login</button>
-                  <%= link_to "Sign up", new_registration_path(resource_name), class: "btn btn-outline-secondary w-100", type: "button" %>
-                </div>
-
-                <!-- Email Field -->
-                <div class="form-group mb-3">
-                  <%= f.label :email, "Email", class: "form-label" %>
-                  <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", required: true %>
-                </div>
-
-                <!-- Password Field -->
-                <div class="form-group mb-3">
-                  <%= f.label :password, "Password", class: "form-label" %>
-                  <%= f.password_field :password, autocomplete: "current-password", class: "form-control", required: true %>
-                </div>
-
-                <!-- Remember Me Checkbox -->
-                <% if devise_mapping.rememberable? %>
-                  <div class="form-check mb-3">
-                    <%= f.check_box :remember_me, class: "form-check-input" %>
-                    <%= f.label :remember_me, "Remember Me", class: "form-check-label" %>
-                  </div>
-                <% end %>
-
-                <!-- Submit Button -->
-                <div class="text-center">
-                  <%= f.submit "Login", class: "btn btn-primary w-100" %>
+              <% if devise_mapping.rememberable? %>
+                <div class="form-check">
+                  <%= f.check_box :remember_me, class: "form-check-input" %>
+                  <%= f.label :remember_me, class: "form-check-label" %>
                 </div>
               <% end %>
+
+              <div class="text-center mt-3">
+                <%= f.submit "Admin Log in", class: "btn btn-success w-100" %>
+              </div>
+            <% end %>
+          <% elsif request.domain == 'client.com' %>
+            <!-- Client Login Design -->
+            <h2 class="text-center">Client Log in</h2>
+            <%= alert %>
+
+            <div class="container">
+              <div class="row justify-content-center">
+                <div class="col-md-10">
+                  <%= form_with scope: :user, url: user_session_path, local: true do |f| %>
+                <!-- Login/Register Tabs -->
+                    <div class="btn-group w-100 mb-3" role="group">
+                      <button type="button" class="btn btn-warning active">Login</button>
+                      <%= link_to "Sign up", new_user_registration_path, class: "btn btn-outline-secondary w-100", type: "button" %>
+                    </div>
+
+                    <!-- Email Field -->
+                    <div class="form-group mb-3">
+                      <%= f.label :email, "Email", class: "form-label" %>
+                      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", required: true %>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="form-group mb-3">
+                      <%= f.label :password, "Password", class: "form-label" %>
+                      <%= f.password_field :password, autocomplete: "current-password", class: "form-control", required: true %>
+                    </div>
+
+                    <!-- Remember Me Checkbox -->
+
+                    <!-- Submit Button -->
+                    <div class="text-center mt-3">
+                      <%= f.submit "Login", class: "btn btn-primary w-100" %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
             </div>
-          </div>
+
+            <%#= render "devise/shared/links" %>
+          <% else %>
+            <!-- Handle unknown domains or provide a default login -->
+            <h2 class="text-center">Log in</h2>
+            <p class="text-center">Invalid domain for login.</p>
+          <% end %>
         </div>
-
-
-        <%= render "devise/shared/links" %>
-      <% else %>
-        <!-- Handle unknown domains or provide a default login -->
-        <h2 class="text-center">Log in</h2>
-        <p>Invalid domain for login.</p>
-      <% end %>
+      </div>
     </div>
   </div>
 </div>

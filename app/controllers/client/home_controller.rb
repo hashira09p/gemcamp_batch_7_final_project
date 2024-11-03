@@ -1,8 +1,11 @@
 class Client::HomeController < ApplicationController
-  before_action :authenticate_user!
+  def new
+    render 'devise/sessions/new'
+  end
   def index;end
 
 
-  def profile;end
-
+  def profile
+    @current_user = current_client_user
+  end
 end

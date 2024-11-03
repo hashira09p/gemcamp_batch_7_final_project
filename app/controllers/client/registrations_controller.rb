@@ -1,16 +1,15 @@
 class Client::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
-
   # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+  #  def new
+  #    render 'devise/registrations'
+  #  end
 
   # POST /resource
    def create
-     @user = User.new(user_params)
-     if @user.save
+     @user_client = User.client.new(user_params)
+     if @user_client.save
        flash[:alert] = 'Registered successfully'
        redirect_to new_user_session_path
      else
@@ -19,10 +18,11 @@ class Client::RegistrationsController < Devise::RegistrationsController
      end
    end
 
+
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  def edit
+    render 'devise/registrations/client/edit'
+  end
 
   # PUT /resource
   # def update
