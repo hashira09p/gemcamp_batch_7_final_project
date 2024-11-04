@@ -3,7 +3,7 @@
     <!-- Sidebar -->
     <div class="col-md-3 p-3 border-end">
       <div class="text-center">
-        <img src="default_avatar.png" alt="User Avatar" class="img-fluid rounded-circle" style="width: 80px;">
+        <img src="<%= current_client_user&.image %>" alt="Profile Picture" class="rounded-circle border border-light" width="80" height="80">
       </div>
       <p>Username: <%= current_client_user.username %></p>
       <p>Email: <%= current_client_user.email %></p>

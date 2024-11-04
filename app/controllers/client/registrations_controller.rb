@@ -32,7 +32,7 @@ class Client::RegistrationsController < Devise::RegistrationsController
   def update
     if params[:client_user][:password] == params[:client_user][:password_confirmation]
 
-      @client_user.update(email: params[:client_user][:email], username: params[:client_user][:username], coins: params[:client_user][:coins], password: params[:client_user][:password])
+      @client_user.update(email: params[:client_user][:email], username: params[:client_user][:username], coins: params[:client_user][:coins], password: params[:client_user][:password], image: params[:client_user][:image])
 
       flash[:alert] = 'Update Successfully'
       redirect_to client_root_path
