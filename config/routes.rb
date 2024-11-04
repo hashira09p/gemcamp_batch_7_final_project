@@ -17,11 +17,10 @@ Rails.application.routes.draw do
       devise_for :users, controllers: {
         sessions: 'users/sessions',
         registrations: 'client/registrations'
-      }
+      }, as: :client
     end
-    root 'client/home#new', as: :client_root
-    get 'client/index', to: 'client/home#index'
+    root 'client/home#index', as: :client_root
     get 'client/profile', to: 'client/home#profile'
-    get 'users/edit', to: 'client/registrations#edit', as: :edit_user_registration_path
+    get 'users/edit', to: 'client/registrations#edit', as: :edit_client_user_registration_path
   end
 end

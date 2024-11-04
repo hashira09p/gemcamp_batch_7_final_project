@@ -5,15 +5,15 @@
       <div class="text-center">
         <img src="default_avatar.png" alt="User Avatar" class="img-fluid rounded-circle" style="width: 80px;">
       </div>
-      <p>Username: <%#= @current_user.username %></p>
-      <p>Email: <%#= @current_user.email %></p>
-      <p>Coins: <%#= @current_user.coins %></p>
+      <p>Username: <%= current_client_user.username %></p>
+      <p>Email: <%= current_client_user.email %></p>
+      <p>Coins: <%= current_client_user.coins %></p>
       <button class="btn btn-primary w-100 my-3">Cash In Now</button>
 
       <div class="nav flex-column">
         <a href="#" class="nav-link">Contact Us</a>
-        <%= link_to 'My Profile', edit_user_registration_path, class: "nav-link" %>
-        <%= button_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'nav-link' %>
+        <%= link_to 'My Profile', edit_client_user_registration_path, class: "nav-link" %>
+        <%= button_to 'Sign Out', destroy_client_user_session_path, method: :delete, class: 'nav-link' %>
       </div>
     </div>
 

@@ -1,4 +1,5 @@
 class Client::RegistrationsController < Devise::RegistrationsController
+  before_action :set_client_username, only: :create
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
   # GET /resource/sign_up
@@ -9,25 +10,43 @@ class Client::RegistrationsController < Devise::RegistrationsController
   # POST /resource
    def create
      @user_client = User.client.new(user_params)
-     if @user_client.save
+     if @client_username.present?
+       flash[:alert] = 'Username Exist'
+       redirect_to new_client_user_registration_path
+     elsif @user_client.save
        flash[:alert] = 'Registered successfully'
-       redirect_to new_user_session_path
+       redirect_to new_client_user_session_path
      else
        flash[:alert] = 'Failed to Registered'
-       redirect_to new_user_registration_path
+       redirect_to new_client_user_registration_path
      end
    end
 
 
   # GET /resource/edit
   def edit
-    render 'devise/registrations/client/edit'
+    render 'devise/registrations/edit'
   end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    if params[:client_user][:password] == params[:client_user][:password_confirmation]
+
+      @client_user.update(email: params[:client_user][:email], username: params[:client_user][:username], coins: params[:client_user][:coins], password: params[:client_user][:password])
+
+      flash[:alert] = 'Update Successfully'
+      redirect_to client_root_path
+    elsif params[:client_user][:current_password].present?
+
+      @client_user.update(email: params[:client_user][:email], username: params[:client_user][:username], coins: params[:client_user][:coins])
+
+      flash[:alert] = 'Update Successfully'
+      redirect_to client_root_path
+    else
+      flash[:alert] = 'Update failed'
+      redirect_to edit_client_user_registration_path_path
+    end
+  end
 
   # DELETE /resource
   # def destroy
@@ -45,8 +64,11 @@ class Client::RegistrationsController < Devise::RegistrationsController
 
   private
 
+  def set_client_username
+    @client_username = User.client.find_by(username: params[:client_user][:username])
+  end
   def user_params
-    params.require(:user).permit(:username, :email, :password)
+    params.require(:client_user).permit(:username, :email, :password)
   end
 
 

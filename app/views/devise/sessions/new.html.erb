@@ -37,11 +37,12 @@
             <div class="container">
               <div class="row justify-content-center">
                 <div class="col-md-10">
-                  <%= form_with scope: :user, url: user_session_path, local: true do |f| %>
+
+                  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "needs-validation", novalidate: true }) do |f| %>
                 <!-- Login/Register Tabs -->
                     <div class="btn-group w-100 mb-3" role="group">
                       <button type="button" class="btn btn-warning active">Login</button>
-                      <%= link_to "Sign up", new_user_registration_path, class: "btn btn-outline-secondary w-100", type: "button" %>
+                      <%= link_to "Sign up", new_client_user_registration_path, class: "btn btn-outline-secondary w-100", type: "button" %>
                     </div>
 
                     <!-- Email Field -->
