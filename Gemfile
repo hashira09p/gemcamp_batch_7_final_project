@@ -30,6 +30,7 @@ gem 'phonelib'
 gem 'faker'
 gem 'jquery-rails'
 gem 'carrierwave'
+gem 'rest-client'
 
 # Bundle and process CSS [https://github.com/rails/cssbundling-rails]
 gem "cssbundling-rails"
