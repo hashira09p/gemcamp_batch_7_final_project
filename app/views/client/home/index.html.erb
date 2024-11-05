@@ -1,82 +1,97 @@
-<style>
-    .container {
-        max-width: 1200px; /* Adjust as necessary */
-        margin: auto;
-        padding: 0 15px;
-    }
-
-    .border {
-        border: 1px solid #dee2e6;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .btn {
-            font-size: 0.8rem; /* Smaller button text */
-            padding: 0.5rem 0.75rem; /* Smaller padding */
-        }
-
-        h2, h5 {
-            font-size: 1.25rem; /* Smaller headings */
-        }
-
-        .row > div {
-            flex: 1 0 100%; /* Stack columns on smaller screens */
-            margin-bottom: 15px; /* Space between rows */
-        }
-    }
-</style>
-
-<div class="container">
+<div class="container-fluid px-3">
   <!-- Header Section -->
   <div class="d-flex justify-content-between align-items-center py-3">
     <div class="d-flex align-items-center">
-      <button class="btn btn-light">Logo</button>
+      <button class="btn btn-light shadow-sm">Logo</button>
     </div>
     <div>
-      <button class="btn btn-outline-secondary">Coins</button>
-      <button class="btn btn-outline-secondary">Claim</button>
-      <button class="btn btn-outline-secondary">Language</button>
-      <%= link_to 'Menu', client_profile_path, class: "btn btn-outline-secondary" %>
+      <button class="btn btn-outline-secondary me-2">Coins</button>
+      <button class="btn btn-outline-secondary me-2">Claim</button>
+      <button class="btn btn-outline-secondary me-2">Language</button>
+      <% if client_user_signed_in? %>
+        <%= link_to 'Menu', client_profile_path, class: "btn btn-outline-secondary me-2" %>
+      <% else %>
+        <%= link_to 'Log in', new_client_user_session_path, class: "btn btn-success me-2" %>
+        <%= link_to 'Sign Up', new_client_user_registration_path, class: "btn btn-danger" %>
+      <% end %>
     </div>
   </div>
 
   <!-- Banner Section -->
-  <div class="d-flex justify-content-between align-items-center border py-3">
-    <button class="btn btn-light">&lt;</button>
+  <div class="d-flex justify-content-between align-items-center border py-4 mb-4">
+    <button class="btn btn-light rounded-circle shadow-sm">&lt;</button>
     <div class="flex-grow-1 text-center">
-      <h2>Banner Image</h2>
+      <h2 class="text-primary">Banner Image</h2>
     </div>
-    <button class="btn btn-light">&gt;</button>
+    <button class="btn btn-light rounded-circle shadow-sm">&gt;</button>
   </div>
 
   <!-- Announcement Section -->
-  <div class="border-bottom py-2">
-    <span>Announcement:</span>
+  <div class="border-bottom py-3 mb-4">
+    <h4 class="text-warning">Announcement:</h4>
   </div>
 
   <!-- Winners Feedback Section -->
-  <div class="mt-3">
-    <h5>Winners Feedback</h5>
-    <div class="row">
-      <div class="col-6 col-md-3"><div class="border p-4">Image 1</div></div>
-      <div class="col-6 col-md-3"><div class="border p-4">Image 2</div></div>
-      <div class="col-6 col-md-3"><div class="border p-4">Image 3</div></div>
-      <div class="col-6 col-md-3"><div class="border p-4">More ...</div></div>
+  <div class="mt-4">
+    <h5 class="text-info">Winners Feedback</h5>
+    <div class="row g-4">
+      <div class="col-12 col-md-3">
+        <div class="border p-4 rounded shadow-sm text-center">
+          <img src="image1.jpg" alt="Winner 1" class="img-fluid rounded mb-2">
+          <p>Winner 1</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="border p-4 rounded shadow-sm text-center">
+          <img src="image2.jpg" alt="Winner 2" class="img-fluid rounded mb-2">
+          <p>Winner 2</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="border p-4 rounded shadow-sm text-center">
+          <img src="image3.jpg" alt="Winner 3" class="img-fluid rounded mb-2">
+          <p>Winner 3</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="border p-4 rounded shadow-sm text-center">
+          <p class="text-muted">More ...</p>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- Coming Soon Section -->
-  <div class="mt-3">
-    <h5>Coming Soon</h5>
-    <div class="row">
-      <div class="col-6 col-md-3"><div class="border p-4">Image 1</div></div>
-      <div class="col-6 col-md-3"><div class="border p-4">Image 2</div></div>
-      <div class="col-6 col-md-3"><div class="border p-4">Image 3</div></div>
-      <div class="col-6 col-md-3"><div class="border p-4">More ...</div></div>
+  <div class="mt-5">
+    <h5 class="text-info">Coming Soon</h5>
+    <div class="row g-4">
+      <div class="col-12 col-md-3">
+        <div class="border p-4 rounded shadow-sm text-center">
+          <img src="image1.jpg" alt="Coming Soon 1" class="img-fluid rounded mb-2">
+          <p>Coming Soon 1</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="border p-4 rounded shadow-sm text-center">
+          <img src="image2.jpg" alt="Coming Soon 2" class="img-fluid rounded mb-2">
+          <p>Coming Soon 2</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="border p-4 rounded shadow-sm text-center">
+          <img src="image3.jpg" alt="Coming Soon 3" class="img-fluid rounded mb-2">
+          <p>Coming Soon 3</p>
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="border p-4 rounded shadow-sm text-center">
+          <p class="text-muted">More ...</p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
 
 
 <%= render "partial/footer" %>
