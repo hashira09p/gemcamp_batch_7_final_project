@@ -5,7 +5,6 @@
     <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar border-end p-0 h-100 overflow-auto">
       <div class="position-sticky pt-3 text-white">
         <div class="text-center mb-4">
-          <img src="<%= current_admin_user&.image %>" alt="Profile Picture" class="rounded-circle border border-light" width="80" height="80">
           <h5 class="mt-2"><%= current_admin_user.username %></h5>
         </div>
         <h5 class="px-3 py-2 border-bottom">Dashboard</h5>
@@ -109,6 +108,3 @@
         color: white;
     }
 </style>
-
-
-<%= render "partial/footer" %>
