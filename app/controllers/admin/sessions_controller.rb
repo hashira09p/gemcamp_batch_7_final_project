@@ -10,7 +10,7 @@ class Admin::SessionsController < Devise::SessionsController
       super
       flash[:alert] = "Welcome, #{user_admin.username}"
     elsif user_admin.nil?
-      flash[:alert] = 'Invalid Input or account is not an admin.'
+      flash[:alert] = user_admin.errors.full_messages.to_sentence
       redirect_to new_admin_user_session_path
     end
   end
