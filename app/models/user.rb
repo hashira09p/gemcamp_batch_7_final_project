@@ -13,4 +13,6 @@ class User < ApplicationRecord
        types: %i[voip mobile],
        countries: [:ph]
   }
+
+  validates :username, uniqueness: true
 end
