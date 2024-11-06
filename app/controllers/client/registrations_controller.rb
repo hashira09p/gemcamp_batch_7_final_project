@@ -29,8 +29,26 @@ class Client::RegistrationsController < Devise::RegistrationsController
   def update
     @client_user = current_client_user  # Assuming current_client_user returns the logged-in user
 
-    if @client_user.valid_password?(params[:client_user][:current_password]) && params[:client_user][:username].present?
-      if @client_user.update(username: params[:client_user][:username])
+    if @client_user.valid_password?(params[:client_user][:current_password]) && params[:client_user][:username].present? && params[:client_user][:image].present?
+      if @client_user.update(username: params[:client_user][:username], image: params[:client_user][:image])
+        flash[:notice] = 'Update Success'
+        redirect_to client_root_path
+      else
+        flash[:alert] = @client_user.errors.full_messages.to_sentence
+        redirect_to edit_client_user_registration_path
+      end
+
+    elsif  @client_user.valid_password?(params[:client_user][:current_password]) && params[:client_user][:username].present?
+            if @client_user.update(username: params[:client_user][:username], image: params[:client_user][:image])
+              flash[:notice] = 'Update Success'
+              redirect_to client_root_path
+            else
+              flash[:alert] = @client_user.errors.full_messages.to_sentence
+              redirect_to edit_client_user_registration_path
+            end
+
+    elsif  @client_user.valid_password?(params[:client_user][:current_password]) && params[:client_user][:image].present?
+      if @client_user.update(image: params[:client_user][:image])
         flash[:notice] = 'Update Success'
         redirect_to client_root_path
       else
