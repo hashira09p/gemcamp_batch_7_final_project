@@ -62,9 +62,20 @@
     </div>
 
     <div class="text-center mt-4">
-      <%= f.submit "Cash In Now", class: "btn btn-primary w-100" %>
+      <%= f.submit "Update", class: "btn btn-primary w-100" %>
+    </div>
+
+    <div class="text-center mt-4">
+      <%= link_to "Cash In", class: "btn btn-primary w-100" %>
     </div>
   <% end %>
+  <h1>Hello World!</h1>
+  <p>Welcome to my page!</p>
+
+  <div data-controller="hello">
+    <input type="text" data-hello-target="name">
+    <button data-action="click->hello#greet">Greet</button>
+  </div>
 
   <div class="text-center mt-3">
     <%= link_to "Back", client_root_path, class: "btn btn-link" %>
