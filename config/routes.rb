@@ -20,5 +20,6 @@ Rails.application.routes.draw do
     root 'client/home#index', as: :client_root
     get 'client/profile', to: 'client/home#profile'
     get 'users/edit', to: 'client/registrations#edit', as: :edit_client_user_registration_path
+    get 'users/adress', to: 'client/home#addresses'
   end
 end

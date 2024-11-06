@@ -9,4 +9,6 @@ class Client::HomeController < ApplicationController
 
 
   def profile;end
+
+  def addresses;end
 end
