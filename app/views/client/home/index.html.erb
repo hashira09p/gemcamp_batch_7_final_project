@@ -1,96 +1,79 @@
-<div class="container-fluid px-3">
-  <!-- Header Section -->
-  <div class="d-flex justify-content-between align-items-center py-3">
-    <div class="d-flex align-items-center">
-      <button class="btn btn-light shadow-sm">Logo</button>
-    </div>
-    <div>
-      <button class="btn btn-outline-secondary me-2">Coins</button>
-      <button class="btn btn-outline-secondary me-2">Claim</button>
-      <button class="btn btn-outline-secondary me-2">Language</button>
-      <% if client_user_signed_in? %>
-        <%= link_to 'Menu', client_profile_path, class: "btn btn-outline-secondary me-2" %>
-      <% else %>
-        <%= link_to 'Log in', new_client_user_session_path, class: "btn btn-success me-2" %>
-        <%= link_to 'Sign Up', new_client_user_registration_path, class: "btn btn-danger" %>
-      <% end %>
-    </div>
-  </div>
+<%= render "partial/header" %>
 
-  <!-- Banner Section -->
-  <div class="d-flex justify-content-between align-items-center border py-4 mb-4">
-    <button class="btn btn-light rounded-circle shadow-sm">&lt;</button>
-    <div class="flex-grow-1 text-center">
-      <h2 class="text-primary">Banner Image</h2>
-    </div>
-    <button class="btn btn-light rounded-circle shadow-sm">&gt;</button>
+<!-- Banner Section -->
+<div class="d-flex justify-content-between align-items-center border py-5 mb-5 bg-light shadow-sm rounded">
+  <button class="btn btn-outline-primary rounded-circle shadow-sm px-3 py-2">&lt;</button>
+  <div class="flex-grow-1 text-center">
+    <h2 class="text-primary display-5">Banner Image</h2>
   </div>
+  <button class="btn btn-outline-primary rounded-circle shadow-sm px-3 py-2">&gt;</button>
+</div>
 
-  <!-- Announcement Section -->
-  <div class="border-bottom py-3 mb-4">
-    <h4 class="text-warning">Announcement:</h4>
-  </div>
+<!-- Announcement Section -->
+<div class="border-bottom py-4 mb-5">
+  <h4 class="text-warning fw-bold">Announcement:</h4>
+</div>
 
-  <!-- Winners Feedback Section -->
-  <div class="mt-4">
-    <h5 class="text-info">Winners Feedback</h5>
-    <div class="row g-4">
-      <div class="col-12 col-md-3">
-        <div class="border p-4 rounded shadow-sm text-center">
-          <img src="image1.jpg" alt="Winner 1" class="img-fluid rounded mb-2">
-          <p>Winner 1</p>
-        </div>
-      </div>
-      <div class="col-12 col-md-3">
-        <div class="border p-4 rounded shadow-sm text-center">
-          <img src="image2.jpg" alt="Winner 2" class="img-fluid rounded mb-2">
-          <p>Winner 2</p>
-        </div>
-      </div>
-      <div class="col-12 col-md-3">
-        <div class="border p-4 rounded shadow-sm text-center">
-          <img src="image3.jpg" alt="Winner 3" class="img-fluid rounded mb-2">
-          <p>Winner 3</p>
-        </div>
-      </div>
-      <div class="col-12 col-md-3">
-        <div class="border p-4 rounded shadow-sm text-center">
-          <p class="text-muted">More ...</p>
-        </div>
+<!-- Winners Feedback Section -->
+<div class="mt-5">
+  <h5 class="text-info fw-bold">Winners Feedback</h5>
+  <div class="row g-4">
+    <div class="col-12 col-md-3">
+      <div class="border p-4 rounded shadow-sm text-center bg-light">
+        <img src="image1.jpg" alt="Winner 1" class="img-fluid rounded-circle mb-3 shadow-sm">
+        <p class="fw-semibold">Winner 1</p>
       </div>
     </div>
-  </div>
-
-  <!-- Coming Soon Section -->
-  <div class="mt-5">
-    <h5 class="text-info">Coming Soon</h5>
-    <div class="row g-4">
-      <div class="col-12 col-md-3">
-        <div class="border p-4 rounded shadow-sm text-center">
-          <img src="image1.jpg" alt="Coming Soon 1" class="img-fluid rounded mb-2">
-          <p>Coming Soon 1</p>
-        </div>
+    <div class="col-12 col-md-3">
+      <div class="border p-4 rounded shadow-sm text-center bg-light">
+        <img src="image2.jpg" alt="Winner 2" class="img-fluid rounded-circle mb-3 shadow-sm">
+        <p class="fw-semibold">Winner 2</p>
       </div>
-      <div class="col-12 col-md-3">
-        <div class="border p-4 rounded shadow-sm text-center">
-          <img src="image2.jpg" alt="Coming Soon 2" class="img-fluid rounded mb-2">
-          <p>Coming Soon 2</p>
-        </div>
+    </div>
+    <div class="col-12 col-md-3">
+      <div class="border p-4 rounded shadow-sm text-center bg-light">
+        <img src="image3.jpg" alt="Winner 3" class="img-fluid rounded-circle mb-3 shadow-sm">
+        <p class="fw-semibold">Winner 3</p>
       </div>
-      <div class="col-12 col-md-3">
-        <div class="border p-4 rounded shadow-sm text-center">
-          <img src="image3.jpg" alt="Coming Soon 3" class="img-fluid rounded mb-2">
-          <p>Coming Soon 3</p>
-        </div>
-      </div>
-      <div class="col-12 col-md-3">
-        <div class="border p-4 rounded shadow-sm text-center">
-          <p class="text-muted">More ...</p>
-        </div>
+    </div>
+    <div class="col-12 col-md-3">
+      <div class="border p-4 rounded shadow-sm text-center bg-light">
+        <p class="text-muted">More ...</p>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Coming Soon Section -->
+<div class="mt-5">
+  <h5 class="text-info fw-bold">Coming Soon</h5>
+  <div class="row g-4">
+    <div class="col-12 col-md-3">
+      <div class="border p-4 rounded shadow-sm text-center bg-light">
+        <img src="image1.jpg" alt="Coming Soon 1" class="img-fluid rounded-circle mb-3 shadow-sm">
+        <p class="fw-semibold">Coming Soon 1</p>
+      </div>
+    </div>
+    <div class="col-12 col-md-3">
+      <div class="border p-4 rounded shadow-sm text-center bg-light">
+        <img src="image2.jpg" alt="Coming Soon 2" class="img-fluid rounded-circle mb-3 shadow-sm">
+        <p class="fw-semibold">Coming Soon 2</p>
+      </div>
+    </div>
+    <div class="col-12 col-md-3">
+      <div class="border p-4 rounded shadow-sm text-center bg-light">
+        <img src="image3.jpg" alt="Coming Soon 3" class="img-fluid rounded-circle mb-3 shadow-sm">
+        <p class="fw-semibold">Coming Soon 3</p>
+      </div>
+    </div>
+    <div class="col-12 col-md-3">
+      <div class="border p-4 rounded shadow-sm text-center bg-light">
+        <p class="text-muted">More ...</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
 
