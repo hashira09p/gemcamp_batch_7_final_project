@@ -15,4 +15,10 @@ class User < ApplicationRecord
   }
 
   validates :username, uniqueness: true
+
+  has_many :addresses
+  has_many :address_regions, through: :addresses
+  has_many :address_provinces, through: :addresses
+  has_many :address_cities, through: :addresses
+  has_many :address_barangays, through: :addresses
 end

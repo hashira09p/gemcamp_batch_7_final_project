@@ -11,16 +11,17 @@ Rails.application.routes.draw do
   end
 
   constraints(ClientDomainConstraint.new) do
-    scope module: 'client' do
-      devise_for :users, controllers: {
-        sessions: 'users/sessions',
-        registrations: 'client/registrations'
-      }, as: :client
-    end
+      scope module: 'client'  do
+        devise_for :users, controllers: {
+          sessions: 'users/sessions',
+          registrations: 'client/registrations'
+        }, as: :client
+
+        resources :addresses
+      end
     root 'client/home#index', as: :client_root
     get 'client/profile', to: 'client/home#profile'
     get 'users/edit', to: 'client/registrations#edit', as: :edit_client_user_registration_path
-    get 'users/adress', to: 'client/home#addresses'
 
     namespace :api do
       namespace :v1 do

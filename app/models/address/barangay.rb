@@ -3,4 +3,6 @@ class Address::Barangay < ApplicationRecord
   validates :code, uniqueness: true
 
   belongs_to :city
+
+
 end
