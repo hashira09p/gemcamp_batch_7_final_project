@@ -6,4 +6,13 @@ class Address < ApplicationRecord
   belongs_to :address_barangay, class_name: 'Address::Barangay'
 
   enum genre: { home: 0, office: 1 }
+
+  validates :phone_number, presence: true, numericality: { only_integer: true }, length: { is: 11}
+  validates :name, presence: true
+  validates :street_address, presence: true
+  validates :remark, presence: true
+  validates :address_region_id, presence: true
+  validates :address_province_id, presence: true
+  validates :address_city_id, presence: true
+  validates :address_barangay_id, presence: true
 end

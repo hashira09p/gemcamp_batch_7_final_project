@@ -1,7 +1,44 @@
 <%= render "partial/header" %>
-<%= link_to 'Add', new_address_path, class:'btn btn-success' %>
+<div class="d-flex flex-column vh-100">
+  <!-- Add button at the top -->
+  <div class="d-flex justify-content-end p-3 bg-light">
+    <%= link_to 'Add', new_address_path, class: 'btn btn-success' %>
+  </div>
 
-<% @addresses.each do |info| %>
-  <p> <%= info.street_address %>  <%= info.phone_number %> <%= info.street_address %> <%= info.address_region_id %> <%= info.address_province_id %> <%= info.address_city_id %> <%= info.address_barangay_id %></p>
-<% end %>
+  <!-- Bootstrap table with full-screen height -->
+  <div class="flex-grow-1 overflow-auto">
+    <table class="table table-hover table-bordered mb-0">
+      <thead class="table-dark">
+      <tr>
+        <th>Street Address</th>
+        <th>Phone Number</th>
+        <th>Remark</th>
+        <th>Region</th>
+        <th>Province</th>
+        <th>City</th>
+        <th>Barangay</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @addresses.each do |info| %>
+        <tr>
+          <td><%= info.street_address %></td>
+          <td><%= info.phone_number %></td>
+          <td><%= info.remark %></td>
+          <td><%= info.address_region.name %></td>
+          <td><%= info.address_province.name %></td>
+          <td><%= info.address_city.name %></td>
+          <td><%= info.address_barangay.name %></td>
+          <td>
+            <%= link_to 'Edit', edit_address_path(info), class: 'btn btn-warning btn-sm me-2' %>
+            <%= button_to 'Delete', address_path(info), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
 <%= render "partial/footer" %>
