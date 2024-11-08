@@ -3,6 +3,7 @@ development:
     - "admin.com"
   client:
     - "client.com"
+    - ngrok-free.app
 production:
   admin:
     - "admin.com"
