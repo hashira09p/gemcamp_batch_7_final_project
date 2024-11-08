@@ -12,9 +12,10 @@ class Client::RegistrationsController < Devise::RegistrationsController
      @user_client = User.client.new(user_params)
      @user_client.username = nil if @user_client.blank?
      if super
-       flash[:notice] = @client_user.errors.full_messages.to_sentence
+       flash[:notice] = "Success"
+       redirect_to home_index_path
      else
-       flash[:alert] = @client_user.errors.full_messages.to_sentence
+       flash[:alert] = "Email exist"
        redirect_to new_client_user_registration_path
      end
    end

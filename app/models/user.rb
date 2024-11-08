@@ -14,7 +14,7 @@ class User < ApplicationRecord
        countries: [:ph]
   }
 
-  validates :username, uniqueness: true
+  validates :username, uniqueness: true, allow_blank: true
 
   has_many :addresses
   has_many :address_regions, through: :addresses

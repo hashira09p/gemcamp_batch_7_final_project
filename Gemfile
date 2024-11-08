@@ -31,6 +31,7 @@ gem 'faker'
 gem 'jquery-rails'
 gem 'carrierwave'
 gem 'rest-client'
+gem "rqrcode", "~> 2.0"
 
 # Bundle and process CSS [https://github.com/rails/cssbundling-rails]
 gem "cssbundling-rails"
