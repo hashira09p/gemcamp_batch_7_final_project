@@ -1,6 +1,6 @@
 class Client::AddressesController < ApplicationController
 
-  before_action :find_user_address, only: :index
+  before_action :find_user_address, only: [:index, :create]
   def index
     @addresses
   end
@@ -10,16 +10,23 @@ class Client::AddressesController < ApplicationController
   end
 
   def create
-    address = Address.new(address_params)
-    address.user = current_client_user
-
-    if address.save
-      flash[:notice] = 'Succesfully added'
-      redirect_to addresses_path
-    else
-      flash[:alert] = 'failed to add'
+    if @addresses.count == 5
+      flash[:alert] = 'you have reached 5 address input'
       redirect_to new_address_path
+    else
+      address = Address.new(address_params)
+      address.user = current_client_user
+
+      if address.save
+        flash[:notice] = 'Succesfully added'
+        redirect_to addresses_path
+      else
+        flash[:alert] = 'failed to add'
+        redirect_to new_address_path
+      end
     end
+
+
   end
 
   private
