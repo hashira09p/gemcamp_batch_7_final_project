@@ -1,0 +1,23 @@
+<%= render "partial/header" %>
+
+
+<div class="container py-5 text-center">
+  <!-- Page Title -->
+  <h1 class="mt-5 mb-4 display-4 text-primary">Scan This QR</h1>
+
+  <!-- QR Code Section -->
+  <div class="mb-5">
+    <div class="d-inline-block p-4 bg-light shadow rounded">
+      <%= @qrcode_png.html_safe %>
+    </div>
+  </div>
+
+  <!-- Signup Link Section -->
+  <div class="mb-4">
+    <p class="lead">
+      <%= "http://client.com:3000/users/sign_up?promoter=#{current_client_user.email}" %>
+    </p>
+  </div>
+</div>
+
+<%= render "partial/footer" %>

@@ -1,7 +1,7 @@
 <!-- Footer Navigation -->
 <div class="d-flex justify-content-around py-3 border-top mt-4">
   <button class="btn btn-light">Share</button>
-  <button class="btn btn-light">Invite</button>
+  <%= link_to 'Invite', new_home_path, class: 'btn btn-light' %>
   <button class="btn btn-light">Lottery</button>
   <button class="btn btn-light">Shop</button>
   <%= link_to 'Me', edit_admin_user_registration_path, class: 'btn btn-light' %>
