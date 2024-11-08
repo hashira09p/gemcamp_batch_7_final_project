@@ -1,3 +1,7 @@
 <%= render "partial/header" %>
 <%= link_to 'Add', new_address_path, class:'btn btn-success' %>
+
+<% @addresses.each do |info| %>
+  <p> <%= info.street_address %>  <%= info.phone_number %> <%= info.street_address %> <%= info.address_region_id %> <%= info.address_province_id %> <%= info.address_city_id %> <%= info.address_barangay_id %></p>
+<% end %>
 <%= render "partial/footer" %>
