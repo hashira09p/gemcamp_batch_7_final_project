@@ -18,6 +18,7 @@ Rails.application.routes.draw do
         }, as: :client
 
         resources :addresses
+        resources :home
       end
     root 'client/home#index', as: :client_root
     get 'client/profile', to: 'client/home#profile'
