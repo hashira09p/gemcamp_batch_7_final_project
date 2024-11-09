@@ -5,7 +5,7 @@ class Client::HomeController < ApplicationController
     render 'devise/sessions/new'
   end
 =end
-  def index; end
+  def index;end
 
   def new
     @user = User.new
