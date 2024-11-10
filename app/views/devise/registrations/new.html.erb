@@ -14,8 +14,8 @@
 
         <% if params[:promoter].present? %>
           <div class="form-group mb-3">
-            <%= f.label :promoter, "Promoter's Email", class: "form-label" %>
-            <%= f.text_field :email, autofocus: true, autocomplete: "username", class: "form-control" %>
+            <%= f.label :promoter, "Promoter's Name", class: "form-label" %>
+            <%= f.text_field :username, autofocus: true, autocomplete: "username", class: "form-control" %>
           </div>
         <% end %>
 
@@ -40,12 +40,12 @@
         </div>
 
         <!-- Remember Me Checkbox -->
-        <% if devise_mapping.rememberable? %>
-          <div class="form-check mb-3">
-            <%= f.check_box :remember_me, class: "form-check-input" %>
-            <%= f.label :remember_me, "Remember Me", class: "form-check-label" %>
-          </div>
-        <% end %>
+        <%# if devise_mapping.rememberable? %>
+<!--          <div class="form-check mb-3">-->
+            <%#= f.check_box :remember_me, class: "form-check-input" %>
+            <%#= f.label :remember_me, "Remember Me", class: "form-check-label" %>
+<!--          </div>-->
+        <%# end %>
 
         <!-- Submit Button -->
         <div class="text-center actions">

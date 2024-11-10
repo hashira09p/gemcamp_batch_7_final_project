@@ -1,4 +1,5 @@
 class Client::HomeController < ApplicationController
+  skip_before_action :authenticate_client_user!, only: [:index]
 
 =begin
   def new
