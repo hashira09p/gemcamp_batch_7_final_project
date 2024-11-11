@@ -13,6 +13,7 @@ class Client::RegistrationsController < Devise::RegistrationsController
        if cookies[:promoter].present?
          promoter = User.find_by(email: cookies[:promoter])
          user.update(parent_id: promoter.id) if promoter
+         cookies.delete(:promoter)
        end
      end
    end
