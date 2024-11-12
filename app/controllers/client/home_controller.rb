@@ -1,12 +1,11 @@
 class Client::HomeController < ApplicationController
-  skip_before_action :authenticate_client_user!, only: [:index]
+  before_action :authenticate_client_user!, except: [:index]
 
 =begin
   def new
     render 'devise/sessions/new'
   end
 =end
-  def index;end
 
   def new
     @user = User.new
