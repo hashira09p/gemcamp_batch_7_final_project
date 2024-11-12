@@ -1,3 +1,2 @@
-class ApplicationController < ActionController::Base
-  before_action :authenticate_client_user!
+ class ApplicationController < ActionController::Base
 end
