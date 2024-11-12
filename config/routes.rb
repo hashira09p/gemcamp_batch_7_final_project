@@ -5,6 +5,9 @@ Rails.application.routes.draw do
       devise_for :users, controllers: {
         sessions: 'admin/sessions'
       }, as: :admin
+
+      resources :item
+      resources :home
     end
     root 'admin/home#index', as: :admin_root
     get 'admin/home', to: 'admin/home#index'

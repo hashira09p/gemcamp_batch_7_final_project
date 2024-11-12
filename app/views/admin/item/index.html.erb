@@ -37,49 +37,53 @@
 
       <!-- Content Area -->
       <div class="content bg-white shadow p-4 rounded flex-grow-1 overflow-auto">
-        <h2 class="mb-3">Welcome back, <%= current_admin_user&.username %></h2>
-        <p class="text-muted">Here’s your dashboard overview. Navigate using the sidebar to manage your tasks.</p>
-
+        <p class="text-muted">Here’s your dashboard overview for items. Navigate using the sidebar to manage your tasks.</p>
+        <%= link_to 'Add', new_item_path, class: 'btn btn-success' %>
         <div class="d-flex flex-column vh-100">
-
           <div class="flex-grow-1 overflow-auto">
             <table class="table table-hover table-bordered mb-0">
               <thead class="table-dark">
               <tr>
-                <th>Parent Email</th>
-                <th>Username</th>
-                <th>Total Deposit</th>
-                <th>Member Total Deposits</th>
-                <th>Coins</th>
-                <th>Children Members</th>
-                <th>Phone Number</th>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Minimum Tickets</th>
+                <th>State</th>
+                <th>Batch Count</th>
+                <th>Online At</th>
+                <th>Offline At</th>
+                <th>Start At</th>
+                <th>Status</th>
+                <th>Actions</th>
               </tr>
               </thead>
               <tbody>
-              <% @clients.each do |client| %>
+              <% @items.each do |item| %>
                 <tr>
-                  <% if client.parent.nil? %>
+                  <% if item.image.nil? %>
                     <td>None</td>
                   <% else %>
-                    <td><%= client.parent&.email %></td>
+                    <td><%= item.image %></td>
                   <% end %>
 
-                  <% if client.username.nil? || client.username.blank? %>
+                  <% if item.name.nil? %>
                     <td>No username</td>
                   <% else %>
-                    <td><%= client.username %></td>
+                    <td><%= item.name %></td>
                   <% end %>
 
-                  <td><%= client.total_deposit %></td>
-                  <td><%= client.children.sum(:total_deposit) %></td>
-                  <td><%= client.coins %></td>
-                  <td><%= client.children_members %></td>
+                  <td><%= item.quantity %></td>
+                  <td><%= item.minimum_tickets %></td>
+                  <td><%= item.state %></td>
+                  <td><%= item.batch_count %></td>
+                  <td><%= item.online_at %></td>
+                  <td><%= item.offline_at %></td>
+                  <td><%= item.start_at %></td>
+                  <td><%= item.status %></td>
+                  <td><%= link_to 'Edit', edit_item_path(item), class: 'btn btn-warning' %>
+                      <%= button_to 'Delete', item_path(item), method: :delete, class: 'btn btn-danger' %>
+                  </td>
 
-                  <% if client.phone_number.nil? %>
-                    <td>No Phone Number</td>
-                  <% else %>
-                    <td><%= client.phone_number %></td>
-                  <% end %>
                 </tr>
               <% end %>
               </tbody>
