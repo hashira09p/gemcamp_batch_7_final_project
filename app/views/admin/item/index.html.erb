@@ -64,7 +64,7 @@
                   <% if item.image.nil? %>
                     <td>None</td>
                   <% else %>
-                    <td><%= item.image %></td>
+                    <td><%= image_tag item.image.url if item.image.present? %></td>
                   <% end %>
 
                   <% if item.name.nil? %>

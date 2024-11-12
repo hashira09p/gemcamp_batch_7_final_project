@@ -6,6 +6,11 @@
           <%= form_with model: @item, url: item_path, local: true do |f| %>
 
             <div class="form-group">
+              <%= f.label :image %>
+              <%= f.file_field :image, class: "form-control", required: true %>
+            </div>
+
+            <div class="form-group">
               <%= f.label :name %>
               <%= f.text_field :name, class: "form-control", required: true %>
             </div>
@@ -20,10 +25,10 @@
               <%= f.number_field :minimum_tickets, class: "form-control", required: true %>
             </div>
 
-            <!--<div class="form-group">
-              <%#= f.label :state %>
-              <%#= f.select :state, Item.aasm.states.map(&:name), {}, class: "form-control", required: true %>
-            </div>-->
+            <div class="form-group">
+              <%= f.label :state %>
+              <%= f.select :state, Item.aasm.states.map(&:name), {}, class: "form-control", required: true %>
+            </div>
 
             <div class="form-group">
               <%= f.label :batch_count %>

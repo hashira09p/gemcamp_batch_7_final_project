@@ -14,4 +14,6 @@ class Admin::SessionsController < Devise::SessionsController
       redirect_to new_admin_user_session_path
     end
   end
+
+
 end

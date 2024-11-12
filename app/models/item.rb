@@ -1,5 +1,6 @@
 class Item < ApplicationRecord
   include AASM
+  mount_uploader :image, ImageUploader
   enum status: {active: 0, inactive: 1}
   default_scope { where(deleted_at: nil) }
 

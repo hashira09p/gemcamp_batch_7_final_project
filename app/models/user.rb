@@ -1,10 +1,12 @@
 class User < ApplicationRecord
+  mount_uploader :image, ImageUploader
+
   enum role: { client: 0, admin: 1 }
   has_many :children, class_name: 'User', foreign_key: "parent_id", dependent: :destroy, counter_cache: :children_members
   belongs_to :parent, class_name: 'User', optional: true, counter_cache: :children_members
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  mount_uploader :image, ImageUploader
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
