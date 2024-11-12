@@ -22,20 +22,4 @@ class User < ApplicationRecord
   has_many :address_provinces, through: :addresses
   has_many :address_cities, through: :addresses
   has_many :address_barangays, through: :addresses
-
-=begin
-  private
-
-  def increment_client_parent_children_members
-    return unless parent.present? && parent.client?
-
-    parent.increment!(:children_members)
-  end
-
-  def decrement_client_parent_children_members
-    return unless parent.present? && parent.client?
-
-    parent.decrement!(:children_members)
-  end
-=end
 end
