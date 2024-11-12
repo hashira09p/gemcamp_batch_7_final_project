@@ -30,6 +30,9 @@ class Admin::ItemController < ApplicationController
     if @item.destroy
       flash[:notice] = 'Succesfully deleted'
       redirect_to item_index_path
+    else
+      flash[:alert] = 'failed to delete'
+      redirect_to item_index_path
     end
   end
 
