@@ -4,6 +4,7 @@ class Client::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_account_update_params, only: [:update]
   # GET /resource/sign_up
    def new
+     @promoter = User.find_by(email: cookies[:promoter])
      super
    end
 
