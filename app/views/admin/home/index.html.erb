@@ -5,7 +5,7 @@
     <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar border-end p-0 h-100 overflow-auto">
       <div class="position-sticky pt-3 text-white">
         <div class="text-center mb-4">
-          <h5 class="mt-2"><%= current_admin_user.username %></h5>
+          <h5 class="mt-2"><%= current_admin_user&.username %></h5>
         </div>
         <h5 class="px-3 py-2 border-bottom">Dashboard</h5>
         <ul class="nav flex-column">
@@ -66,8 +66,56 @@
 
       <!-- Content Area -->
       <div class="content bg-white shadow p-4 rounded flex-grow-1 overflow-auto">
-        <h2 class="mb-3">Welcome back, <%= current_admin_user.username %></h2>
+        <h2 class="mb-3">Welcome back, <%= current_admin_user&.username %></h2>
         <p class="text-muted">Here’s your dashboard overview. Navigate using the sidebar to manage your tasks.</p>
+
+        <div class="d-flex flex-column vh-100">
+
+          <div class="flex-grow-1 overflow-auto">
+            <table class="table table-hover table-bordered mb-0">
+              <thead class="table-dark">
+              <tr>
+                <th>Parent Email</th>
+                <th>Username</th>
+                <th>Total Deposit</th>
+                <th>Member Total Deposits</th>
+                <th>Coins</th>
+                <th>Children Members</th>
+                <th>Phone Number</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @clients.each do |client| %>
+                <tr>
+                  <% if client.parent.nil? %>
+                    <td>None</td>
+                  <% else %>
+                    <td><%= client.parent&.email %></td>
+                  <% end %>
+
+                  <% if client.username.nil? || client.username.blank? %>
+                    <td>No username</td>
+                  <% else %>
+                    <td><%= client.username %></td>
+                  <% end %>
+
+                  <td><%= client.total_deposit %></td>
+                  <td><%= client.children.sum(:total_deposit) %></td>
+                  <td><%= client.coins %></td>
+                  <td><%= client.children_members %></td>
+
+                  <% if client.phone_number.nil? %>
+                    <td>No Phone Number</td>
+                  <% else %>
+                    <td><%= client.phone_number %></td>
+                  <% end %>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
       </div>
     </main>
   </div>
