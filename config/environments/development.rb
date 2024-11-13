@@ -9,7 +9,7 @@ Rails.application.configure do
 
   config.hosts << "client.com"
   config.hosts << "admin.com"
-  config.hosts << "4a6c-175-176-38-153.ngrok-free.app"
+  config.hosts << "e4cd-175-176-38-138.ngrok-free.appa"
 
   # Do not eager load code on boot.
   config.eager_load = false

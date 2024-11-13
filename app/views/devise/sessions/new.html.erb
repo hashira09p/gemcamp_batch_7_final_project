@@ -4,6 +4,7 @@
       <div class="card shadow-sm mt-5">
         <div class="card-body">
           <% if request.domain == 'admin.com' %>
+          <%# if ['admin.com'].include?(request.domain) %>
             <!-- Admin Login Design -->
             <h2 class="text-center">Admin Log in</h2>
             <%= alert %>
@@ -29,7 +30,8 @@
                 <%= f.submit "Admin Log in", class: "btn btn-success w-100" %>
               </div>
             <% end %>
-          <% elsif request.domain == 'client.com' %>
+            <% elsif request.domain == 'ngrok-free.app' %>
+          <%# elsif ['client.com', 'ngrok-free.app'].include?(request.domain) %>
             <!-- Client Login Design -->
             <h2 class="text-center">Client Log in</h2>
             <%= alert %>
