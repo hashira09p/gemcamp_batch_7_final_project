@@ -3,41 +3,41 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-body">
-          <%= form_with model: @item, url: item_path, local: true do |f| %>
+          <%= form_with model: @item, url: item_path, method: :patch, local: true do |f| %>
 
             <div class="form-group">
               <%= f.label :image %>
-              <%= f.file_field :image, class: "form-control", required: true %>
+              <%= f.file_field :image, class: "form-control" %>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :categories %>
+              <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
             </div>
 
             <div class="form-group">
               <%= f.label :name %>
-              <%= f.text_field :name, class: "form-control", required: true %>
+              <%= f.text_field :name, class: "form-control" %>
             </div>
 
             <div class="form-group">
               <%= f.label :quantity %>
-              <%= f.number_field :quantity, class: "form-control", required: true %>
+              <%= f.number_field :quantity, class: "form-control" %>
             </div>
 
             <div class="form-group">
               <%= f.label :minimum_tickets %>
-              <%= f.number_field :minimum_tickets, class: "form-control", required: true %>
-            </div>
-
-            <div class="form-group">
-              <%= f.label :state %>
-              <%= f.select :state, Item.aasm.states.map(&:name), {}, class: "form-control", required: true %>
+              <%= f.number_field :minimum_tickets, class: "form-control" %>
             </div>
 
             <div class="form-group">
               <%= f.label :batch_count %>
-              <%= f.number_field :batch_count, class: "form-control", required: true %>
+              <%= f.number_field :batch_count, class: "form-control" %>
             </div>
 
             <div class="form-group">
               <%= f.label :online_at %>
-              <%= f.datetime_local_field :online_at, class: "form-control", required: true %>
+              <%= f.datetime_local_field :online_at, class: "form-control" %>
             </div>
 
             <div class="form-group">
@@ -47,12 +47,12 @@
 
             <div class="form-group">
               <%= f.label :start_at %>
-              <%= f.datetime_local_field :start_at, class: "form-control", required: true %>
+              <%= f.datetime_local_field :start_at, class: "form-control" %>
             </div>
 
             <div class="form-group">
               <%= f.label :status %>
-              <%= f.select :status, ['active', 'inactive'], {}, class: "form-control", required: true %>
+              <%= f.select :status, ['active', 'inactive'], {}, class: "form-control" %>
             </div>
 
             <div class="form-group">
