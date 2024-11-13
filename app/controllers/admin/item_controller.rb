@@ -1,7 +1,7 @@
 class Admin::ItemController < ApplicationController
   before_action :set_item, only: [:edit, :update, :destroy]
   def index
-    @items = Item.all
+    @items = Item.includes(:categories).all
   end
 
   def new
@@ -20,7 +20,7 @@ class Admin::ItemController < ApplicationController
   def edit;end
 
   def update
-    if @item.update!(item_params)
+    if @item.update(item_params)
       flash[:notice] = 'Succesfully updated'
       redirect_to item_index_path
     end
@@ -39,7 +39,7 @@ class Admin::ItemController < ApplicationController
   private
 
   def set_item
-    @item = Item.find_by(params[:id])
+    @item = Item.find(params[:id])
   end
 
   def item_params
@@ -52,7 +52,8 @@ class Admin::ItemController < ApplicationController
       :online_at,
       :offline_at,
       :start_at,
-      :status
+      :status,
+      category_ids: []
   )
   end
 end

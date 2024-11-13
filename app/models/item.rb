@@ -10,6 +10,9 @@ class Item < ApplicationRecord
   validates :batch_count, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :start_at, :online_at, :offline_at, :status, presence: true
 
+  has_many :item_category_ships, dependent: :restrict_with_error
+  has_many :categories, through: :item_category_ships
+
   def destroy
     update(deleted_at: Time.current)
   end

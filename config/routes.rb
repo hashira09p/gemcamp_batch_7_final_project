@@ -6,8 +6,9 @@ Rails.application.routes.draw do
         sessions: 'admin/sessions'
       }, as: :admin
 
-      resources :item
       resources :home
+      resources :item
+      resources :category
     end
     root 'admin/home#index', as: :admin_root
     get 'admin/home', to: 'admin/home#index'
