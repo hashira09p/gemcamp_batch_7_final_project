@@ -46,29 +46,41 @@ class Client::RegistrationsController < Devise::RegistrationsController
   def update
     @client_user = current_client_user
 
+    # Check if the current password is valid
     if @client_user.valid_password?(params[:client_user][:current_password])
       update_params = {}
+
+      # Add username if present
       update_params[:username] = params[:client_user][:username] if params[:client_user][:username].present?
+
+      # Add image if present
       update_params[:image] = params[:client_user][:image] if params[:client_user][:image].present?
 
+      # Add phone number if present
+      update_params[:phone_number] = params[:client_user][:phone_number] if params[:client_user][:phone_number].present?
+
+      # Handle password update if new password and confirmation match
       if params[:client_user][:password].present? && params[:client_user][:password] == params[:client_user][:password_confirmation]
         update_params[:password] = params[:client_user][:password]
         if @client_user.update(update_params)
           flash[:notice] = 'Update Success'
-          redirect_to new_client_user_session_path and return
+          redirect_to client_profile_path and return
         end
       elsif @client_user.update(update_params)
         flash[:notice] = 'Update Success'
-        redirect_to client_root_path and return
+        redirect_to client_profile_path and return
       end
 
+      # Handle any update errors
       flash[:alert] = @client_user.errors.full_messages.to_sentence
     else
       flash[:alert] = 'Invalid password'
     end
 
+    # Redirect back to the edit form if any errors occur
     redirect_to edit_client_user_registration_path
   end
+
 
 
   # DELETE /resource
