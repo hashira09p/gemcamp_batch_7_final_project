@@ -1,3 +1,4 @@
+<%= notice %>
 <%= alert %>
 <div class="container-fluid vh-100">
   <div class="row h-100">
@@ -60,6 +61,7 @@
                 <th>Start At</th>
                 <th>Status</th>
                 <th>Actions</th>
+                <th>Change State</th>
               </tr>
               </thead>
               <tbody>
@@ -86,6 +88,12 @@
                   <td>
                     <%= link_to 'Edit', edit_item_path(item), class: 'btn btn-warning' %>
                     <%= button_to 'Delete', item_path(item), method: :delete, class: 'btn btn-danger' %>
+                  </td>
+                  <td>
+                    <%= button_to 'Start', item_start_path(item), method: :patch, class: 'btn btn-warning' %>
+                    <%= button_to 'Pause', item_pause_path(item), method: :patch, class: 'btn btn-danger' %>
+                    <%= button_to 'End', item_end_path(item), method: :patch, class: 'btn btn-danger' %>
+                    <%= button_to 'Cancel', item_cancel_path(item), method: :patch, class: 'btn btn-danger' %>
                   </td>
                 </tr>
               <% end %>

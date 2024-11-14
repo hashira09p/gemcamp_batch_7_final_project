@@ -7,7 +7,12 @@ Rails.application.routes.draw do
       }, as: :admin
 
       resources :home
-      resources :item
+      resources :item do
+        patch :start
+        patch :pause
+        patch :end
+        patch :cancel
+      end
       resources :category
     end
     root 'admin/home#index', as: :admin_root

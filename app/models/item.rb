@@ -18,21 +18,39 @@ class Item < ApplicationRecord
   end
 
   aasm column: :state do
-    state :new, initial: true
-    state :processed
-    state :completed
+    state :pending, initial: true
+    state :starting
+    state :paused
+    state :ended
     state :cancelled
 
-    event :process do
-      transitions from: :new, to: :processed
+    event :start do
+      transitions from: [:pending, :paused, :cancelled], to: :starting,
+      guard: :can_start?, after: :update_quantity_and_batch_count
     end
 
-    event :complete do
-      transitions from: :processed, to: :completed
+    event :pause do
+      transitions from: :starting, to: :paused
+    end
+
+    event :end do
+      transitions from: :starting, to: :end
     end
 
     event :cancel do
-      transitions from: [:new, :processed], to: :cancelled
+      transitions from: [:starting, :paused], to: :cancelled
     end
+
+  end
+
+  private
+
+  def update_quantity_and_batch_count
+    update(quantity: quantity - 1, batch_count: batch_count + 1)
+  end
+
+  def can_start?
+    quantity.positive? && Date.today < offline_at && status == 'active'
+    errors.add(:base, :item, message: "Doesn't meet requirements")
   end
 end

@@ -1,5 +1,5 @@
 class Admin::ItemController < ApplicationController
-  before_action :set_item, only: [:edit, :update, :destroy]
+  before_action :set_item, only: [:edit, :update, :destroy, :start, :pause, :end, :cancel]
   def index
     @items = Item.includes(:categories).all
   end
@@ -31,7 +31,55 @@ class Admin::ItemController < ApplicationController
       flash[:notice] = 'Succesfully deleted'
       redirect_to item_index_path
     else
-      flash[:alert] = 'failed to delete'
+      flash[:alert] = @item.errors.messages
+      redirect_to item_index_path
+    end
+  end
+
+  def start
+    if @item.may_start?
+      @item.start!
+      flash[:notice] = 'Success'
+      redirect_to item_index_path
+    else
+      p @item.may_start?
+      flash[:alert] = @item.errors.full_messages.to_sentence
+      redirect_to item_index_path
+    end
+  end
+
+  def pause
+    if @item.may_pause?
+      @item.pause!
+      flash[:notice] = 'Success'
+      redirect_to item_index_path
+    else
+      p @item.may_pause?
+      flash[:alert] = @item.errors.full_messages.to_sentence
+      redirect_to item_index_path
+    end
+  end
+
+  def end
+    if @item.may_end?
+      @item.end!
+      flash[:notice] = 'Success'
+      redirect_to item_index_path
+    else
+      p @item.may_end?
+      flash[:alert] = @item.errors.full_messages.to_sentence
+      redirect_to item_index_path
+    end
+  end
+
+  def cancel
+    if @item.may_cancel?
+      @item.cancel!
+      flash[:notice] = 'Success'
+      redirect_to item_index_path
+    else
+      p @item.may_cancel?
+      flash[:alert] = @item.errors.full_messages.to_sentence
       redirect_to item_index_path
     end
   end
@@ -39,7 +87,7 @@ class Admin::ItemController < ApplicationController
   private
 
   def set_item
-    @item = Item.find(params[:id])
+    @item = Item.find(params[:id] || params[:item_id])
   end
 
   def item_params
