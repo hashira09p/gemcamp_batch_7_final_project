@@ -14,7 +14,7 @@ class Users::SessionsController < Devise::SessionsController
      user = User.client.find_by(email: params[:client_user][:email])
      if user
        super
-       flash[:alert] = "Welcome, #{user.username}"
+       flash[:notice] = "Welcome, #{user.username}"
      elsif user.nil?
        flash[:alert] = 'Invalid Input or account is not an client.'
        render :new
