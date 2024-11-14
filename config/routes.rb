@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
         resources :addresses
         resources :home
+        resources :lottery
       end
     root 'client/home#index', as: :client_root
     get 'client/profile', to: 'client/home#profile'

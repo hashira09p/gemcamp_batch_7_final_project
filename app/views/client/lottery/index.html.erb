@@ -1,0 +1,51 @@
+<%= render "partial/header" %>
+<div class="container mt-5">
+  <!-- Banner Image -->
+  <div class="d-flex justify-content-between align-items-center border py-5 mb-5 bg-light shadow-sm rounded">
+    <button class="btn btn-outline-primary rounded-circle shadow-sm px-3 py-2">&lt;</button>
+    <div class="flex-grow-1 text-center">
+      <h2 class="text-primary display-5">Banner Image</h2>
+    </div>
+    <button class="btn btn-outline-primary rounded-circle shadow-sm px-3 py-2">&gt;</button>
+  </div>
+
+  <!-- Announcement Bar -->
+  <div class="my-3">
+    <input type="text" class="form-control" placeholder="Announcement:">
+  </div>
+
+  <!-- Buttons for Category -->
+  <%= form_with url: lottery_index_path, method: :get, local: true do %>
+    <div class="d-flex justify-content-center mb-4">
+      <div class="d-flex flex-wrap justify-content-center">
+        <% categories = Category.all %>
+        <% categories.each do |category| %>
+          <%= button_tag category.name, type: 'submit', class: 'btn btn-outline-primary m-1 category-button', name: 'category', value: category.name %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Horizontal Product Images Grid -->
+  <div class="d-flex flex-wrap justify-content-center">
+    <% @items.each do |item| %>
+      <div class="card m-3 shadow-sm" style="width: 22rem;">
+        <%= image_tag item.image.url, class: "card-img-top", style: "height: 250px; object-fit: cover;" %>
+        <div class="card-body text-center">
+          <% if DateTime.now >= item.online_at %>
+            <h5 class="text-success">🟢 Online now</h5>
+          <% else %>
+            <h5 class="text-danger">🔴 Not Available</h5>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- More Button -->
+  <div class="text-center mt-4">
+    <button class="btn btn-secondary">More...</button>
+  </div>
+</div>
+
+<%= render "partial/footer" %>
