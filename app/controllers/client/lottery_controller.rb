@@ -7,8 +7,7 @@ class Client::LotteryController < ApplicationController
 
   def filter
     if params[:category] == 'All' || params[:category].blank?
-      @items = Item.all
-                      # Exclude deleted items
+      @items = Item.where(status: 'active', state: 'starting')
     else
       @items = Item.includes(:categories).where(categories: {name: params[:category]})
     end
