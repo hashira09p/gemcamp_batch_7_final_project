@@ -25,8 +25,7 @@ class Item < ApplicationRecord
     state :cancelled
 
     event :start do
-      transitions from: [:pending, :paused, :cancelled], to: :starting,
-      guard: :can_start?, after: :update_quantity_and_batch_count
+      transitions guard: :can_start?, from: [:pending, :paused, :cancelled, :ended], to: :starting
     end
 
     event :pause do
@@ -34,7 +33,8 @@ class Item < ApplicationRecord
     end
 
     event :end do
-      transitions from: :starting, to: :end
+      transitions from: :starting, to: :ended,
+      guard: :can_start?, after: :update_quantity_and_batch_count
     end
 
     event :cancel do
@@ -50,7 +50,12 @@ class Item < ApplicationRecord
   end
 
   def can_start?
-    quantity.positive? && Date.today < offline_at && status == 'active'
-    errors.add(:base, :item, message: "Doesn't meet requirements")
+    if quantity.positive? && Date.today < offline_at && status == 'active'
+      true
+    else
+      errors.add(:base, :item, message: "Doesn't meet requirements")
+      false
+    end
   end
+
 end

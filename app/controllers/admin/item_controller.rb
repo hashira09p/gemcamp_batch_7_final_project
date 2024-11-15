@@ -1,5 +1,6 @@
 class Admin::ItemController < ApplicationController
   before_action :set_item, only: [:edit, :update, :destroy, :start, :pause, :end, :cancel]
+
   def index
     @items = Item.includes(:categories).all
   end
@@ -10,6 +11,7 @@ class Admin::ItemController < ApplicationController
 
   def create
     @item = Item.new(item_params)
+    @item.batch_count = 1
     if @item.save
       redirect_to item_index_path, notice: 'Item was successfully created.'
     else
@@ -17,7 +19,7 @@ class Admin::ItemController < ApplicationController
     end
   end
 
-  def edit;end
+  def edit; end
 
   def update
     if @item.update(item_params)
@@ -42,7 +44,6 @@ class Admin::ItemController < ApplicationController
       flash[:notice] = 'Success'
       redirect_to item_index_path
     else
-      p @item.may_start?
       flash[:alert] = @item.errors.full_messages.to_sentence
       redirect_to item_index_path
     end
@@ -54,7 +55,6 @@ class Admin::ItemController < ApplicationController
       flash[:notice] = 'Success'
       redirect_to item_index_path
     else
-      p @item.may_pause?
       flash[:alert] = @item.errors.full_messages.to_sentence
       redirect_to item_index_path
     end
@@ -66,8 +66,7 @@ class Admin::ItemController < ApplicationController
       flash[:notice] = 'Success'
       redirect_to item_index_path
     else
-      p @item.may_end?
-      flash[:alert] = @item.errors.full_messages.to_sentence
+      flash[:alert] = @item.end!.errors.full_messages.to_sentence
       redirect_to item_index_path
     end
   end
@@ -78,7 +77,6 @@ class Admin::ItemController < ApplicationController
       flash[:notice] = 'Success'
       redirect_to item_index_path
     else
-      p @item.may_cancel?
       flash[:alert] = @item.errors.full_messages.to_sentence
       redirect_to item_index_path
     end
@@ -91,17 +89,16 @@ class Admin::ItemController < ApplicationController
   end
 
   def item_params
-  params.require(:item).permit(
+    params.require(:item).permit(
       :image,
       :name,
       :quantity,
       :minimum_tickets,
-      :batch_count,
       :online_at,
       :offline_at,
       :start_at,
       :status,
       category_ids: []
-  )
+    )
   end
 end

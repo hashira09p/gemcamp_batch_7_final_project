@@ -90,10 +90,25 @@
                     <%= button_to 'Delete', item_path(item), method: :delete, class: 'btn btn-danger' %>
                   </td>
                   <td>
-                    <%= button_to 'Start', item_start_path(item), method: :patch, class: 'btn btn-warning' %>
-                    <%= button_to 'Pause', item_pause_path(item), method: :patch, class: 'btn btn-danger' %>
-                    <%= button_to 'End', item_end_path(item), method: :patch, class: 'btn btn-danger' %>
-                    <%= button_to 'Cancel', item_cancel_path(item), method: :patch, class: 'btn btn-danger' %>
+                    <% if item.active? %>
+
+                      <% if item.may_start? %>
+                        <%= button_to 'Start', item_start_path(item), method: :patch, class: 'btn btn-warning' %>
+                      <% end %>
+
+                      <% if item.may_pause? %>
+                        <%= button_to 'Pause', item_pause_path(item), method: :patch, class: 'btn btn-danger' %>
+                      <% end %>
+
+                      <% if item.may_end? %>
+                        <%= button_to 'End', item_end_path(item), method: :patch, class: 'btn btn-danger' %>
+                      <% end %>
+
+                      <% if item.may_cancel? %>
+                        <%= button_to 'Cancel', item_cancel_path(item), method: :patch, class: 'btn btn-danger' %>
+                      <% end %>
+
+                    <% end %>
                   </td>
                 </tr>
               <% end %>
