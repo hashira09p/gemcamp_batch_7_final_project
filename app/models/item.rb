@@ -1,14 +1,13 @@
 class Item < ApplicationRecord
   include AASM
   mount_uploader :image, ImageUploader
-  enum status: {active: 0, inactive: 1}
+  enum status: { active: 0, inactive: 1 }
   default_scope { where(deleted_at: nil) }
 
-  validates :name, presence: true
   validates :quantity, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :minimum_tickets, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :batch_count, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  validates :start_at, :online_at, :offline_at, :status, presence: true
+  validates :start_at, :online_at, :offline_at, :status, :name, :image, presence: true
 
   has_many :item_category_ships, dependent: :restrict_with_error
   has_many :categories, through: :item_category_ships
@@ -34,7 +33,7 @@ class Item < ApplicationRecord
 
     event :end do
       transitions from: :starting, to: :ended,
-      guard: :can_start?, after: :update_quantity_and_batch_count
+                  guard: :can_start?, after: :update_quantity_and_batch_count
     end
 
     event :cancel do
