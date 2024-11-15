@@ -11,6 +11,7 @@ class Item < ApplicationRecord
 
   has_many :item_category_ships, dependent: :restrict_with_error
   has_many :categories, through: :item_category_ships
+  has_many :tickets
 
   def destroy
     update(deleted_at: Time.current)
@@ -45,7 +46,7 @@ class Item < ApplicationRecord
   private
 
   def update_quantity_and_batch_count
-    update(quantity: quantity - 1, batch_count: batch_count + 1)
+    self.update(quantity: quantity - 1, batch_count: batch_count + 1)
   end
 
   def can_start?
