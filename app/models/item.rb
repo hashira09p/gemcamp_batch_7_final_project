@@ -38,7 +38,7 @@ class Item < ApplicationRecord
     end
 
     event :cancel do
-      transitions from: [:starting, :paused], to: :cancelled
+      transitions from: [:starting, :paused], to: :cancelled, after: :ticket_cancel
     end
 
   end
@@ -56,6 +56,10 @@ class Item < ApplicationRecord
       errors.add(:base, :item, message: "Doesn't meet requirements")
       false
     end
+  end
+
+  def ticket_cancel
+    ticket.cancel!
   end
 
 end

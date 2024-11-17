@@ -5,7 +5,7 @@ class Ticket < ApplicationRecord
   belongs_to :user
 
   before_create :set_serial_number
-  after_create :deduct_coin
+  before_create :deduct_coin
 
   aasm column: :state do
     state :pending, initial: true
@@ -13,24 +13,34 @@ class Ticket < ApplicationRecord
     state :lost
     state :cancelled
 
-    event :won do
+    event :win do
         transitions from: :pending, to: :won
     end
 
-    event :lost do
+    event :lose do
       transitions from: :pending, to: :lost
     end
 
-    event :cancelled do
-      transitions from: :pending, to: :cancelled
+    event :cancel do
+      transitions from: :pending, to: :cancelled, after: :refund_coin
     end
   end
 
+  private
+
   def deduct_coin
     user.coins -= 1
+    user.save
   end
 
-  private
+  def refund_coin
+    user.coins += 1
+    user.save
+  end
+
+  def batch_count
+    batch_count = item.batch_count
+  end
 
   def set_serial_number
     ticket_count = Ticket.where(item: item).count + 1
@@ -42,10 +52,4 @@ class Ticket < ApplicationRecord
     "#{date_part}-#{item.id}-#{item.batch_count}-#{number_count.to_s.rjust(4, '0')}"
   end
 
-  def can_start?
-    return true if user.coins.positive?
-
-    user.errors.add(:base, :user, message: "Doesn't meet requirements")
-    false
-  end
 end
