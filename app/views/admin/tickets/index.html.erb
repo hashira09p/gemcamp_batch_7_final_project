@@ -23,7 +23,7 @@
             <%= link_to 'Category Management', category_index_path, class: 'nav-link bi bi-folder'  %>
           </li>
           <li class="nav-item">
-            <%= link_to 'Ticket Management', category_index_path, class: 'nav-link bi bi-folder'  %>
+            <%= link_to 'Ticket Management', tickets_path, class: 'nav-link bi bi-folder'  %>
           </li>
         </ul>
       </div>
@@ -46,53 +46,36 @@
         <h2 class="mb-3">Welcome back, <%= current_admin_user&.username %></h2>
         <p class="text-muted">Here’s your dashboard overview. Navigate using the sidebar to manage your tasks.</p>
 
-        <div class="d-flex flex-column vh-100">
+        <div class="container mt-4">
+          <h1 class="mb-4">Tickets List</h1>
 
-          <div class="flex-grow-1 overflow-auto">
-            <table class="table table-hover table-bordered mb-0">
-              <thead class="table-dark">
+          <table class="table table-bordered table-striped table-hover">
+            <thead class="table-primary">
+            <tr>
+              <th>Ticket ID</th>
+              <th>Item ID</th>
+              <th>User ID</th>
+              <th>Batch Count</th>
+              <th>Coins</th>
+              <th>State</th>
+              <th>Serial Number</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @tickets.each do |ticket| %>
               <tr>
-                <th>Parent Email</th>
-                <th>Username</th>
-                <th>Total Deposit</th>
-                <th>Member Total Deposits</th>
-                <th>Coins</th>
-                <th>Children Members</th>
-                <th>Phone Number</th>
+                <td><%= ticket.id %></td>
+                <td><%= ticket.item_id %></td>
+                <td><%= ticket.user_id %></td>
+                <td><%= ticket.batch_count %></td>
+                <td><%= ticket.coins %></td>
+                <td><%= ticket.state %></td>
+                <td><%= ticket.serial_number %></td>
               </tr>
-              </thead>
-              <tbody>
-              <% @clients.each do |client| %>
-                <tr>
-                  <% if client.parent.nil? %>
-                    <td>None</td>
-                  <% else %>
-                    <td><%= client.parent&.email %></td>
-                  <% end %>
-
-                  <% if client.username.nil? || client.username.blank? %>
-                    <td>No username</td>
-                  <% else %>
-                    <td><%= client.username %></td>
-                  <% end %>
-
-                  <td><%= client.total_deposit %></td>
-                  <td><%= client.children.sum(:total_deposit) %></td>
-                  <td><%= client.coins %></td>
-                  <td><%= client.children_members %></td>
-
-                  <% if client.phone_number.nil? %>
-                    <td>No Phone Number</td>
-                  <% else %>
-                    <td><%= client.phone_number %></td>
-                  <% end %>
-                </tr>
-              <% end %>
-              </tbody>
-            </table>
-          </div>
+            <% end %>
+            </tbody>
+          </table>
         </div>
-
       </div>
     </main>
   </div>

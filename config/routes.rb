@@ -14,6 +14,7 @@ Rails.application.routes.draw do
         patch :cancel
       end
       resources :category
+      resources :tickets
     end
     root 'admin/home#index', as: :admin_root
     get 'admin/home', to: 'admin/home#index'

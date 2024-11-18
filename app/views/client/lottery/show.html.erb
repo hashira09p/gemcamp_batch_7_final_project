@@ -1,0 +1,60 @@
+<%= render "partial/header" %>
+
+<%= notice %>
+<%= alert %>
+
+<div class="card m-3 shadow-sm" style="width: 22rem;">
+  <%= image_tag @item.image.url, class: "card-img-top", style: "height: 250px; object-fit: cover;" %>
+</div>
+
+<!-- Progress Bar and Item Name -->
+<div class="mt-3">
+  <p class="mb-1">Item Name</p>
+  <div class="progress">
+    <div
+      id="progress-bar"
+      class="progress-bar"
+      role="progressbar"
+      style="width: 0%;"
+      aria-valuenow="0"
+      aria-valuemin="0"
+      aria-valuemax="100">
+      0%
+    </div>
+  </div>
+</div>
+
+<!-- Form -->
+<div class="form-group mt-3">
+  <%= form_with url: lottery_index_path, local: true do |f| %>
+    <%= f.hidden_field :item_id, value: @item.id %>
+    <%= f.number_field :minimum_tickets,
+                       class: "form-control",
+                       id: "minimum-tickets",
+                       min: 0,
+                       value: 0,
+                       required: true %>
+
+    <%= f.submit "Submit", class: "btn btn-primary mt-2" %>
+  <% end %>
+</div>
+
+<!-- JavaScript -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const numberField = document.getElementById("minimum-tickets");
+        const progressBar = document.getElementById("progress-bar");
+
+        numberField.addEventListener("input", () => {
+            const value = parseInt(numberField.value) || 0; // Fallback to 0 if input is empty or invalid
+            const progress = Math.min(value, 100); // Limit progress to 100%
+
+            // Update the progress bar
+            progressBar.style.width = `${progress}%`;
+            progressBar.setAttribute("aria-valuenow", progress);
+            progressBar.textContent = `${progress}%`;
+        });
+    });
+</script>
+
+<%= render "partial/footer" %>
