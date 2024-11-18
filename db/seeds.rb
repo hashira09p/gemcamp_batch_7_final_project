@@ -31,3 +31,12 @@ User.create([{ email: 'jerome@koda.com',
                remember_created_at: Faker::Time.between(from: DateTime.now - 1, to: DateTime.now),
                role: 0
              }])
+
+Ticket.create!(
+  item_id: 39, # Unique ID for the item
+  user_id: 1,                # Assuming user_id is an integer and references a user
+  batch_count: 10,           # Example batch count
+  coins: 1,                  # Default value for coins
+  state: "pending",          # Example initial state
+  serial_number: "SN12345"   # Example serial number
+)
