@@ -38,9 +38,7 @@ class Ticket < ApplicationRecord
     user.save
   end
 
-  def batch_count
-    batch_count = item.batch_count
-  end
+
 
   def set_serial_number
     ticket_count = Ticket.where(item: item).count + 1
