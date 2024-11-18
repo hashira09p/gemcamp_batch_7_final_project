@@ -51,5 +51,4 @@ class Ticket < ApplicationRecord
     date_part = Time.current.strftime('%y%m%d')
     "#{date_part}-#{item.id}-#{item.batch_count}-#{number_count.to_s.rjust(4, '0')}"
   end
-
 end

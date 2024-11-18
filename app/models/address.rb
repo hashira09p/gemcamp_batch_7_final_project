@@ -15,4 +15,12 @@ class Address < ApplicationRecord
   validates :address_province_id, presence: true
   validates :address_city_id, presence: true
   validates :address_barangay_id, presence: true
+
+  before_save :unset_other_default, if: :is_default?
+
+  private
+
+  def unset_other_default
+    self.class.where(is_default: true, user_id: user_id).update_all(is_default: false)
+  end
 end

@@ -17,6 +17,7 @@
         <th>Province</th>
         <th>City</th>
         <th>Barangay</th>
+        <th>Default Address</th>
         <th>Actions</th>
       </tr>
       </thead>
@@ -30,6 +31,11 @@
           <td><%= info.address_province.name %></td>
           <td><%= info.address_city.name %></td>
           <td><%= info.address_barangay.name %></td>
+          <% if info.is_default? %>
+            <td>Default Address</td>
+          <% else %>
+            <td>Not Default Address</td>
+          <% end %>
           <td>
             <%= link_to 'Edit', edit_address_path(info), class: 'btn btn-warning btn-sm me-2' %>
             <%= button_to 'Delete', address_path(info), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>

@@ -26,7 +26,7 @@ class Client::AddressesController < ApplicationController
         flash[:notice] = 'Succesfully added'
         redirect_to addresses_path
       else
-        flash[:alert] = 'failed to add'
+        flash[:alert] = 'The phone number must have 11 digits'
         redirect_to new_address_path
       end
     end
