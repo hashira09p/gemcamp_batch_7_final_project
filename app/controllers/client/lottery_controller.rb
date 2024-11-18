@@ -15,7 +15,9 @@ class Client::LotteryController < ApplicationController
   def create
     number_of_tickets = params[:minimum_tickets].to_i
     item = Item.find params[:item_id].to_i
-    item.update(quantity: item.quantity - number_of_tickets)
+
+    #item.update(quantity: item.quantity - number_of_tickets)
+    # 
     if item.quantity > 0 && item.minimum_tickets >= number_of_tickets
       number_of_tickets.times do
         ticket = Ticket.new(item: item, user: current_client_user, batch_count: item.batch_count)
