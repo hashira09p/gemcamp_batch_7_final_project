@@ -11,7 +11,7 @@ class Item < ApplicationRecord
 
   has_many :item_category_ships, dependent: :restrict_with_error
   has_many :categories, through: :item_category_ships
-  has_many :tickets
+  has_many :tickets, dependent: :restrict_with_error
 
   def destroy
     update(deleted_at: Time.current)
@@ -59,7 +59,13 @@ class Item < ApplicationRecord
   end
 
   def ticket_cancel
-    ticket.cancel!
+    tickets = Ticket.includes(:item).where(item: self, state: :pending, batch_count: self.batch_count)
+
+    tickets.each do |ticket|
+      if ticket.may_cancel?
+        ticket.cancel!
+      end
+    end
   end
 
 end

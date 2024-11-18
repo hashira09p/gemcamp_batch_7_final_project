@@ -11,11 +11,12 @@ class Admin::ItemController < ApplicationController
 
   def create
     @item = Item.new(item_params)
-    @item.batch_count = 1
+    item_size = Item.all.count
+    @item.batch_count = item_size + 1
     if @item.save
       redirect_to item_index_path, notice: 'Item was successfully created.'
     else
-      render :new
+      render :show
     end
   end
 

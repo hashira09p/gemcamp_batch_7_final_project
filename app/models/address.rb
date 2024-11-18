@@ -7,7 +7,7 @@ class Address < ApplicationRecord
 
   enum genre: { home: 0, office: 1 }
 
-  validates :phone_number, presence: true, numericality: { only_integer: true }, length: { is: 11}
+  validates :phone_number, presence: true, numericality: { only_integer: true }, length: { is: 11 }
   validates :name, presence: true
   validates :street_address, presence: true
   validates :remark, presence: true
@@ -21,6 +21,6 @@ class Address < ApplicationRecord
   private
 
   def unset_other_default
-    self.class.where(is_default: true, user_id: user_id).update_all(is_default: false)
+    self.class.includes(:user).where(is_default: true, users: { id: user.id }).update_all(is_default: false)
   end
 end

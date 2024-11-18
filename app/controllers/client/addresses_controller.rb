@@ -49,7 +49,7 @@ class Client::AddressesController < ApplicationController
   private
 
   def set_address
-    @address = Address.find_by(params[:id])
+    @address = Address.find(params[:id])
   end
   def find_user_address
     @addresses = Address.where(user_id: current_client_user)
