@@ -1,0 +1,147 @@
+<%= notice %>
+<%= alert %>
+<div class="container-fluid vh-100">
+  <div class="row h-100">
+    <!-- Sidebar -->
+    <%= render "partial/admin/sidebar" %>
+
+    <!-- Main Content -->
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 d-flex flex-column">
+
+      <!-- Top Navbar -->
+      <%= render "partial/admin/top_navbar" %>
+
+      <!-- Content Area -->
+      <div class="container mt-4">
+        <h1 class="mb-4">Winner</h1>
+
+        <!-- Search Filters -->
+
+        <!-- Table -->
+        <table class="table table-striped table-hover">
+          <thead class="table-dark">
+          <tr>
+            <th>Item ID</th>
+            <th>Ticket ID</th>
+            <th>User ID</th>
+            <th>Address ID</th>
+            <th>Batch Count</th>
+            <th>State</th>
+            <th>Price</th>
+            <th>Paid At</th>
+            <th>Admin ID</th>
+            <th>Picture</th>
+            <th>Comment</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% @winners.each do |winner| %>
+            <tr>
+              <td><%= winner.winner_id %></td>
+              <td><%= winner.ticket_id %></td>
+              <td><%= winner.user_id %></td>
+              <td><%= winner.address_id %></td>
+              <td><%= winner.winner_batch_count %></td>
+              <td><%= winner.state %></td>
+              <td><%= number_to_currency(winner.price) %></td>
+              <td><%= winner.paid_at&.strftime('%Y-%m-%d %H:%M:%S') %></td>
+              <td><%= winner.admin_id %></td>
+              <td>
+                <% if winner.picture.present? %>
+                  <%= image_tag(winner.picture, class: "img-thumbnail", style: "max-width: 50px;") %>
+                <% else %>
+                  <em>No Image</em>
+                <% end %>
+              </td>
+              <td><%= winner.comment %></td>
+              <td>
+                <% if winner.may_submit? %>
+                  <%= button_to 'Submit', winner_submit_path(winner), method: :patch, class: 'btn btn-warning' %>
+                <% end %>
+
+                <% if winner.may_pay? %>
+                  <%= button_to 'Pay', winner_pay_path(winner), method: :patch, class: 'btn btn-danger' %>
+                <% end %>
+
+                <% if winner.may_ship? %>
+                  <%= button_to 'Ship', winner_ship_path(winner), method: :patch, class: 'btn btn-danger' %>
+                <% end %>
+
+                <% if winner.may_deliver? %>
+                  <%= button_to 'Deliver', winner_deliver_path(winner), method: :patch, class: 'btn btn-danger' %>
+                <% end %>
+
+                <% if winner.may_publish? %>
+                  <%= button_to 'Publish', winner_publish_path(winner), method: :patch, class: 'btn btn-danger' %>
+                <% end %>
+
+                <% if winner.may_remove_publish? %>
+                  <%= button_to 'Remove_Publish', winner_remove_publish_path(winner), method: :patch, class: 'btn btn-danger' %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</div>
+
+<style>
+    /* Sidebar */
+    .sidebar {
+        transition: background-color 0.3s;
+        height: 100vh;  /* Ensure full height of screen */
+        position: sticky;
+    }
+
+    .sidebar .nav-link {
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .sidebar .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #fff;
+    }
+
+    /* Content Area */
+    .content {
+        background: #f8f9fa;
+        height: 100vh; /* Fill the available space */
+        overflow: auto;
+    }
+
+    .table th, .table td {
+        vertical-align: middle; /* Vertically center the table content */
+    }
+
+    .table img {
+        width: 50px; /* Ensure the image is small */
+        height: 50px; /* Keep the image square */
+        object-fit: cover; /* Ensure the image does not stretch */
+    }
+
+    .navbar {
+        border-bottom: 1px solid #eaeaea;
+    }
+
+    .navbar-nav .btn {
+        transition: background-color 0.3s;
+    }
+
+    .navbar-nav .btn:hover {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    /* Ensure the content doesn't overflow */
+    .d-flex.flex-column {
+        flex: 1;
+    }
+
+    .table-bordered td, .table-bordered th {
+        border: 1px solid #dee2e6;
+    }
+</style>

@@ -2,45 +2,12 @@
 <div class="container-fluid vh-100">
   <div class="row h-100">
     <!-- Sidebar -->
-    <nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar border-end p-0 h-100 overflow-auto">
-      <div class="position-sticky pt-3 text-white">
-        <div class="text-center mb-4">
-          <h5 class="mt-2">Admin</h5>
-        </div>
-        <h5 class="px-3 py-2 border-bottom">Dashboard</h5>
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <%= link_to 'Homepage', home_index_path, class: 'nav-link active fw-bold bi bi-house-door'  %>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="bi bi-people"></i> Member Management
-            </a>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Item Management', item_index_path, class: 'nav-link bi bi-folder'  %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Category Management', category_index_path, class: 'nav-link bi bi-folder'  %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Ticket Management', tickets_path, class: 'nav-link bi bi-folder'  %>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <%= render "partial/admin/sidebar" %>
 
     <!-- Main Content -->
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 d-flex flex-column">
       <!-- Top Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-3">
-        <div class="container-fluid">
-          <div class="navbar-nav ms-auto d-flex align-items-center">
-            <button class="btn btn-outline-secondary me-2">Change Language</button>
-            <%= button_to 'Sign Out', destroy_admin_user_session_path, method: :delete, class: 'btn btn-danger' %>
-          </div>
-        </div>
-      </nav>
+      <%= render "partial/admin/top_navbar" %>
 
       <!-- Content Area -->
       <div class="content bg-white shadow p-4 rounded flex-grow-1 overflow-auto">
