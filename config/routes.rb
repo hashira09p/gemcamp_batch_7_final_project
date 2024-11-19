@@ -13,6 +13,18 @@ Rails.application.routes.draw do
         patch :end
         patch :cancel
       end
+
+      resources :winners do
+        patch :won
+        patch :claim
+        patch :submit
+        patch :pay
+        patch :ship
+        patch :deliver
+        patch :share
+        patch :publish
+        patch :remove_publish
+      end
       resources :category
       resources :tickets
     end
