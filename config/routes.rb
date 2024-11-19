@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       end
       resources :category
       resources :tickets
+      resources :offers
     end
     root 'admin/home#index', as: :admin_root
     get 'admin/home', to: 'admin/home#index'
