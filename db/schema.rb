@@ -130,24 +130,24 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_18_084024) do
   end
 
   create_table "winners", charset: "utf8mb4", force: :cascade do |t|
-    t.bigint "item_id_id"
-    t.bigint "ticket_id_id"
-    t.bigint "user_id_id"
-    t.bigint "address_id_id"
+    t.bigint "item_id"
+    t.bigint "ticket_id"
+    t.bigint "user_id"
+    t.bigint "address_id"
     t.integer "item_batch_count"
     t.string "state"
     t.integer "price"
     t.datetime "paid_at"
-    t.bigint "admin_id_id"
+    t.bigint "admin_id"
     t.string "picture"
     t.string "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["address_id_id"], name: "index_winners_on_address_id_id"
-    t.index ["admin_id_id"], name: "index_winners_on_admin_id_id"
-    t.index ["item_id_id"], name: "index_winners_on_item_id_id"
-    t.index ["ticket_id_id"], name: "index_winners_on_ticket_id_id"
-    t.index ["user_id_id"], name: "index_winners_on_user_id_id"
+    t.index ["address_id"], name: "index_winners_on_address_id"
+    t.index ["admin_id"], name: "index_winners_on_admin_id"
+    t.index ["item_id"], name: "index_winners_on_item_id"
+    t.index ["ticket_id"], name: "index_winners_on_ticket_id"
+    t.index ["user_id"], name: "index_winners_on_user_id"
   end
 
   add_foreign_key "tickets", "items"

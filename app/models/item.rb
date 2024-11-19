@@ -35,31 +35,30 @@ class Item < ApplicationRecord
 
     event :end do
       transitions guard: :batch_count_check?, from: :starting, to: :ended,
-                  after: :update_quantity_and_batch_count
+                  after: [:update_quantity_and_batch_count, :winner]
     end
 
     event :cancel do
-      transitions from: [:starting, :paused, :pending], to: :cancelled, after: [:ticket_cancel, :refund_coin]
+      transitions from: [:starting, :paused, :pending], to: :cancelled, after: :ticket_cancel
     end
   end
 
   private
 
-  def batch_count_check?
-    if self.batch_count >= self.minimum_tickets
-      true
-    else
-      false
+  def winner
+    winner = tickets.sample
+
+    if winner.may_win?
+      winner.win!
+      address = winner.user.addresses.find_by(is_default: true)
+      winner = Winner.new(item_id: winner.item_id, ticket_id: winner.id, user_id: winner.user_id, address_id: address.id,
+                          item_batch_count: winner.batch_count)
+      winner.save
     end
   end
 
-  def refund_coin
-    user_tickets = tickets
-    user_tickets.each do |user_ticket|
-      user_ticket.user.coins += 1
-      user_ticket.user.save
-      ticket.destroy
-    end
+  def batch_count_check?
+    self.tickets.count >= self.minimum_tickets
   end
 
   def update_quantity_and_batch_count
@@ -81,6 +80,8 @@ class Item < ApplicationRecord
     tickets.each do |ticket|
       if ticket.may_cancel?
         ticket.cancel!
+        ticket.user.coins += 1
+        ticket.user.save
       end
     end
   end

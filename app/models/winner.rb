@@ -3,6 +3,8 @@ class Winner < ApplicationRecord
   belongs_to :item
   belongs_to :ticket
   belongs_to :address
+  belongs_to :user
+
 
   aasm column: :state do
     state :won, initial: true

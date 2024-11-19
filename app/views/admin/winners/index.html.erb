@@ -38,17 +38,17 @@
           <tbody>
           <% @winners.each do |winner| %>
             <tr>
-              <td><%= winner.winner_id %></td>
+              <td><%= winner.id %></td>
               <td><%= winner.ticket_id %></td>
-              <td><%= winner.user_id %></td>
+              <td><%= winner.user.username %></td>
               <td><%= winner.address_id %></td>
-              <td><%= winner.winner_batch_count %></td>
+              <td><%= winner.item_batch_count %></td>
               <td><%= winner.state %></td>
               <td><%= number_to_currency(winner.price) %></td>
               <td><%= winner.paid_at&.strftime('%Y-%m-%d %H:%M:%S') %></td>
               <td><%= winner.admin_id %></td>
               <td>
-                <% if winner.picture.present? %>
+                <% if winner.picture&.present? %>
                   <%= image_tag(winner.picture, class: "img-thumbnail", style: "max-width: 50px;") %>
                 <% else %>
                   <em>No Image</em>
