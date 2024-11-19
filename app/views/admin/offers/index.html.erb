@@ -12,7 +12,12 @@
 
       <!-- Content Area -->
       <div class="content bg-white shadow p-4 rounded flex-grow-1 overflow-auto">
-        <p class="text-muted">Here’s your dashboard overview for items. Navigate using the sidebar to manage your tasks.</p>
+        <header class="bg-light text-dark py-4 shadow-sm">
+          <div class="container text-center">
+            <h2 class="fw-semibold text-uppercase mb-2">Offer Management</h2>
+          </div>
+        </header>
+
         <%= link_to 'Add offer', new_offer_path, class: 'btn btn-success' %>
         <div class="d-flex flex-column vh-100">
           <div class="flex-grow-1 overflow-auto">
@@ -43,7 +48,7 @@
                   <td><%= offer.coin %></td>
                   <td>
                     <%= link_to 'Edit', edit_offer_path(offer), class: "btn btn-sm btn-warning" %>
-                    <%= link_to 'Delete', offer_path(offer),
+                    <%= button_to 'Delete', offer_path(offer),
                                 method: :delete,
                                 data: { confirm: 'Are you sure?' },
                                 class: "btn btn-sm btn-danger" %>

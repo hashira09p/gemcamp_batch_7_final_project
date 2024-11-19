@@ -1,0 +1,119 @@
+<%= notice %>
+<%= alert %>
+<div class="container-fluid vh-100">
+  <div class="row h-100">
+    <!-- Sidebar -->
+    <%= render "partial/admin/sidebar" %>
+
+    <!-- Main Content -->
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 d-flex flex-column">
+      <!-- Top Navbar -->
+      <%= render "partial/admin/top_navbar" %>
+
+      <!-- Content Area -->
+      <div class="content bg-white shadow p-4 rounded flex-grow-1 overflow-auto">
+        <header class="bg-light text-dark py-4 shadow-sm">
+          <div class="container text-center">
+            <h2 class="fw-semibold text-uppercase mb-2">Edit an offer</h2>
+          </div>
+        </header>
+
+
+        <div class="d-flex flex-column vh-100">
+          <div class="flex-grow-1 overflow-auto">
+            <%= form_with model: @offer, url: offer_path, method: :patch, local: true do |f| %>
+              <div class="mb-3">
+                <%= f.label :name, class: "form-label" %>
+                <%= f.text_field :name, class: "form-control", placeholder: "Enter offer name", required: true %>
+              </div>
+
+              <div class="mb-3">
+                <%= f.label :status, class: "form-label" %>
+                <%= f.select :status, Offer.statuses.keys.map { |status| [status.capitalize, status] },
+                             { include_blank: "Select Status" },
+                             { class: "form-select", required: true } %>
+              </div>
+
+              <div class="mb-3">
+                <%= f.label :amount, class: "form-label" %>
+                <%= f.number_field :amount, class: "form-control", placeholder: "Enter amount", step: 0.01, required: true %>
+              </div>
+
+              <div class="mb-3">
+                <%= f.label :coin, class: "form-label" %>
+                <%= f.number_field :coin, class: "form-control", placeholder: "Enter coin value", required: true %>
+              </div>
+
+              <div class="mb-3">
+                <%= f.label :image, class: "form-label" %>
+                <%= f.file_field :image, class: "form-control", placeholder: "Enter image URL" %>
+              </div>
+
+              <div class="d-grid">
+                <%= f.submit 'Save', class: "btn btn-primary" %>
+              </div>
+            <% end %>
+
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<style>
+    /* Sidebar */
+    .sidebar {
+        transition: background-color 0.3s;
+        height: 100vh;  /* Ensure full height of screen */
+        position: sticky;
+    }
+
+    .sidebar .nav-link {
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    .sidebar .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #fff;
+    }
+
+    /* Content Area */
+    .content {
+        background: #f8f9fa;
+        height: 100vh; /* Fill the available space */
+        overflow: auto;
+    }
+
+    .table th, .table td {
+        vertical-align: middle; /* Vertically center the table content */
+    }
+
+    .table img {
+        width: 50px; /* Ensure the image is small */
+        height: 50px; /* Keep the image square */
+        object-fit: cover; /* Ensure the image does not stretch */
+    }
+
+    .navbar {
+        border-bottom: 1px solid #eaeaea;
+    }
+
+    .navbar-nav .btn {
+        transition: background-color 0.3s;
+    }
+
+    .navbar-nav .btn:hover {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    /* Ensure the content doesn't overflow */
+    .d-flex.flex-column {
+        flex: 1;
+    }
+
+    .table-bordered td, .table-bordered th {
+        border: 1px solid #dee2e6;
+    }
+</style>
