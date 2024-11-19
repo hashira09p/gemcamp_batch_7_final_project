@@ -18,6 +18,8 @@ class Address < ApplicationRecord
 
   before_save :unset_other_default, if: :is_default?
 
+  has_many :winners
+
   private
 
   def unset_other_default

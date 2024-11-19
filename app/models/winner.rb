@@ -1,5 +1,8 @@
 class Winner < ApplicationRecord
   include AASM
+  belongs_to :item
+  belongs_to :ticket
+  belongs_to :address
 
   aasm column: :state do
     state :won, initial: true
@@ -16,35 +19,35 @@ class Winner < ApplicationRecord
       transitions from: :won, to: :claimed
     end
 
-    event :claimed do
+    event :claim do
       transitions from: :claimed, to: :submitted
     end
 
-    event :submitted do
+    event :submit do
       transitions from: :submitted, to: :paid
     end
 
-    event :paid do
+    event :pay do
       transitions from: :paid, to: :shipped
     end
 
-    event :shipped do
+    event :ship do
       transitions from: :shipped, to: :delivered
     end
 
-    event :delivered do
+    event :deliver do
       transitions from: :delivered, to: :shared
     end
 
-    event :shared do
+    event :share do
       transitions from: :shared, to: :published
     end
 
-    event :published do
+    event :publish do
       transitions from: :published, to: :remove_published
     end
 
-    event :remove_published do
+    event :remove_publish do
       transitions from: :remove_published, to: :published
     end
   end

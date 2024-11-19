@@ -12,6 +12,7 @@ class Item < ApplicationRecord
   has_many :item_category_ships, dependent: :restrict_with_error
   has_many :categories, through: :item_category_ships
   has_many :tickets, dependent: :restrict_with_error
+  has_many :winners
 
   def destroy
     update(deleted_at: Time.current)
@@ -33,17 +34,33 @@ class Item < ApplicationRecord
     end
 
     event :end do
-      transitions from: :starting, to: :ended,
-                  guard: :can_start?, after: :update_quantity_and_batch_count
+      transitions guard: :batch_count_check?, from: :starting, to: :ended,
+                  after: :update_quantity_and_batch_count
     end
 
     event :cancel do
-      transitions from: [:starting, :paused], to: :cancelled, after: :ticket_cancel
+      transitions from: [:starting, :paused, :pending], to: :cancelled, after: [:ticket_cancel, :refund_coin]
     end
-
   end
 
   private
+
+  def batch_count_check?
+    if self.batch_count >= self.minimum_tickets
+      true
+    else
+      false
+    end
+  end
+
+  def refund_coin
+    user_tickets = tickets
+    user_tickets.each do |user_ticket|
+      user_ticket.user.coins += 1
+      user_ticket.user.save
+      ticket.destroy
+    end
+  end
 
   def update_quantity_and_batch_count
     self.update(quantity: quantity - 1, batch_count: batch_count + 1)
@@ -67,5 +84,4 @@ class Item < ApplicationRecord
       end
     end
   end
-
 end

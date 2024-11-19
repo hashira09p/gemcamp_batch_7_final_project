@@ -1,11 +1,13 @@
 class Ticket < ApplicationRecord
   include AASM
 
+  has_many :winners
+
   belongs_to :item
   belongs_to :user
 
   before_create :set_serial_number
-  before_create :deduct_coin
+  after_create :deduct_coin
 
   aasm column: :state do
     state :pending, initial: true
@@ -22,7 +24,7 @@ class Ticket < ApplicationRecord
     end
 
     event :cancel do
-      transitions from: :pending, to: :cancelled, after: :refund_coin
+      transitions from: :pending, to: :cancelled
     end
   end
 
@@ -32,13 +34,6 @@ class Ticket < ApplicationRecord
     user.coins -= 1
     user.save
   end
-
-  def refund_coin
-    user.coins += 1
-    user.save
-  end
-
-
 
   def set_serial_number
     ticket_count = Ticket.where(item: item).count + 1
