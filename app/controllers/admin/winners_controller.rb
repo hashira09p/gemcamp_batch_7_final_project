@@ -1,11 +1,26 @@
 class Admin::WinnersController < ApplicationController
   def index
-    @winners = Winner.all
+    @winner_states = Winner.pluck(:state).uniq
+    @winners = Winner.includes(:user) # Eager load for performance
+
+    if params[:serial_number].present?
+      @winners = @winners.where('LOWER(serial_number) LIKE ?', "%#{params[:serial_number].downcase}%")
+    end
+
+    if params[:email].present?
+      @winners = @winners.joins(:user).where('LOWER(users.email) LIKE ?', "%#{params[:email].downcase}%")
+    end
+
+    if params[:state].present?
+      @winners = @winners.where(state: params[:state])
+    end
+
+    if params[:start_date].present? && params[:end_date].present?
+      @winners = @tickets.where(created_at: params[:start_date]..params[:end_date])
+    end
   end
 
-  def create
-
-  end
+  def create;end
 
   def submit
     if @winner.may_submit?
