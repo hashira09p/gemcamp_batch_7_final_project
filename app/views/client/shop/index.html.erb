@@ -1,0 +1,42 @@
+<%= render "partial/header" %>
+
+<div class="container my-4">
+  <!-- Announcement Section -->
+  <div class="row mb-4">
+    <div class="col-12 text-center">
+      <h2 class="fw-bold text-primary">Announcements</h2>
+      <p class="text-muted">Stay updated with the latest offers and announcements.</p>
+    </div>
+  </div>
+
+  <!-- Offer Images Section -->
+  <div class="row g-4">
+    <% @offers.each do |offer| %>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm border-0">
+          <%= image_tag offer.image.url, class: "card-img-top img-fluid", alt: offer.name %>
+          <div class="card-body text-center">
+            <h5 class="card-title fw-bold"><%= offer.name %></h5>
+            <p class="card-text text-muted">Exclusive offer just for you!</p>
+            <a href="<%= offer_path(offer) %>" class="btn btn-primary btn-sm"></a>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<style>
+    .card:hover {
+        transform: scale(1.02);
+        transition: transform 0.2s ease-in-out;
+    }
+    .card-img-top {
+        max-height: 200px;
+        object-fit: cover;
+        border-radius: 0.5rem 0.5rem 0 0;
+    }
+</style>
+
+
+<%= render "partial/footer" %>
