@@ -26,4 +26,5 @@ class User < ApplicationRecord
   has_many :address_barangays, through: :addresses
   has_many :tickets
   has_many :winners
+  has_many :orders
 end

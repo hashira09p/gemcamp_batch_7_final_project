@@ -9,7 +9,7 @@ class Client::LotteryController < ApplicationController
 
   def show
     @item
-    @item_serial_numbers = @user.tickets
+    @item_serial_numbers = @user.tickets.where(item_id: params[:id])
   end
 
   def create
@@ -18,7 +18,7 @@ class Client::LotteryController < ApplicationController
 
     #item.update(quantity: item.quantity - number_of_tickets)
     # 
-    if item.quantity > 0 && item.minimum_tickets >= number_of_tickets
+    if item.quantity > 0 && item.minimum_tickets <= number_of_tickets
       number_of_tickets.times do
         ticket = Ticket.new(item: item, user: current_client_user, batch_count: item.batch_count)
         if ticket.save
@@ -31,7 +31,7 @@ class Client::LotteryController < ApplicationController
 
     else
       redirect_to lottery_path(item)
-      flash[:notice] = 'Not enough quantity or minimum tickets of an item'
+      flash[:notice] = 'Invalid input'
     end
   end
 

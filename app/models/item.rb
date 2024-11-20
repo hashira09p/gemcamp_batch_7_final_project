@@ -54,6 +54,12 @@ class Item < ApplicationRecord
       winner = Winner.new(item_id: winner.item_id, ticket_id: winner.id, user_id: winner.user_id, address_id: address.id,
                           item_batch_count: winner.batch_count)
       winner.save
+
+      tickets = self.tickets.where(state: 'pending')
+
+      tickets.each do |ticket|
+        ticket.lose!
+      end
     end
   end
 
