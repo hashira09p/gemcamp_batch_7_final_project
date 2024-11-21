@@ -13,7 +13,7 @@
 !/log/.keep
 !/tmp/.keep
 
-config/domain.yml
+/config/domain.yml
 
 # Ignore pidfiles, but keep the directory.
 /tmp/pids/*
@@ -28,6 +28,7 @@ config/domain.yml
 !/tmp/storage/.keep
 
 /public/assets
+/public/uploads
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
