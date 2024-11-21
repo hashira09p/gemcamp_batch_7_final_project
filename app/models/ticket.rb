@@ -24,8 +24,9 @@ class Ticket < ApplicationRecord
     end
 
     event :cancel do
-      transitions from: :pending, to: :cancelled
+      transitions from: :pending, to: :cancelled, after: :refund_coins
     end
+
   end
 
   private
@@ -43,5 +44,10 @@ class Ticket < ApplicationRecord
   def generate_serial_number(number_count)
     date_part = Time.current.strftime('%y%m%d')
     "#{date_part}-#{item.id}-#{item.batch_count}-#{number_count.to_s.rjust(4, '0')}"
+  end
+
+  def refund_coins
+    user.coins += 1
+    user.save
   end
 end

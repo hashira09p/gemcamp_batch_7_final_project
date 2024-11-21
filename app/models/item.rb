@@ -26,7 +26,8 @@ class Item < ApplicationRecord
     state :cancelled
 
     event :start do
-      transitions guard: :can_start?, from: [:pending, :paused, :cancelled, :ended], to: :starting
+      transitions guard: :can_start?, from: [:pending, :paused, :cancelled, :ended], to: :starting,
+                  after: :update_quantity_and_batch_count
     end
 
     event :pause do
@@ -35,7 +36,7 @@ class Item < ApplicationRecord
 
     event :end do
       transitions guard: :batch_count_check?, from: :starting, to: :ended,
-                  after: [:update_quantity_and_batch_count, :winner]
+                  after: :winner
     end
 
     event :cancel do
@@ -72,7 +73,7 @@ class Item < ApplicationRecord
   end
 
   def can_start?
-    if quantity.positive? && Date.today < offline_at && status == 'active'
+    if quantity > 1 && Date.today < offline_at && status == 'active'
       true
     else
       errors.add(:base, :item, message: "Doesn't meet requirements")
@@ -86,8 +87,6 @@ class Item < ApplicationRecord
     tickets.each do |ticket|
       if ticket.may_cancel?
         ticket.cancel!
-        ticket.user.coins += 1
-        ticket.user.save
       end
     end
   end

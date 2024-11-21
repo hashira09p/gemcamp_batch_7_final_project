@@ -18,7 +18,7 @@ class Client::LotteryController < ApplicationController
 
     #item.update(quantity: item.quantity - number_of_tickets)
     # 
-    if item.quantity > 0 && item.minimum_tickets <= number_of_tickets
+    if item.quantity > 0
       number_of_tickets.times do
         ticket = Ticket.new(item: item, user: current_client_user, batch_count: item.batch_count)
         if ticket.save
