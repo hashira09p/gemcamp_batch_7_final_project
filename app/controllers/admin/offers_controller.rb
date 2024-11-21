@@ -1,7 +1,12 @@
 class Admin::OffersController < ApplicationController
   before_action :set_offer, only: [:edit, :update, :destroy]
   def index
+    @offer_status = Offer.pluck(:status).uniq
     @offers = Offer.all
+
+    if params[:status].present?
+      @offers = @offers.where(status: params[:status])
+    end
   end
 
   def new
