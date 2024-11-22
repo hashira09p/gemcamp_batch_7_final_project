@@ -1,5 +1,6 @@
 <%= render "partial/header" %>
 
+<%= notice %>
 <div class="container my-4">
   <!-- Announcement Section -->
   <div class="row mb-4">
@@ -12,16 +13,16 @@
   <!-- Offer Images Section -->
   <div class="row g-4">
     <% @offers.each do |offer| %>
-      <div class="col-md-6 col-lg-4">
-        <div class="card h-100 shadow-sm border-0">
-          <%= image_tag offer.image.url, class: "card-img-top img-fluid", alt: offer.name %>
-          <div class="card-body text-center">
-            <h5 class="card-title fw-bold"><%= offer.name %></h5>
-            <p class="card-text text-muted">Exclusive offer just for you!</p>
-            <a href="<%= offer_path(offer) %>" class="btn btn-primary btn-sm"></a>
+        <div class="col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm border-0">
+            <%= image_tag offer.image.url, class: "card-img-top img-fluid", alt: offer.name %>
+            <div class="card-body text-center">
+              <h5 class="card-title fw-bold"><%= offer.name %></h5>
+              <p class="card-text text-muted">$<%= offer.amount %> only for <%= offer.coin %> </p>
+              <%= button_to 'Buy now',  shop_index_path(offer_id: offer), model: @order, method: :post, class: 'btn btn-primary btn-sm' %>
+            </div>
           </div>
         </div>
-      </div>
     <% end %>
   </div>
 </div>
@@ -31,6 +32,7 @@
         transform: scale(1.02);
         transition: transform 0.2s ease-in-out;
     }
+
     .card-img-top {
         max-height: 200px;
         object-fit: cover;
