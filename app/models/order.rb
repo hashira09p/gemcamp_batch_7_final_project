@@ -1,14 +1,14 @@
 class Order < ApplicationRecord
   include AASM
-  enum status: { deposit: 0, increase: 1, deduct: 2, bonus: 3, share: 4 }
+  enum genre: { deposit: 0, increase: 1, deduct: 2, bonus: 3, share: 4 }
 
   belongs_to :user
-  belongs_to :offer, if: :deposit?
+  belongs_to :offer
 
   before_create :generate_serial_number
 
   validates :amount, presence: true, numericality: { greater_than: 0 }, if: :deposit?
-  validates :coins, presence: true, numericality: { greater_than: 0 }, if: :deposit?
+  validates :coin, presence: true, numericality: { greater_than: 0 }, if: :deposit?
 
   aasm column: :state do
     state :pending, initial: true
@@ -21,43 +21,39 @@ class Order < ApplicationRecord
     end
 
     event :cancel do
-      transitions from: [:pending, :submitted, :paid], to: :cancelled
+      transitions guard: :check_user_coins, from: [:pending, :submitted, :paid], to: :cancelled,
+                  after: :user_coins_manipulate_for_cancelled
     end
 
     event :pay do
-      transitions from: :submitted, to: :paid, guard: :check_user_coins,
-                  after: [:paid_increase_coins, :paid_decrease_coins, :paid_increase_total_deposit]
+      transitions from: :submitted, to: :paid, after: :user_coins_manipulate_for_paid
     end
   end
 
   private
 
-  def paid_increase_coins
-    user.coins += 1 if !deduct?
-  end
-
-  def paid_decrease_coins
-    user.coins -= 1 if deduct?
-  end
-
-  def paid_increase_total_deposit
+  def user_coins_manipulate_for_paid
+    if deduct?
+      user.coins += 1
+    else
+      user.coins -= 1
+    end
     user.total_deposit += 1 if deposit?
+    user.save
   end
 
-  def cancelled_increase_coins
-    user.coins -= 1 if !deduct?
+  def user_coins_manipulate_for_cancelled
+    if !deduct?
+      user.coins -= 1
+    else
+      user.coins += 1
+    end
+    user.total_deposit -= 1 if deposit?
+    user.save
   end
 
   def check_user_coins
     user.coins > 0
-  end
-
-  def cancelled_decrease_coins
-    user.coins += 1 if deduct?
-  end
-
-  def cancelled_increase_total_deposit
-    user.total_deposit -= 1 if deposit?
   end
 
   def generate_serial_number
