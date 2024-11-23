@@ -80,13 +80,14 @@ class Item < ApplicationRecord
       false
     end
   end
-
   def ticket_cancel
     tickets = Ticket.includes(:item).where(item: self, state: :pending, batch_count: self.batch_count)
 
     tickets.each do |ticket|
       if ticket.may_cancel?
         ticket.cancel!
+        ticket.destroy
+        ticket.save
       end
     end
   end

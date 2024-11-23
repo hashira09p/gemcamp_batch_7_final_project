@@ -6,6 +6,7 @@ class Ticket < ApplicationRecord
   belongs_to :item
   belongs_to :user
 
+  before_create  :check_coin_user
   before_create :set_serial_number
   after_create :deduct_coin
 
@@ -30,6 +31,13 @@ class Ticket < ApplicationRecord
   end
 
   private
+
+  def check_coin_user
+    if user.coins < coins
+      errors.add(:base, "Insufficient coins")
+      throw(:abort)
+    end
+  end
 
   def deduct_coin
     user.coins -= 1
