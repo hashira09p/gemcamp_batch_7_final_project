@@ -1,7 +1,7 @@
 class Client::LotteryController < ApplicationController
   before_action :set_item, only: :show
   before_action :set_user, only: :show
-  before_action :authenticate_client_user!, except: [:show, :index]
+  before_action :authenticate_client_user!, except: :index
 
   def index
     filter
