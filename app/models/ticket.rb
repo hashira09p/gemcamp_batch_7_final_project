@@ -10,6 +10,10 @@ class Ticket < ApplicationRecord
   before_create :set_serial_number
   after_create :deduct_coin
 
+  def destroy
+    update(deleted_at: Time.current)
+  end
+
   aasm column: :state do
     state :pending, initial: true
     state :won
