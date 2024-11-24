@@ -73,7 +73,7 @@ class Item < ApplicationRecord
   end
 
   def can_start?
-    if quantity > 1 && Date.today < offline_at && status == 'active'
+    if quantity > 0 && Date.today < offline_at && status == 'active'
       true
     else
       errors.add(:base, :item, message: "Doesn't meet requirements")
