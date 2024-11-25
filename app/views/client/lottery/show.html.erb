@@ -1,5 +1,4 @@
 <%= render "partial/header" %>
-
 <%# Display notices and alerts using Bootstrap alerts %>
 <% if notice.present? || alert.present? %>
   <div class="mt-3">
@@ -45,20 +44,25 @@
 
 <%# Form for minimum tickets input %>
 <div class="mt-4">
-  <%= form_with url: lottery_index_path, local: true, class: "row g-3" do |f| %>
-    <%= f.hidden_field :item_id, value: @item.id %>
-    <div class="col-12">
-      <%= f.label :minimum_tickets, "How many ticket you want to buy?", class: "form-label" %>
-      <%= f.number_field :minimum_tickets,
-                         class: "form-control",
-                         id: "minimum-tickets",
-                         min: 0,
-                         value: 0,
-                         required: true %>
-    </div>
-    <div class="col-12">
-      <%= f.submit "Submit", class: "btn btn-primary w-100" %>
-    </div>
+  <% if @item.tickets.where(state: 'pending').count == @item.minimum_tickets %>
+    <h1>Tickets required has been reached for this item and ready to roll.</h1>
+  <% else %>
+    <%= form_with url: lottery_index_path, local: true, class: "row g-3" do |f| %>
+      <%= f.hidden_field :item_id, value: @item.id %>
+      <div class="col-12">
+        <%= f.label :minimum_tickets, "How many ticket you want to buy?", class: "form-label" %>
+        <%= f.number_field :minimum_tickets,
+                           class: "form-control",
+                           id: "minimum-tickets",
+                           max: (@item.minimum_tickets - @item.tickets.where(state: 'pending').count).to_i,
+                           min: 0,
+                           value: 0,
+                           required: true %>
+      </div>
+      <div class="col-12">
+        <%= f.submit "Submit", class: "btn btn-primary w-100" %>
+      </div>
+    <% end %>
   <% end %>
 </div>
 
@@ -82,7 +86,7 @@
 
         numberField.addEventListener("input", () => {
             const value = parseInt(numberField.value) || 0; // Fallback to 0 if input is empty or invalid
-            const progress = Math.min(value, 100); // Limit progress to 100%
+            const progress = Math.floor(((value + <%= @item.tickets.where(state: 'pending').count %>)/<%= @item.minimum_tickets %>) * 100); // Limit progress to 100%
 
             // Update the progress bar
             progressBar.style.width = `${progress}%`;

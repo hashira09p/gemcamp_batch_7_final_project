@@ -9,7 +9,7 @@ class Client::LotteryController < ApplicationController
 
   def show
     @item
-    @item_serial_numbers = @user.tickets.where(item_id: params[:id])
+    @item_serial_numbers = @user.tickets.where(item_id: params[:id], state: 'pending' )
   end
 
   def create

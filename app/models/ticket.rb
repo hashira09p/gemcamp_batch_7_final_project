@@ -45,7 +45,7 @@ class Ticket < ApplicationRecord
   end
 
   def set_serial_number
-    ticket_count = Ticket.where(item: item).count + 1
+    ticket_count = Ticket.where(state: 'pending').count + 1
     self.serial_number = generate_serial_number(ticket_count)
   end
 

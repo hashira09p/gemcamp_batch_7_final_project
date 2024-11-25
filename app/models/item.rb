@@ -44,11 +44,14 @@ class Item < ApplicationRecord
     end
   end
 
+  def percentage
+    floor((value/minimum_tickets) * 100)
+  end
+
   private
 
   def winner
-    winner = tickets.sample
-
+    winner = tickets.where(state: 'pending').sample
     if winner.may_win?
       winner.win!
       address = winner.user.addresses.find_by(is_default: true)
@@ -65,7 +68,7 @@ class Item < ApplicationRecord
   end
 
   def batch_count_check?
-    self.tickets.count >= self.minimum_tickets
+    self.tickets.where(state: 'pending').count >= self.minimum_tickets
   end
 
   def update_quantity_and_batch_count
