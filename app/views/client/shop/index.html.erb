@@ -13,18 +13,41 @@
   <!-- Offer Images Section -->
   <div class="row g-4">
     <% @offers.each do |offer| %>
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100 shadow-sm border-0">
-            <%= image_tag offer.image.url, class: "card-img-top img-fluid", alt: offer.name %>
-            <div class="card-body text-center">
-              <h5 class="card-title fw-bold"><%= offer.name %></h5>
-              <p class="card-text text-muted">$<%= offer.amount %> only for <%= offer.coin %> </p>
-              <%= button_to 'Buy now',  shop_index_path(offer_id: offer), model: @order, method: :post, class: 'btn btn-primary btn-sm' %>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm border-0">
+          <%= image_tag offer.image.url, class: "card-img-top img-fluid", alt: offer.name %>
+          <div class="card-body text-center">
+            <h5 class="card-title fw-bold"><%= offer.name %></h5>
+            <p class="card-text text-muted">$<%= offer.amount %> only for <%= offer.coin %> </p>
+            <!-- Trigger the modal -->
+            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#confirmModal-<%= offer.id %>">
+              Buy now
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="confirmModal-<%= offer.id %>" tabindex="-1" aria-labelledby="modalLabel-<%= offer.id %>" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalLabel-<%= offer.id %>">Confirm Purchase</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              Are you sure you want to buy <strong><%= offer.name %></strong> for <strong>$<%= offer.amount %></strong>?
+            </div>
+            <div class="modal-footer">
+              <%= button_to 'Yes, Buy now', shop_index_path(offer_id: offer), method: :post, class: 'btn btn-primary' %>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
             </div>
           </div>
         </div>
+      </div>
     <% end %>
   </div>
+
 </div>
 
 <style>
