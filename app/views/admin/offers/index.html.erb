@@ -19,17 +19,17 @@
         </header>
 
         <!-- Search Filters -->
-        <%= form_with url: offers_path, method: :get, class: 'row g-3 align-items-end mb-4' do |f| %>
-          <div class="col-md-2">
-            <%= f.label :status, 'Status', class: 'form-label' %>
-            <%= f.select :status, options_for_select(@offer_status, params[:status]), { include_blank: 'All Status' }, class: 'form-select' %>
-          </div>
+        <%#= form_with url: offers_path, method: :get, class: 'row g-3 align-items-end mb-4' do |f| %>
+<!--          <div class="col-md-2">-->
+            <%#= f.label :status, 'Status', class: 'form-label' %>
+            <%#= f.select :status, options_for_select(@offer_status, params[:status]), { include_blank: 'All Status' }, class: 'form-select' %>
+<!--          </div>-->
 
-          <div class="col-md-2">
-            <%= f.submit 'Filter', class: 'btn btn-primary w-100' %>
-          </div>
+<!--          <div class="col-md-2">-->
+            <%#= f.submit 'Filter', class: 'btn btn-primary w-100' %>
+<!--          </div>-->
 
-        <% end %>
+        <%# end %>
 
         <%= link_to 'Add offer', new_offer_path, class: 'btn btn-success' %>
         <div class="d-flex flex-column vh-100">

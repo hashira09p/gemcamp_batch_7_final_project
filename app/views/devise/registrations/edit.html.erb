@@ -1,70 +1,80 @@
 <%= render "partial/header" %>
 <%= alert %>
-<h2 class="text-center my-4">Edit client User</h2>
-<%= alert %>
 
-<div class="container">
-  <%= form_for(resource, as: resource_name, url: client_user_registration_path(resource_name), html: { method: :put, class: "mx-auto p-4 border rounded shadow-sm", style: "max-width: 500px;" }) do |f| %>
+<div class="container my-5">
+  <!-- Header -->
+  <h2 class="text-center mb-4 text-primary fw-bold">Edit Client User</h2>
+
+  <%= form_for(resource, as: resource_name, url: client_user_registration_path(resource_name), html: { method: :put, class: "bg-light p-5 rounded shadow-lg mx-auto", style: "max-width: 500px;" }) do |f| %>
+    <!-- Error Messages -->
     <%= render "devise/shared/error_messages", resource: resource %>
 
-    <div class="mb-3">
-      <%= f.label :image, class: "form-label" %>
-      <%= f.file_field :image, class: "form-control", autofocus: true, autocomplete: "email" %>
+    <!-- Image Upload -->
+    <div class="mb-4">
+      <%= f.label :image, class: "form-label fw-bold text-muted" %>
+      <%= f.file_field :image, class: "form-control form-control-lg" %>
     </div>
 
-    <div class="mb-3">
-      <%= f.label :username, class: "form-label" %>
-      <%= f.text_field :username, class: "form-control", autofocus: true, autocomplete: "email" %>
+    <!-- Username -->
+    <div class="mb-4">
+      <%= f.label :username, class: "form-label fw-bold text-muted" %>
+      <%= f.text_field :username, class: "form-control form-control-lg", placeholder: "Enter your username" %>
     </div>
 
-    <div class="mb-3">
-      <%= f.label :Phone, class: "form-label" %>
-      <%= f.text_field :phone_number, class: "form-control", autofocus: true, autocomplete: "email" %>
+    <!-- Phone Number -->
+    <div class="mb-4">
+      <%= f.label :phone_number, class: "form-label fw-bold text-muted" %>
+      <%= f.text_field :phone_number, class: "form-control form-control-lg", placeholder: "Enter your phone number" %>
     </div>
 
+    <!-- Confirmation Alert (if applicable) -->
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <div class="alert alert-warning mb-3">
-        Currently waiting confirmation for: <%= resource.unconfirmed_email %>
+      <div class="alert alert-warning text-center mb-4">
+        Waiting for confirmation on: <%= resource.unconfirmed_email %>
       </div>
     <% end %>
 
-    <div class="mb-3">
-      <%= f.label :password, class: "form-label" %>
-      <i class="text-muted">(leave blank if you don't want to change it)</i>
-      <%= f.password_field :password, class: "form-control", autocomplete: "new-password" %>
+    <!-- Password -->
+    <div class="mb-4">
+      <%= f.label :password, class: "form-label fw-bold text-muted" %>
+      <span class="text-muted">(Leave blank if you don’t want to change it)</span>
+      <%= f.password_field :password, class: "form-control form-control-lg", placeholder: "Enter new password" %>
       <% if @minimum_password_length %>
-        <small class="form-text text-muted"><%= @minimum_password_length %> characters minimum</small>
+        <small class="text-muted"><%= @minimum_password_length %> characters minimum</small>
       <% end %>
     </div>
 
-    <div class="mb-3">
-      <%= f.label :password_confirmation, class: "form-label" %>
-      <%= f.password_field :password_confirmation, class: "form-control", autocomplete: "new-password" %>
+    <!-- Password Confirmation -->
+    <div class="mb-4">
+      <%= f.label :password_confirmation, class: "form-label fw-bold text-muted" %>
+      <%= f.password_field :password_confirmation, class: "form-control form-control-lg", placeholder: "Confirm your password" %>
     </div>
 
-    <div class="mb-3">
-      <%= f.label :current_password, class: "form-label" %>
-      <i class="text-muted">(we need your current password to confirm your changes)</i>
-      <%= f.password_field :current_password, class: "form-control", autocomplete: "current-password" %>
+    <!-- Current Password -->
+    <div class="mb-4">
+      <%= f.label :current_password, class: "form-label fw-bold text-muted" %>
+      <span class="text-muted">(Required to confirm changes)</span>
+      <%= f.password_field :current_password, class: "form-control form-control-lg", placeholder: "Enter current password" %>
     </div>
 
-    <div class="text-center mt-4">
-      <%= f.submit "Update", class: "btn btn-primary w-100" %>
+    <!-- Submit Button -->
+    <div class="d-grid mb-3">
+      <%= f.submit "Update", class: "btn btn-primary btn-lg fw-bold" %>
     </div>
 
-    <div class="text-center mt-4">
-      <%= link_to "Cash In", class: "btn btn-primary w-100" %>
+    <!-- Additional Links -->
+    <div class="d-grid mb-3">
+      <%= link_to "Cash In", "#", class: "btn btn-outline-primary btn-lg fw-bold" %>
     </div>
-
-    <div class="text-center mt-4">
-      <%= link_to "Address", addresses_path, class: "btn btn-primary w-100" %>
+    <div class="d-grid mb-3">
+      <%= link_to "Address", addresses_path, class: "btn btn-outline-primary btn-lg fw-bold" %>
     </div>
   <% end %>
 
-
-  <div class="text-center mt-3">
-    <%= link_to "Back", client_root_path, class: "btn btn-link" %>
+  <!-- Back Button -->
+  <div class="text-center mt-4">
+    <%= link_to "Back", client_root_path, class: "btn btn-link text-muted fw-bold" %>
   </div>
-
-  <%= render "partial/footer" %>
 </div>
+
+<%= render "partial/footer" %>

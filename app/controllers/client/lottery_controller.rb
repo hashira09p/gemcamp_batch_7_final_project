@@ -15,24 +15,30 @@ class Client::LotteryController < ApplicationController
   def create
     number_of_tickets = params[:minimum_tickets].to_i
     item = Item.find params[:item_id].to_i
-
+    user = current_client_user
     #item.update(quantity: item.quantity - number_of_tickets)
-    # 
-    if item.quantity > 0
-      number_of_tickets.times do
-        ticket = Ticket.new(item: item, user: current_client_user, batch_count: item.batch_count)
-        if ticket.save
-          flash[:notice] = 'Ticket Created'
-        else
-          flash[:alert] = ticket.errors.full_messages.join(', ')
-        end
-      end
-      redirect_to lottery_path(item)
 
+    if user.addresses.present?
+      if item.quantity >= 0
+        number_of_tickets.times do
+          ticket = Ticket.new(item: item, user: current_client_user, batch_count: item.batch_count)
+          if ticket.save
+            flash[:notice] = 'Ticket Created'
+          else
+            flash[:alert] = ticket.errors.full_messages.join(', ')
+          end
+        end
+        redirect_to lottery_path(item)
+
+      else
+        redirect_to lottery_path(item)
+        flash[:notice] = 'Invalid input'
+      end
     else
       redirect_to lottery_path(item)
-      flash[:notice] = 'Invalid input'
+      flash[:alert] = 'You dont have default address yet'
     end
+
   end
 
   private

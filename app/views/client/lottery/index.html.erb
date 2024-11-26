@@ -1,56 +1,115 @@
 <%= render "partial/header" %>
-<%= notice %>
-<div class="container mt-5">
-  <!-- Banner Image -->
-  <div class="d-flex justify-content-between align-items-center border py-5 mb-5 bg-light shadow-sm rounded">
-    <button class="btn btn-outline-primary rounded-circle shadow-sm px-3 py-2">&lt;</button>
-    <div class="flex-grow-1 text-center">
-      <h2 class="text-primary display-5">Banner Image</h2>
+
+<!-- Notice Section -->
+<% if notice.present? %>
+  <div class="container my-4">
+    <div class="alert alert-info text-center shadow-sm fw-bold py-3 rounded" role="alert">
+      <%= notice %>
     </div>
-    <button class="btn btn-outline-primary rounded-circle shadow-sm px-3 py-2">&gt;</button>
+  </div>
+<% end %>
+
+<div class="container mt-5">
+  <!-- Banner Section -->
+  <div class="d-flex justify-content-between align-items-center border py-5 mb-5 bg-light shadow-sm rounded position-relative">
+    <button class="btn btn-outline-primary rounded-circle shadow-sm px-3 py-2 position-absolute start-0 translate-middle-y">
+      <i class="bi bi-chevron-left"></i>
+    </button>
+    <div class="flex-grow-1 text-center">
+      <h2 class="text-primary display-5 fw-bold">Banner Image</h2>
+    </div>
+    <button class="btn btn-outline-primary rounded-circle shadow-sm px-3 py-2 position-absolute end-0 translate-middle-y">
+      <i class="bi bi-chevron-right"></i>
+    </button>
   </div>
 
-  <!-- Announcement Bar -->
-  <div class="my-3">
-    <input type="text" class="form-control" placeholder="Announcement:">
+  <!-- Announcement Section -->
+  <div class="my-4 position-relative overflow-hidden">
+    <div class="bg-warning py-2 shadow-sm rounded">
+      <div class="announcement-scroll d-flex align-items-center" style="animation: scrollLeft 10s linear infinite;">
+        <p class="mb-0 fw-bold text-dark px-5">
+          🚨 Announcement: More upcoming big prizes this week! Stay tuned!
+        </p>
+      </div>
+    </div>
   </div>
 
-  <!-- Buttons for Category -->
+  <!-- Category Buttons Section -->
   <%= form_with url: lottery_index_path, method: :get, local: true do %>
-    <div class="d-flex justify-content-center mb-4">
-      <div class="d-flex flex-wrap justify-content-center">
-        <!-- Add the "All" button as the default option -->
-        <%= button_tag 'All', type: 'submit', class: 'btn btn-outline-primary m-1 category-button', name: 'category', value: 'All' %>
+    <div class="d-flex justify-content-center mb-5">
+      <div class="d-flex flex-wrap justify-content-center gap-2">
+        <!-- "All" Button -->
+        <%= button_tag 'All', type: 'submit', class: 'btn btn-primary category-button px-4 py-2', name: 'category', value: 'All' %>
 
+        <!-- Dynamic Categories -->
         <% categories = Category.all %>
         <% categories.each do |category| %>
-          <%= button_tag category.name, type: 'submit', class: 'btn btn-outline-primary m-1 category-button', name: 'category', value: category.name %>
+          <%= button_tag category.name, type: 'submit', class: 'btn btn-outline-primary category-button px-4 py-2', name: 'category', value: category.name %>
         <% end %>
       </div>
     </div>
   <% end %>
 
-
-  <!-- Horizontal Product Images Grid -->
-  <div class="d-flex flex-wrap justify-content-center">
+  <!-- Products Grid -->
+  <div class="row g-4">
     <% @items.each do |item| %>
-      <% if item.quantity > 0 %>
-        <%= link_to lottery_path(item), class: "text-decoration-none" do %>
-          <div class="card m-3 shadow-sm" style="width: 22rem;">
-            <%= image_tag item.image.url, class: "card-img-top", style: "height: 250px; object-fit: cover;" %>
-            <div class="card-body text-center">
-              <h5 class="text-success">🟢 Online now</h5>
+      <% if item.quantity >= 0 %>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+          <%= link_to lottery_path(item), class: "text-decoration-none" do %>
+            <div class="card shadow-sm border-0 h-100 product-card">
+              <%= image_tag item.image.url, class: "card-img-top rounded-top", style: "height: 200px; object-fit: cover;" %>
+              <div class="card-body text-center">
+                <h6 class="item-name fw-bold text-primary"><%= item.name %></h6>
+                <h6 class="text-success fw-bold">🟢 Online now</h6>
+              </div>
             </div>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
       <% end %>
     <% end %>
-  </div>
-
-  <!-- More Button -->
-  <div class="text-center mt-4">
-    <button class="btn btn-secondary">More...</button>
   </div>
 </div>
 
 <%= render "partial/footer" %>
+
+<!-- Custom CSS -->
+<style>
+    /* Announcement Scroll */
+    .announcement-scroll {
+        display: inline-block;
+        white-space: nowrap;
+    }
+
+    @keyframes scrollLeft {
+        from {
+            transform: translateX(100%);
+        }
+        to {
+            transform: translateX(-100%);
+        }
+    }
+
+    /* Product Card Hover Effect */
+    .product-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .product-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Item Name Styling */
+    .item-name {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.2rem;
+        color: #007bff;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        transition: color 0.3s ease, text-shadow 0.3s ease;
+    }
+
+    .item-name:hover {
+        color: #0056b3;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    }
+</style>

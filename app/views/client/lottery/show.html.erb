@@ -119,9 +119,12 @@
         const ticketCountSpan = document.getElementById("ticket-count");
         const confirmSubmitButton = document.getElementById("confirm-submit");
         const ticketForm = document.getElementById("ticket-form");
+        let isFormSubmitted = false;  // Flag to track if the form is already submitted
 
         // Update progress bar dynamically
         numberField.addEventListener("input", () => {
+            if (isFormSubmitted) return; // Prevent updates if form is submitted already
+
             const value = parseInt(numberField.value) || 0;
             const progress = Math.min(Math.floor(((value + <%= @item.tickets.where(state: 'pending').count %>) / <%= @item.minimum_tickets %>) * 100), 100);
 
@@ -136,9 +139,12 @@
 
         // Handle confirmation modal submission
         confirmSubmitButton.addEventListener("click", () => {
-            ticketForm.submit();
+            if (isFormSubmitted) return; // Prevent multiple submissions
+            isFormSubmitted = true; // Set the flag to prevent further interactions
+            ticketForm.submit();  // Submit the form
         });
     });
+
 </script>
 
 <%= render "partial/footer" %>

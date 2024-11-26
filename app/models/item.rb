@@ -56,7 +56,7 @@ class Item < ApplicationRecord
       winner.win!
       address = winner.user.addresses.find_by(is_default: true)
       winner = Winner.new(item_id: winner.item_id, ticket_id: winner.id, user_id: winner.user_id, address_id: address.id,
-                          item_batch_count: winner.batch_count)
+                          picture: winner.user.image, item_batch_count: winner.batch_count)
       winner.save
 
       tickets = self.tickets.where(state: 'pending')

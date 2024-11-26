@@ -1,7 +1,7 @@
 <%= render "partial/header" %>
 
-<%= notice %>
 <div class="container my-4">
+
   <!-- Announcement Section -->
   <div class="row mb-4">
     <div class="col-12 text-center">
@@ -10,15 +10,22 @@
     </div>
   </div>
 
+  <!-- Notice Section with Design -->
+  <% if notice.present? %>
+    <div class="alert alert-info text-center shadow-sm fw-bold py-3 rounded mb-4" role="alert">
+      <%= notice %>
+    </div>
+  <% end %>
+
   <!-- Offer Images Section -->
   <div class="row g-4">
     <% @offers.each do |offer| %>
       <div class="col-md-6 col-lg-4">
-        <div class="card h-100 shadow-sm border-0">
-          <%= image_tag offer.image.url, class: "card-img-top img-fluid", alt: offer.name %>
+        <div class="card h-100 shadow-lg border-0 rounded-3">
+          <%= image_tag offer.image.url, class: "card-img-top img-fluid rounded-top", alt: offer.name %>
           <div class="card-body text-center">
-            <h5 class="card-title fw-bold"><%= offer.name %></h5>
-            <p class="card-text text-muted">$<%= offer.amount %> only for <%= offer.coin %> </p>
+            <h5 class="card-title fw-bold text-primary"><%= offer.name %></h5>
+            <p class="card-text text-muted">$<%= offer.amount %> only for <%= offer.coin %></p>
             <!-- Trigger the modal -->
             <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#confirmModal-<%= offer.id %>">
               Buy now
@@ -30,8 +37,8 @@
       <!-- Modal -->
       <div class="modal fade" id="confirmModal-<%= offer.id %>" tabindex="-1" aria-labelledby="modalLabel-<%= offer.id %>" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
+          <div class="modal-content rounded-3 shadow-lg">
+            <div class="modal-header bg-primary text-white">
               <h5 class="modal-title" id="modalLabel-<%= offer.id %>">Confirm Purchase</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -50,10 +57,22 @@
 
 </div>
 
+<!-- Custom Styles for Design Enhancements -->
 <style>
+    /* Style for Notice Section */
+    .alert {
+        background-color: #f0f8ff; /* Light blue background */
+        border-left: 5px solid #007bff; /* Blue left border */
+        font-weight: bold;
+        font-size: 1.1rem;
+        border-radius: 0.5rem;
+    }
+
+    /* Card Hover Effect */
     .card:hover {
-        transform: scale(1.02);
-        transition: transform 0.2s ease-in-out;
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .card-img-top {
@@ -61,7 +80,52 @@
         object-fit: cover;
         border-radius: 0.5rem 0.5rem 0 0;
     }
-</style>
 
+    /* Modal Styles */
+    .modal-content {
+        border-radius: 1rem;
+    }
+
+    .modal-header {
+        border-bottom: none;
+    }
+
+    .modal-footer {
+        border-top: none;
+    }
+
+    /* Button Style */
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        border-color: #5a6268;
+    }
+
+    /* Typography Styling */
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    .card-text {
+        font-size: 1rem;
+        color: #6c757d;
+    }
+</style>
 
 <%= render "partial/footer" %>

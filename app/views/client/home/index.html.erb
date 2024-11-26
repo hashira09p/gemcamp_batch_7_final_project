@@ -1,81 +1,87 @@
 <%= render "partial/header" %>
 
 <!-- Banner Section -->
-<div class="d-flex justify-content-between align-items-center border py-5 mb-5 bg-light shadow-sm rounded">
-  <button class="btn btn-outline-primary rounded-circle shadow-sm px-3 py-2">&lt;</button>
-  <div class="flex-grow-1 text-center">
-    <h2 class="text-primary display-5">Banner Image</h2>
-  </div>
-  <button class="btn btn-outline-primary rounded-circle shadow-sm px-3 py-2">&gt;</button>
-</div>
+<section class="banner-section text-center py-5 mb-5 bg-light shadow-sm rounded border position-relative">
+  <button class="btn btn-outline-primary rounded-circle shadow-sm position-absolute start-0 top-50 translate-middle-y">
+    <i class="bi bi-chevron-left"></i>
+  </button>
+  <h2 class="text-primary display-4 fw-bold">✨ Banner Image</h2>
+  <button class="btn btn-outline-primary rounded-circle shadow-sm position-absolute end-0 top-50 translate-middle-y">
+    <i class="bi bi-chevron-right"></i>
+  </button>
+</section>
 
 <!-- Announcement Section -->
-<div class="border-bottom py-4 mb-5">
-  <h4 class="text-warning fw-bold">Announcement:</h4>
-</div>
+<section class="announcement-section py-4 mb-5 border-bottom">
+  <div class="announcement-ticker bg-warning py-2 rounded shadow-sm">
+    <div class="announcement-scroll text-dark fw-bold" style="animation: scrollLeft 8s linear infinite;">
+      🚨 Announcement: Stay tuned for upcoming events! 🚀 Special offers are on the way! ✨
+    </div>
+  </div>
+</section>
 
 <!-- Winners Feedback Section -->
-<div class="mt-5">
-  <h5 class="text-info fw-bold">Winners Feedback</h5>
-  <div class="row g-4">
-    <div class="col-12 col-md-3">
-      <div class="border p-4 rounded shadow-sm text-center bg-light">
-        <img src="image1.jpg" alt="Winner 1" class="img-fluid rounded-circle mb-3 shadow-sm">
-        <p class="fw-semibold">Winner 1</p>
+<section class="winners-section mt-5">
+  <h5 class="text-info fw-bold text-center mb-4">🏆 Winners Feedback</h5>
+  <div class="row g-4 justify-content-center">
+    <% 3.times do |i| %>
+      <div class="col-12 col-sm-6 col-md-3">
+        <div class="card shadow-sm border-0 text-center">
+          <div class="card-body">
+            <img src="image<%= i+1 %>.jpg" alt="Winner <%= i+1 %>" class="img-fluid rounded-circle mb-3 shadow-sm" style="width: 100px; height: 100px; object-fit: cover;">
+            <p class="fw-semibold">Winner <%= i+1 %></p>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="col-12 col-md-3">
-      <div class="border p-4 rounded shadow-sm text-center bg-light">
-        <img src="image2.jpg" alt="Winner 2" class="img-fluid rounded-circle mb-3 shadow-sm">
-        <p class="fw-semibold">Winner 2</p>
-      </div>
-    </div>
-    <div class="col-12 col-md-3">
-      <div class="border p-4 rounded shadow-sm text-center bg-light">
-        <img src="image3.jpg" alt="Winner 3" class="img-fluid rounded-circle mb-3 shadow-sm">
-        <p class="fw-semibold">Winner 3</p>
-      </div>
-    </div>
-    <div class="col-12 col-md-3">
-      <div class="border p-4 rounded shadow-sm text-center bg-light">
-        <p class="text-muted">More ...</p>
-      </div>
-    </div>
+    <% end %>
   </div>
-</div>
+</section>
 
 <!-- Coming Soon Section -->
-<div class="mt-5">
-  <h5 class="text-info fw-bold">Coming Soon</h5>
-  <div class="row g-4">
-    <div class="col-12 col-md-3">
-      <div class="border p-4 rounded shadow-sm text-center bg-light">
-        <img src="image1.jpg" alt="Coming Soon 1" class="img-fluid rounded-circle mb-3 shadow-sm">
-        <p class="fw-semibold">Coming Soon 1</p>
+<section class="coming-soon-section mt-5">
+  <h5 class="text-info fw-bold text-center mb-4">🎉 Coming Soon</h5>
+  <div class="row g-4 justify-content-center">
+    <% 3.times do |i| %>
+      <div class="col-12 col-sm-6 col-md-3">
+        <div class="card shadow-sm border-0 text-center">
+          <div class="card-body">
+            <img src="image<%= i+1 %>.jpg" alt="Coming Soon <%= i+1 %>" class="img-fluid rounded-circle mb-3 shadow-sm" style="width: 100px; height: 100px; object-fit: cover;">
+            <p class="fw-semibold">Coming Soon <%= i+1 %></p>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="col-12 col-md-3">
-      <div class="border p-4 rounded shadow-sm text-center bg-light">
-        <img src="image2.jpg" alt="Coming Soon 2" class="img-fluid rounded-circle mb-3 shadow-sm">
-        <p class="fw-semibold">Coming Soon 2</p>
-      </div>
-    </div>
-    <div class="col-12 col-md-3">
-      <div class="border p-4 rounded shadow-sm text-center bg-light">
-        <img src="image3.jpg" alt="Coming Soon 3" class="img-fluid rounded-circle mb-3 shadow-sm">
-        <p class="fw-semibold">Coming Soon 3</p>
-      </div>
-    </div>
-    <div class="col-12 col-md-3">
-      <div class="border p-4 rounded shadow-sm text-center bg-light">
-        <p class="text-muted">More ...</p>
-      </div>
-    </div>
+    <% end %>
   </div>
-</div>
-
-
-
+</section>
 
 <%= render "partial/footer" %>
 
+<!-- Custom CSS -->
+<style>
+    /* Announcement Ticker */
+    .announcement-ticker {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .announcement-scroll {
+        display: inline-block;
+        white-space: nowrap;
+        animation: scrollLeft 10s linear infinite;
+    }
+
+    @keyframes scrollLeft {
+        from {
+            transform: translateX(100%);
+        }
+        to {
+            transform: translateX(-100%);
+        }
+    }
+
+    /* Card Hover Effect */
+    .card:hover {
+        transform: scale(1.05);
+        transition: all 0.3s ease-in-out;
+    }
+</style>

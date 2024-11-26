@@ -5,6 +5,8 @@ class Winner < ApplicationRecord
   belongs_to :address
   belongs_to :user
 
+  before_create :set_default_address_id
+
 
   aasm column: :state do
     state :won, initial: true
@@ -52,5 +54,11 @@ class Winner < ApplicationRecord
     event :remove_publish do
       transitions from: :remove_published, to: :published
     end
+  end
+
+  private
+
+  def set_default_address_id
+    self.address_id = nil # Set it to nil or any default value
   end
 end
