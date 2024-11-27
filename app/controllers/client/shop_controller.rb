@@ -11,8 +11,7 @@ class Client::ShopController < ApplicationController
 
   def create
     @order = Order.new(user: current_client_user, offer: @offer, amount: @offer.amount, coin: @offer.coin)
-    current_client_user.coins += @offer.coin
-    if @order.save && current_client_user.save
+    if @order.save
       flash[:notice] = 'Order Success it will direct to your account'
       redirect_to shop_index_path
     else

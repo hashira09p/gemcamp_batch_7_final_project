@@ -26,8 +26,12 @@ class Item < ApplicationRecord
     state :cancelled
 
     event :start do
-      transitions guard: :can_start?, from: [:pending, :paused, :cancelled, :ended], to: :starting,
-                  after: :update_quantity_and_batch_count
+      transitions guard: :can_start?, from: [:pending, :paused], to: :starting
+
+      transitions guard: :can_start?, from: :ended, to: :starting,
+                  after: :from_ended_to_start
+
+      transitions guard: :can_start?, from: :cancelled, to: :starting, after: :from_cancelled_to_start
     end
 
     event :pause do
@@ -36,11 +40,11 @@ class Item < ApplicationRecord
 
     event :end do
       transitions guard: :batch_count_check?, from: :starting, to: :ended,
-                  after: :winner
+                  after: :draw_winner
     end
 
     event :cancel do
-      transitions from: [:starting, :paused, :pending], to: :cancelled, after: :ticket_cancel
+      transitions from: [:starting, :paused, :pending], to: :cancelled, after: :cancel_ticket
     end
   end
 
@@ -50,7 +54,7 @@ class Item < ApplicationRecord
 
   private
 
-  def winner
+  def draw_winner
     winner = tickets.where(state: 'pending').sample
     if winner.may_win?
       winner.win!
@@ -71,8 +75,12 @@ class Item < ApplicationRecord
     self.tickets.where(state: 'pending').count >= self.minimum_tickets
   end
 
-  def update_quantity_and_batch_count
-    self.update(quantity: quantity - 1, batch_count: batch_count + 1)
+  def from_ended_to_start
+    update(quantity: quantity - 1, batch_count: batch_count + 1)
+  end
+
+  def from_cancelled_to_start
+    update(batch_count: batch_count + 1)
   end
 
   def can_start?
@@ -83,13 +91,12 @@ class Item < ApplicationRecord
       false
     end
   end
-  def ticket_cancel
+  def cancel_ticket
     tickets = Ticket.includes(:item).where(item: self, state: :pending, batch_count: self.batch_count)
 
     tickets.each do |ticket|
       if ticket.may_cancel?
         ticket.cancel!
-        ticket.destroy
         ticket.save
       end
     end
