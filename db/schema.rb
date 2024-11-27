@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_11_21_131422) do
+ActiveRecord::Schema[7.0].define(version: 2024_11_27_150019) do
   create_table "address_barangays", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "city_id"
     t.string "code"
@@ -91,7 +91,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_21_131422) do
     t.datetime "online_at"
     t.datetime "offline_at"
     t.datetime "start_at"
-    t.integer "status", default: 0
+    t.integer "status", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"

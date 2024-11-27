@@ -1,7 +1,7 @@
 class Item < ApplicationRecord
   include AASM
   mount_uploader :image, ImageUploader
-  enum status: { active: 0, inactive: 1 }
+  enum status: { inactive: 0, active: 1 }
   default_scope { where(deleted_at: nil) }
 
   validates :quantity, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
