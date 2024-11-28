@@ -50,6 +50,7 @@
               <th>Amount</th>
               <th>Remarks</th>
               <th>Genre</th>
+              <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -64,6 +65,16 @@
                 <td class="text-center"><%= order.amount %></td>
                 <td class="text-center"><%= order.remarks %></td>
                 <td class="text-center"><%= order.genre %></td>
+                <td class="text-center">
+                  <% if order.may_pay? %>
+                    <%= button_to 'Pay', order_pay_path(order), method: :patch, class: 'btn btn-success' %>
+                  <% end %>
+
+                  <% if order.may_cancel? %>
+                    <%= button_to 'Cancel', order_cancel_path(order), method: :patch, class: 'btn btn-danger' %>
+                  <% end %>
+
+                </td>
               </tr>
             <% end %>
             </tbody>

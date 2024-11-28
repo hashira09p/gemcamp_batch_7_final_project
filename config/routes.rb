@@ -28,26 +28,31 @@ Rails.application.routes.draw do
       resources :category
       resources :tickets
       resources :offers
-      resources :orders
+      resources :orders do
+        patch :submit
+        patch :pay
+        patch :cancel
+      end
     end
     root 'admin/home#index', as: :admin_root
     get 'admin/home', to: 'admin/home#index'
   end
 
   constraints(ClientDomainConstraint.new) do
-      scope module: 'client'  do
-        devise_for :users, controllers: {
-          sessions: 'users/sessions',
-          registrations: 'client/registrations'
-        }, as: :client
+    scope module: 'client' do
+      devise_for :users, controllers: {
+        sessions: 'users/sessions',
+        registrations: 'client/registrations'
+      }, as: :client
 
-        resources :addresses
-        resources :home
-        resources :lottery
-        resources :shop
-      end
+      resources :addresses
+      resources :home
+      resources :lottery
+      resources :shop
+    end
     root 'client/home#index', as: :client_root
     get 'client/profile', to: 'client/home#profile'
+    get 'client/lottery_history', to: 'client/home#lottery_history'
     get 'users/edit', to: 'client/registrations#edit', as: :edit_client_user_registration_path
 
     namespace :api do

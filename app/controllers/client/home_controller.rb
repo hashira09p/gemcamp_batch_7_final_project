@@ -18,7 +18,13 @@ class Client::HomeController < ApplicationController
     )
   end
 
-  def profile; end
+  def profile
+    @client_orders = current_client_user.orders
+  end
+
+  def lottery_history
+    @client_tickets = current_client_user.tickets
+  end
 
 
   private
