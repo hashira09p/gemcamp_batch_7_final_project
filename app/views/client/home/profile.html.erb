@@ -40,8 +40,32 @@
           <%= button_to 'Sign Out', destroy_client_user_session_path, method: :delete, class: 'btn btn-outline-danger d-block mb-2' %>
         </div>
       </div>
+
+      <!-- History Table -->
+      <h6 class="text-center mb-3">Order History</h6>
+      <div style=" max-height: 400px; overflow-y: auto; border: 1px solid #ddd; border-radius: 5px; padding: 15px;">
+        <% @client_orders.each do |client_order| %>
+          <div class="border rounded p-3 mb-3">
+            <div class="border-bottom pb-3 mb-3">
+              <p class="mb-1"><strong>Serial Number:</strong> <%= client_order.serial_number %></p>
+              <p class="mb-1"><strong>Amount:</strong> <%= client_order.amount %></p>
+              <p class="mb-1"><strong>Coins:</strong> <%= client_order.coin %></p>
+              <p class="mb-1"><strong>Date:</strong> <%= client_order.created_at %></p>
+              <p class="mb-1"><strong>State:</strong> <span class="text-success"><%= client_order.state %></span></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+
+      <!-- Pagination Buttons -->
+      <div class="d-flex justify-content-between mt-3">
+        <button class="btn btn-outline-secondary btn-sm">Previous</button>
+        <%= link_to 'Next', client_lottery_history_path, class: "btn btn-outline-secondary btn-sm" %>
+      </div>
     </div>
   </div>
 </div>
+
 
 <%= render "partial/footer" %>
