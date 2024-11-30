@@ -1,32 +1,86 @@
-<!-- Sidebar -->
-<nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar border-end p-0 h-100 overflow-auto">
-  <div class="position-sticky pt-3 text-white">
+<nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar text-white p-0 h-100 overflow-auto">
+  <div class="position-sticky pt-3">
+    <!-- Admin Profile Section -->
     <div class="text-center mb-4">
-      <h5 class="mt-2">Admin</h5>
+      <div class="bg-light rounded-circle d-inline-block" style="width: 80px; height: 80px; overflow: hidden;">
+        <img src="/assets/admin_avatar.png" alt="Admin Avatar" class="img-fluid w-100 h-100" />
+      </div>
+      <h5 class="mt-3 text-white">Admin</h5>
+      <p class="text-muted small">Administrator</p>
     </div>
-    <h5 class="px-3 py-2 border-bottom">Dashboard</h5>
+
+    <!-- Sidebar Navigation -->
+    <h6 class="px-3 text-uppercase text-muted small fw-bold border-bottom pb-2">Dashboard</h6>
     <ul class="nav flex-column">
       <li class="nav-item">
-        <%= link_to 'Homepage', home_index_path, class: 'nav-link active fw-bold bi bi-house-door'  %>
+        <%= link_to home_index_path, class: 'nav-link text-white py-2 px-3 d-flex align-items-center' do %>
+          <i class="bi bi-house-door me-2"></i>
+          Homepage
+        <% end %>
       </li>
       <li class="nav-item">
-        <%= link_to 'Winner Management', winners_path, class: 'nav-link bi bi-people'  %>
+        <%= link_to winners_path, class: 'nav-link text-white py-2 px-3 d-flex align-items-center' do %>
+          <i class="bi bi-people me-2"></i>
+          Winner Management
+        <% end %>
       </li>
       <li class="nav-item">
-        <%= link_to 'Item Management', item_index_path, class: 'nav-link bi bi-folder'  %>
+        <%= link_to item_index_path, class: 'nav-link text-white py-2 px-3 d-flex align-items-center' do %>
+          <i class="bi bi-folder me-2"></i>
+          Item Management
+        <% end %>
       </li>
       <li class="nav-item">
-        <%= link_to 'Category Management', category_index_path, class: 'nav-link bi bi-folder'  %>
+        <%= link_to category_index_path, class: 'nav-link text-white py-2 px-3 d-flex align-items-center' do %>
+          <i class="bi bi-folder me-2"></i>
+          Category Management
+        <% end %>
       </li>
       <li class="nav-item">
-        <%= link_to 'Ticket Management', tickets_path, class: 'nav-link bi bi-folder'  %>
+        <%= link_to tickets_path, class: 'nav-link text-white py-2 px-3 d-flex align-items-center' do %>
+          <i class="bi bi-ticket me-2"></i>
+          Ticket Management
+        <% end %>
       </li>
       <li class="nav-item">
-        <%= link_to 'Offer Management', offers_path, class: 'nav-link bi bi-folder'  %>
+        <%= link_to offers_path, class: 'nav-link text-white py-2 px-3 d-flex align-items-center' do %>
+          <i class="bi bi-box me-2"></i>
+          Offer Management
+        <% end %>
       </li>
       <li class="nav-item">
-        <%= link_to 'Order Management', orders_path, class: 'nav-link bi bi-folder'  %>
+        <%= link_to orders_path, class: 'nav-link text-white py-2 px-3 d-flex align-items-center' do %>
+          <i class="bi bi-receipt me-2"></i>
+          Order Management
+        <% end %>
       </li>
     </ul>
   </div>
 </nav>
+
+<style>
+    .sidebar {
+        background-color: #2c3e50; /* Darker shade for modern look */
+    }
+
+    .sidebar .nav-link {
+        color: rgba(255, 255, 255, 0.85); /* Slightly muted white text */
+        transition: all 0.3s ease; /* Smooth hover animation */
+    }
+
+    .sidebar .nav-link:hover,
+    .sidebar .nav-link.active {
+        color: #fff; /* Bright white for active/hover state */
+        background-color: #34495e; /* Slightly lighter background for hover */
+        border-left: 4px solid #1abc9c; /* Accent border for active link */
+    }
+
+    .sidebar .text-muted {
+        font-size: 0.85rem;
+    }
+
+    .sidebar .nav-link i {
+        font-size: 1.2rem;
+    }
+
+</style>
