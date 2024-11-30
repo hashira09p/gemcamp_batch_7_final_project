@@ -41,6 +41,8 @@
         </div>
       </div>
 
+      <%= render 'partial/buttons_for_client_profile/profile_client_buttons' %>
+
       <!-- History Table -->
       <h6 class="text-center mb-3"> Lottery History</h6>
       <div style=" max-height: 400px; overflow-y: auto; border: 1px solid #ddd; border-radius: 5px; padding: 15px;">
@@ -54,13 +56,6 @@
             </div>
           </div>
         <% end %>
-      </div>
-
-
-      <!-- Pagination Buttons -->
-      <div class="d-flex justify-content-between mt-3">
-        <button class="btn btn-outline-secondary btn-sm">Previous</button>
-        <button class="btn btn-outline-secondary btn-sm">Next</button>
       </div>
     </div>
   </div>
