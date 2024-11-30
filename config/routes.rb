@@ -53,6 +53,8 @@ Rails.application.routes.draw do
     root 'client/home#index', as: :client_root
     get 'client/profile', to: 'client/home#profile'
     get 'client/lottery_history', to: 'client/home#lottery_history'
+    get 'client/winning_history', to: 'client/home#winning_history'
+    get 'client/invitation_history', to: 'client/home#invitation_history'
     get 'users/edit', to: 'client/registrations#edit', as: :edit_client_user_registration_path
 
     namespace :api do

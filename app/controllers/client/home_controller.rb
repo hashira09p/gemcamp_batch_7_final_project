@@ -26,6 +26,14 @@ class Client::HomeController < ApplicationController
     @client_tickets = current_client_user.tickets
   end
 
+  def winning_history
+    @winning_tickets = current_client_user.tickets.where(state: 'won')
+  end
+
+  def invitation_history
+    @children = current_client_user.children
+  end
+
 
   private
 
