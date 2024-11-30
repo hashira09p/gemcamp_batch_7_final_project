@@ -77,18 +77,21 @@
   <% end %>
 </div>
 
-<%# Serial numbers display with a stylish list group %>
 <div class="mt-4">
   <h4 class="text-center fw-bold">Your Item Ticket Serial Numbers</h4>
-  <ul class="list-group shadow-sm">
-    <% @item_serial_numbers.each do |item_serial_number| %>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        <span><i class="bi bi-hash"></i> <%= item_serial_number.serial_number %></span>
-        <i class="bi bi-check-circle text-success"></i>
-      </li>
-    <% end %>
-  </ul>
+  <div class="scroll-container">
+    <ul class="list-group shadow-sm">
+      <% @item_serial_numbers.each do |item_serial_number| %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <span><i class="bi bi-hash"></i> <%= item_serial_number.serial_number %></span>
+          <i class="bi bi-check-circle text-success"></i>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 </div>
+
+
 
 <%# Confirmation Modal with better visuals %>
 <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
@@ -110,6 +113,15 @@
     </div>
   </div>
 </div>
+
+<style>
+    .scroll-container {
+        max-height: 300px; /* Set the height of the container */
+        overflow-y: auto;  /* Enable vertical scrolling */
+        border: 1px solid #ddd; /* Optional: Add a border for better visuals */
+        padding: 5px;      /* Optional: Add padding inside the container */
+    }
+</style>
 
 <%# JavaScript for dynamic updates %>
 <script>
