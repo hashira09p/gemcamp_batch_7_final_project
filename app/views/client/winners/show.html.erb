@@ -1,0 +1,26 @@
+<%= render "partial/header" %>
+<%= notice %>
+<%= alert %>
+<div class="container my-5">
+  <h1 class="text-center mb-4">Claim Your Prize</h1>
+  <%= form_with model:@winnner_ticket, url: winner_path(@winner_ticket),method: :patch, local: true, class: "needs-validation" do |f| %>
+    <div class="mb-3">
+      <p class="fw-bold">Please select an address:</p>
+      <% @addresses.each do |address| %>
+        <div class="form-check">
+          <%= f.radio_button :address_id, address.id, class: "form-check-input", id: "address_#{address.id}" %>
+          <%= label_tag "address_#{address.id}",
+                        "#{address.street_address}, #{address.address_region.name},
+              #{address.address_province.name}, #{address.address_city.name},
+              #{address.address_barangay.name}", class: "form-check-label" %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="text-center">
+      <%= f.submit "Submit", class: "btn btn-success btn-lg" %>
+    </div>
+  <% end %>
+</div>
+
+<%= render "partial/footer" %>

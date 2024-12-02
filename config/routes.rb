@@ -49,6 +49,7 @@ Rails.application.routes.draw do
       resources :home
       resources :lottery
       resources :shop
+      resources :winners
     end
     root 'client/home#index', as: :client_root
     get 'client/profile', to: 'client/home#profile'

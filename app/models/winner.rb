@@ -19,39 +19,39 @@ class Winner < ApplicationRecord
     state :published
     state :remove_published
 
-    event :won do
+    event :claim do
       transitions from: :won, to: :claimed
     end
 
-    event :claim do
+    event :submit do
       transitions from: :claimed, to: :submitted
     end
 
-    event :submit do
+    event :pay do
       transitions from: :submitted, to: :paid
     end
 
-    event :pay do
+    event :ship do
       transitions from: :paid, to: :shipped
     end
 
-    event :ship do
+    event :deliver do
       transitions from: :shipped, to: :delivered
     end
 
-    event :deliver do
+    event :share do
       transitions from: :delivered, to: :shared
     end
 
-    event :share do
+    event :publish do
       transitions from: :shared, to: :published
     end
 
-    event :publish do
+    event :remove_publish do
       transitions from: :published, to: :remove_published
     end
 
-    event :remove_publish do
+    event :publish do
       transitions from: :remove_published, to: :published
     end
   end

@@ -1,6 +1,5 @@
 class Client::HomeController < ApplicationController
   before_action :authenticate_client_user!, except: [:index]
-
 =begin
   def new
     render 'devise/sessions/new'
@@ -27,17 +26,22 @@ class Client::HomeController < ApplicationController
   end
 
   def winning_history
-    @winning_tickets = current_client_user.tickets.where(state: 'won')
+    @winning_tickets = current_client_user.winners
   end
 
   def invitation_history
     @children = current_client_user.children
   end
-
-
+  
   private
 
   def invitation_link
     "client.com:3000/users/sign_up?promoter=#{current_client_user}"
+  end
+
+  private
+
+  def set_winning_ticket
+    @winning_ticket = current_client_user.tickets.find(params[:ticket_id])
   end
 end
