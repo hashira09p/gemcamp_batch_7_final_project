@@ -1,4 +1,5 @@
 class Admin::WinnersController < ApplicationController
+  before_action :set_winner, only: [:submit, :pay, :ship, :deliver, :publish, :remove_publish]
   def index
     @winner_states = Winner.pluck(:state).uniq
     @winners = Winner.includes(:user) # Eager load for performance
@@ -33,8 +34,9 @@ class Admin::WinnersController < ApplicationController
     end
   end
 
-  def pay
+  def pay #It will redirect to the form which the admin can input the price and the date.
     if @winner.may_pay?
+      @winner.update(price: rand(1...99999), paid_at: Time.now.strftime("%Y-%d-%m %H:%M:%S %Z"), admin_id: current_admin_user.id)
       @winner.pay!
       flash[:notice] = 'Success'
       redirect_to winners_path
@@ -86,5 +88,11 @@ class Admin::WinnersController < ApplicationController
       flash[:alert] = @winner.errors.full_messages.to_sentence
       redirect_to winners_path
     end
+  end
+
+  private
+
+  def set_winner
+    @winner = Winner.find(params[:winner_id])
   end
 end

@@ -49,12 +49,14 @@
         <% @winning_tickets.each do |winning_ticket| %>
           <div class="border rounded p-3 mb-3">
             <div class="border-bottom pb-3 mb-3">
-              <p class="mb-1"><strong>Serial Number:</strong> <%= winning_ticket.ticket.serial_number %></p>
-              <p class="mb-1"><strong>Item:</strong> <%= winning_ticket.item.name %></p>
-              <p class="mb-1"><strong>Date:</strong> <%= winning_ticket.created_at %></p>
+              <p class="mb-1"><strong>Serial Number:</strong> <%= winning_ticket.ticket&.serial_number %></p>
+              <p class="mb-1"><strong>Item:</strong> <%= winning_ticket.item&.name %></p>
+              <p class="mb-1"><strong>Date:</strong> <%= winning_ticket&.created_at %></p>
               <p class="mb-1"><strong>State:</strong> <span class="text-success"><%= winning_ticket.state %></span></p>
               <% if winning_ticket.won? %>
                 <%= link_to "Claim Prize", winner_path(winning_ticket), method: :get, class: "btn btn-primary" %>
+              <% elsif winning_ticket.delivered? %>
+                <%= link_to "Share", winner_share_path(winning_ticket), method: :get, class: "btn btn-success" %>
               <% end %>
             </div>
           </div>

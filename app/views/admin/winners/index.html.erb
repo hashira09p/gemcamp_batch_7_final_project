@@ -76,8 +76,8 @@
               <td><%= winner.paid_at&.strftime('%Y-%m-%d %H:%M:%S') %></td>
               <td><%= winner.admin_id %></td>
               <td>
-                <% if winner.picture&.present? %>
-                  <%= image_tag(winner.picture, class: "img-thumbnail", style: "max-width: 50px;") %>
+                <% if winner.image.present? %>
+                  <%= image_tag(winner.image.url, class: "img-thumbnail", style: "max-width: 50px;") %>
                 <% else %>
                   <em>No Image</em>
                 <% end %>

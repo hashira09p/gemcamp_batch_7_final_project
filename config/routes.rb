@@ -56,6 +56,8 @@ Rails.application.routes.draw do
     get 'client/lottery_history', to: 'client/home#lottery_history'
     get 'client/winning_history', to: 'client/home#winning_history'
     get 'client/invitation_history', to: 'client/home#invitation_history'
+    get 'winners/:id/share', to: 'client/winners#share'
+    patch 'winners/:id/share', to: 'client/winners#update_winner_to_shared'
     get 'users/edit', to: 'client/registrations#edit', as: :edit_client_user_registration_path
 
     namespace :api do

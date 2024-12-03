@@ -1,5 +1,6 @@
 class Winner < ApplicationRecord
   include AASM
+  mount_uploader :image, ImageUploader
   belongs_to :item
   belongs_to :ticket
   belongs_to :address
@@ -44,16 +45,13 @@ class Winner < ApplicationRecord
     end
 
     event :publish do
-      transitions from: :shared, to: :published
+      transitions from: [:shared, :remove_published], to: :published
     end
 
     event :remove_publish do
       transitions from: :published, to: :remove_published
     end
 
-    event :publish do
-      transitions from: :remove_published, to: :published
-    end
   end
 
   private
