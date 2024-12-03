@@ -1,10 +1,8 @@
 class Client::HomeController < ApplicationController
   before_action :authenticate_client_user!, except: [:index]
-=begin
-  def new
-    render 'devise/sessions/new'
+  def index
+    @winners = Winner.includes(:item, :user).order(updated_at: :desc)
   end
-=end
 
   def new
     @user = User.new
