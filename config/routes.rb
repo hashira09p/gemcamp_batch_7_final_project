@@ -14,6 +14,12 @@ Rails.application.routes.draw do
         patch :cancel
       end
 
+      namespace :users do
+        resources :clients do
+          resources :orders
+        end
+      end
+
       resources :winners do
         patch :won
         patch :claim
