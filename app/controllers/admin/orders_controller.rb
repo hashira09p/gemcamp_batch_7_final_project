@@ -1,5 +1,5 @@
 class Admin::OrdersController < ApplicationController
-  before_action :set_order, only: [:pay, :cancel]
+  before_action :set_order, only: [:pay, :cancel, :submit]
   def index
     @offers = Offer.pluck(:name, :id)
     @orders = Order.includes(:user, :offer).page(params[:page]).per(5)
@@ -40,15 +40,24 @@ class Admin::OrdersController < ApplicationController
     end
   end
 
+  def submit
+    if @order.may_submit?
+      @order.submit!
+      flash[:notice] = 'Submitted Successfully'
+    else
+      flash[:alert] = 'Submit Failed'
+    end
+    redirect_to orders_path
+  end
+
   def cancel
     if @order.may_cancel?
       @order.cancel!
-      flash[:notice] = 'Paid successfully'
-      redirect_to orders_path
+      flash[:notice] = 'Cancelled Successfully'
     else
-      flash[:alert] = 'Pay unsuccessful'
-      redirect_to orders_path
+      flash[:alert] = 'Cancel Failed'
     end
+    redirect_to orders_path
   end
 
   private

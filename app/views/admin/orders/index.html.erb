@@ -112,6 +112,11 @@
                   <% if order.may_pay? %>
                     <%= button_to 'Pay', order_pay_path(order), method: :patch, class: 'btn btn-sm btn-success' %>
                   <% end %>
+
+                  <% if order.may_submit? %>
+                    <%= button_to 'submit', order_submit_path(order), method: :patch, class: 'btn btn-sm btn-warning' %>
+                  <% end %>
+
                   <% if order.may_cancel? %>
                     <%= button_to 'Cancel', order_cancel_path(order), method: :patch, class: 'btn btn-sm btn-danger' %>
                   <% end %>

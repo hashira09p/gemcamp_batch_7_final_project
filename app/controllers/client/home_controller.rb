@@ -1,7 +1,8 @@
 class Client::HomeController < ApplicationController
   before_action :authenticate_client_user!, except: [:index]
   def index
-    @winners = Winner.includes(:item, :user).order(updated_at: :desc)
+    @winners = Winner.includes(:item, :user).where(state: 'published').order(updated_at: :desc)
+    @items = Item.all.order(created_at: :desc)
   end
 
   def new
@@ -16,19 +17,19 @@ class Client::HomeController < ApplicationController
   end
 
   def profile
-    @client_orders = current_client_user.orders
+    @client_orders = current_client_user.orders.order(created_at: :desc)
   end
 
   def lottery_history
-    @client_tickets = current_client_user.tickets
+    @client_tickets = current_client_user.tickets.order(created_at: :desc)
   end
 
   def winning_history
-    @winning_tickets = current_client_user.winners
+    @winning_tickets = current_client_user.winners.order(created_at: :desc)
   end
 
   def invitation_history
-    @children = current_client_user.children
+    @children = current_client_user.children.order(created_at: :desc)
   end
   
   private

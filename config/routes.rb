@@ -58,6 +58,7 @@ Rails.application.routes.draw do
     get 'client/invitation_history', to: 'client/home#invitation_history'
     get 'winners/:id/share', to: 'client/winners#share'
     patch 'winners/:id/share', to: 'client/winners#update_winner_to_shared'
+    patch 'profile/:order_id/cancel', to: 'client/orders#cancel', as: :cancel_order
     get 'users/edit', to: 'client/registrations#edit', as: :edit_client_user_registration_path
 
     namespace :api do

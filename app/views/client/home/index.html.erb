@@ -40,7 +40,7 @@
                   <div class="card-body">
                     <%= image_tag(
                           winner.image.url,
-                          class: "img-fluid rounded-circle mb-3 shadow-sm",
+                          class: "img-fluid shadow-sm",
                           style: "width: 100px; height: 100px; object-fit: cover;",
                           alt: winner.user.username
                         ) %>
@@ -70,22 +70,26 @@
   <h5 class="text-info fw-bold text-center mb-4">🎉 Coming Soon</h5>
   <div id="comingSoonCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
-      <% (1..9).each_slice(3).with_index do |group, index| %>
+      <% @items.each_slice(3).with_index do |items_group, index| %>
         <div class="carousel-item <%= 'active' if index == 0 %>">
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 justify-content-center">
-            <% group.each do |i| %>
-              <div class="col">
-                <div class="card shadow-sm border-0 text-center h-100">
-                  <div class="card-body">
-                    <img
-                      src="image<%= i %>.jpg"
-                      alt="Coming Soon <%= i %>"
-                      class="img-fluid rounded-circle mb-3 shadow-sm"
-                      style="width: 100px; height: 100px; object-fit: cover;">
-                    <p class="text-muted fw-bold">Coming Soon <%= i %></p>
+            <% items_group.each do |item| %>
+              <% if item.quantity >= 0 %>
+                <div class="col">
+                  <div class="card shadow-sm border-0 text-center h-100">
+                    <div class="card-body">
+                      <%= image_tag(
+                            item.image.url,
+                            class: "img-fluid shadow-sm",
+                            style: "width: 100px; height: 100px; object-fit: cover;",
+                            alt: item.name
+                          ) %>
+                      <h5 class="fw-bold"><%= item.name %></h5>
+                      <p class="text-muted">Start At: <%= item.start_at %></p>
+                    </div>
                   </div>
                 </div>
-              </div>
+              <% end %>
             <% end %>
           </div>
         </div>
@@ -184,6 +188,18 @@
         background-color: #333; /* Darker shade when hovered */
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
     }
+
+    /* Remove rounded corners for images */
+    .img-fluid {
+        border-radius: 0; /* Removes the circular shape */
+        object-fit: cover;
+    }
+
+    /* Optionally, you can add a subtle border */
+    .img-fluid {
+        border: 2px solid #ddd; /* Adds a subtle border */
+    }
+
 
     /* Responsive Helpers */
     @media (max-width: 768px) {

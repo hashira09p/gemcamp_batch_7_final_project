@@ -11,9 +11,8 @@ class Client::ShopController < ApplicationController
 
   def create
     @order = Order.new(user: current_client_user, offer: @offer, amount: @offer.amount, coin: @offer.coin)
-    if @order.save || @order.may_submit?
-      @order.submit!
-      flash[:notice] = 'Order Success it will direct to your account'
+    if @order.save
+      flash[:notice] = 'Order Success! Please wait 2 minutes before you receive your coins.'
       redirect_to shop_index_path
     else
       flash[:alert] = @order.errors.full_messages.join(', ')

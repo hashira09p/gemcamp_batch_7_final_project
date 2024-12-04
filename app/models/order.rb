@@ -21,8 +21,10 @@ class Order < ApplicationRecord
     end
 
     event :cancel do
-      transitions guard: :check_user_coins, from: [:pending, :submitted, :paid], to: :cancelled,
+      transitions guard: :check_user_coins, from: [:submitted, :paid], to: :cancelled,
                   after: :user_coins_manipulate_for_cancelled
+
+      transitions from: :pending, to: :cancelled
     end
 
     event :pay do
