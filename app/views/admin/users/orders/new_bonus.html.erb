@@ -6,15 +6,15 @@
     <div class="card-body">
       <ul class="nav nav-tabs" id="balanceTabs" role="tablist">
         <li class="nav-item">
-          <%= link_to "Increase", new_increase_users_client_orders_path, class: "nav-link", id: "increase-tab",
+          <%= link_to "Increase", new_increase_users_client_orders_path(@client_user), class: "nav-link", id: "increase-tab",
                       role: "tab", aria: { controls: "increase", selected: "false" } %>
         </li>
         <li class="nav-item">
-          <%= link_to "Deduct", new_deduct_users_client_orders_path, class: "nav-link", id: "deduct-tab",
+          <%= link_to "Deduct", new_deduct_users_client_orders_path(@client_user), class: "nav-link", id: "deduct-tab",
                       role: "tab", aria: { controls: "deduct", selected: "false" } %>
         </li>
         <li class="nav-item">
-          <%= link_to "Bonus", new_bonus_users_client_orders_path, class: "nav-link active", id: "bonus-tab",
+          <%= link_to "Bonus", new_bonus_users_client_orders_path(@client_user), class: "nav-link active", id: "bonus-tab",
                       data: { bs_toggle: "tab" }, role: "tab", aria: { controls: "bonus", selected: "true" } %>
         </li>
       </ul>

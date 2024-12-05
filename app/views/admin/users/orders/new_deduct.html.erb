@@ -6,15 +6,15 @@
     <div class="card-body">
       <ul class="nav nav-tabs" id="balanceTabs" role="tablist">
         <li class="nav-item">
-          <%= link_to "Increase", new_increase_users_client_orders_path, class: "nav-link", id: "increase-tab",
+          <%= link_to "Increase", new_increase_users_client_orders_path(@client_user), class: "nav-link", id: "increase-tab",
                       role: "tab", aria: { controls: "increase", selected: "false" } %>
         </li>
         <li class="nav-item">
-          <%= link_to "Deduct", new_deduct_users_client_orders_path, class: "nav-link active", id: "deduct-tab",
+          <%= link_to "Deduct", new_deduct_users_client_orders_path(@client_user), class: "nav-link active", id: "deduct-tab",
                       data: { bs_toggle: "tab" }, role: "tab", aria: { controls: "deduct", selected: "true" } %>
         </li>
         <li class="nav-item">
-          <%= link_to "Bonus", new_bonus_users_client_orders_path, class: "nav-link", id: "bonus-tab",
+          <%= link_to "Bonus", new_bonus_users_client_orders_path(@client_user), class: "nav-link", id: "bonus-tab",
                       role: "tab", aria: { controls: "bonus", selected: "false" } %>
         </li>
       </ul>
@@ -29,7 +29,7 @@
             </div>
             <div class="mb-3">
               <%= form.label :genre, 'Genre', class: 'form-label' %>
-              <%= form.text_field :genre, class: 'form-control', placeholder: 'Enter genre' %>
+              <%= form.text_field :genre, class: 'form-control', value: 'deduct', readonly: true %>
             </div>
             <div class="mb-3">
               <%= form.label :remarks, 'Remarks', class: 'form-label' %>
