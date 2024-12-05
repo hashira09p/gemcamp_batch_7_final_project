@@ -16,7 +16,13 @@ Rails.application.routes.draw do
 
       namespace :users do
         resources :clients do
-          resources :orders
+          resources :orders do
+            collection do
+              get 'increase/new', to: 'orders#new_increase', as: 'new_increase'
+              get 'deduct/new', to: 'orders#new_deduct', as: 'new_deduct'
+              get 'bonus/new', to: 'orders#new_bonus', as: 'new_bonus'
+            end
+          end
         end
       end
 

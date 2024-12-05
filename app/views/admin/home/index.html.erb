@@ -26,6 +26,7 @@
                 <th>Coins</th>
                 <th>Children Members</th>
                 <th>Phone Number</th>
+                <th>Actions</th>
               </tr>
               </thead>
               <tbody>
@@ -53,6 +54,9 @@
                   <% else %>
                     <td><%= client.phone_number %></td>
                   <% end %>
+
+                  <td><%= link_to 'Balance Operate', new_increase_users_client_orders_path(client),
+                                  class: 'btn btn-success' %></td>
                 </tr>
               <% end %>
               </tbody>

@@ -6,57 +6,22 @@
     <div class="card-body">
       <ul class="nav nav-tabs" id="balanceTabs" role="tablist">
         <li class="nav-item">
-          <a class="nav-link active" id="increase-tab" data-bs-toggle="tab" href="#increase" role="tab" aria-controls="increase" aria-selected="true">Increase</a>
+          <%= link_to "Increase", new_increase_users_client_orders_path, class: "nav-link active", id: "increase-tab",
+                      data: { bs_toggle: "tab" }, role: "tab", aria: { controls: "increase", selected: "true" } %>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="deduct-tab" data-bs-toggle="tab" href="#deduct" role="tab" aria-controls="deduct" aria-selected="false">Deduct</a>
+          <%= link_to "Deduct", new_deduct_users_client_orders_path, class: "nav-link", id: "deduct-tab",
+                      role: "tab", aria: { controls: "deduct", selected: "false" } %>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="bonus-tab" data-bs-toggle="tab" href="#bonus" role="tab" aria-controls="bonus" aria-selected="false">Bonus</a>
+          <%= link_to "Bonus", new_bonus_users_client_orders_path, class: "nav-link", id: "bonus-tab",
+                      role: "tab", aria: { controls: "bonus", selected: "false" } %>
         </li>
       </ul>
 
       <div class="tab-content mt-3" id="balanceTabContent">
         <!-- Increase Tab -->
         <div class="tab-pane fade show active" id="increase" role="tabpanel" aria-labelledby="increase-tab">
-          <%= form_with url: users_client_orders_path, method: :post, local: true do |form| %>
-            <div class="mb-3">
-              <%= form.label :coins, 'Coins', class: 'form-label' %>
-              <%= form.number_field :coins, class: 'form-control', placeholder: 'Enter coins', required: true %>
-            </div>
-            <div class="mb-3">
-              <%= form.label :genre, 'Genre', class: 'form-label' %>
-              <%= form.text_field :genre, class: 'form-control', placeholder: 'Enter genre' %>
-            </div>
-            <div class="mb-3">
-              <%= form.label :remarks, 'Remarks', class: 'form-label' %>
-              <%= form.text_area :remarks, class: 'form-control', rows: 2, placeholder: 'Enter remarks' %>
-            </div>
-            <%= form.submit 'Submit', class: 'btn btn-primary' %>
-          <% end %>
-        </div>
-
-        <!-- Deduct Tab -->
-        <div class="tab-pane fade" id="deduct" role="tabpanel" aria-labelledby="deduct-tab">
-          <%= form_with url: users_client_orders_path, method: :post, local: true do |form| %>
-            <div class="mb-3">
-              <%= form.label :coins, 'Coins', class: 'form-label' %>
-              <%= form.number_field :coins, class: 'form-control', placeholder: 'Enter coins', required: true %>
-            </div>
-            <div class="mb-3">
-              <%= form.label :genre, 'Genre', class: 'form-label' %>
-              <%= form.text_field :genre, class: 'form-control', placeholder: 'Enter genre' %>
-            </div>
-            <div class="mb-3">
-              <%= form.label :remarks, 'Remarks', class: 'form-label' %>
-              <%= form.text_area :remarks, class: 'form-control', rows: 2, placeholder: 'Enter remarks' %>
-            </div>
-            <%= form.submit 'Submit', class: 'btn btn-primary' %>
-          <% end %>
-        </div>
-
-        <!-- Bonus Tab -->
-        <div class="tab-pane fade" id="bonus" role="tabpanel" aria-labelledby="bonus-tab">
           <%= form_with url: users_client_orders_path, method: :post, local: true do |form| %>
             <div class="mb-3">
               <%= form.label :coins, 'Coins', class: 'form-label' %>

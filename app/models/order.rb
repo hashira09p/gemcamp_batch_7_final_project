@@ -36,21 +36,21 @@ class Order < ApplicationRecord
 
   def user_coins_manipulate_for_paid
     if !deduct?
-      user.coins += offer.coin
+      user.coins += offer.coin || self.coin
     else
-      user.coins -= offer.coin
+      user.coins -= offer.coin || self.coin
     end
-    user.total_deposit += offer.coin if deposit?
+    user.total_deposit += offer.coin || self.coin if deposit?
     user.save
   end
 
   def user_coins_manipulate_for_cancelled
     if !deduct?
-      user.coins -= offer.coin
+      user.coins -= offer.coin || self.coin
     else
-      user.coins += offer.coin
+      user.coins += offer.coin || self.coin
     end
-    user.total_deposit -= offer.coin if deposit?
+    user.total_deposit -= offer.coin || self.coin if deposit?
     user.save
   end
 

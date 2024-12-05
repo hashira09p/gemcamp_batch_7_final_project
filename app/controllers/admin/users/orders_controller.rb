@@ -1,5 +1,5 @@
-class Admin::Users::Orders::OrdersController < ApplicationController
-  def deduct
+class Admin::Users::OrdersController < AdminApplicationController
+  def new_increase;end
 
-  end
+  def create;end
 end
