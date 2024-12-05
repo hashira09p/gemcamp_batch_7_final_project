@@ -1,4 +1,4 @@
-class Admin::OffersController < ApplicationController
+class Admin::OffersController < AdminApplicationController
   before_action :set_offer, only: [:edit, :update, :destroy]
   def index
     @offer_status = Offer.pluck(:status).uniq

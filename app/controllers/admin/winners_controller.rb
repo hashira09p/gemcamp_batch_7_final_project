@@ -1,4 +1,4 @@
-class Admin::WinnersController < ApplicationController
+class Admin::WinnersController < AdminApplicationController
   before_action :set_winner, only: [:submit, :pay, :ship, :deliver, :publish, :remove_publish]
   def index
     @winner_states = Winner.pluck(:state).uniq

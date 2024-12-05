@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= request.domain == 'admin.com' ? 'Admin Panel' : 'Client Panel' %></title>
+  <title><% request.domain == 'client.com' %> Client </title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
   <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>

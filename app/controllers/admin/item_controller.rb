@@ -1,4 +1,4 @@
-class Admin::ItemController < ApplicationController
+class Admin::ItemController < AdminApplicationController
   before_action :set_item, only: [:edit, :update, :destroy, :start, :pause, :end, :cancel]
 
   def index

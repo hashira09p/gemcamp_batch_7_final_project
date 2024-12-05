@@ -1,4 +1,4 @@
-class Admin::TicketsController < ApplicationController
+class Admin::TicketsController < AdminApplicationController
   def index
     @ticket_states = Ticket.pluck(:state).uniq
     @tickets = Ticket.includes(:item, :user).page(params[:page]).per(5) # Eager load for performance

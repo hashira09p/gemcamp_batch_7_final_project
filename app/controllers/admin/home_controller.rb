@@ -1,5 +1,4 @@
-class Admin::HomeController < ApplicationController
-    before_action :authenticate_admin_user!
+class Admin::HomeController < AdminApplicationController
     def index
         @clients = User.client.all
     end

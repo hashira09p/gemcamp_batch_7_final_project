@@ -1,4 +1,4 @@
-class Admin::OrdersController < ApplicationController
+class Admin::OrdersController < AdminApplicationController
   before_action :set_order, only: [:pay, :cancel, :submit]
   def index
     @offers = Offer.pluck(:name, :id)
