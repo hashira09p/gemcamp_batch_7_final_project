@@ -3,7 +3,7 @@ class Order < ApplicationRecord
   enum genre: { deposit: 0, increase: 1, deduct: 2, bonus: 3, share: 4 }
 
   belongs_to :user
-  belongs_to :offer
+  belongs_to :offer, optional: true
 
   before_create :generate_serial_number
 
@@ -21,36 +21,36 @@ class Order < ApplicationRecord
     end
 
     event :cancel do
-      transitions guard: :check_user_coins, from: [:submitted, :paid], to: :cancelled,
-                  after: :user_coins_manipulate_for_cancelled
+      transitions from: :paid, to: :cancelled, guard: :check_user_coins,
+                  success: :user_coins_update_for_cancelled
 
-      transitions from: :pending, to: :cancelled
+      transitions from: [:pending, :submitted], to: :cancelled
     end
 
     event :pay do
-      transitions from: :submitted, to: :paid, after: :user_coins_manipulate_for_paid
+      transitions from: [:submitted, :pending], to: :paid, after: :user_coins_update_for_paid
     end
   end
 
   private
 
-  def user_coins_manipulate_for_paid
+  def user_coins_update_for_paid
     if !deduct?
-      user.coins += offer.coin || self.coin
+      user.coins += offer&.coin || self.coin
     else
-      user.coins -= offer.coin || self.coin
+      user.coins -= offer&.coin || self.coin
     end
-    user.total_deposit += offer.coin || self.coin if deposit?
+    user.total_deposit += offer.coin if deposit?
     user.save
   end
 
-  def user_coins_manipulate_for_cancelled
+  def user_coins_update_for_cancelled
     if !deduct?
-      user.coins -= offer.coin || self.coin
+      user.coins -= offer&.coin || self.coin
     else
-      user.coins += offer.coin || self.coin
+      user.coins += offer&.coin || self.coin
     end
-    user.total_deposit -= offer.coin || self.coin if deposit?
+    user.total_deposit -= offer.coin if deposit?
     user.save
   end
 

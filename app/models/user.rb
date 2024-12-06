@@ -18,6 +18,7 @@ class User < ApplicationRecord
   }
 
   validates :username, uniqueness: true, allow_blank: true
+  validates :coins, numericality: { greater_than_or_equal_to: 0 }
 
   has_many :addresses
   has_many :address_regions, through: :addresses

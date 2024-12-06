@@ -21,7 +21,9 @@ Rails.application.routes.draw do
               get 'increase/new', to: 'orders#new_increase', as: 'new_increase'
               post 'increase', to: 'orders#create_increase'
               get 'deduct/new', to: 'orders#new_deduct', as: 'new_deduct'
+              post 'deduct', to: 'orders#create_deduct'
               get 'bonus/new', to: 'orders#new_bonus', as: 'new_bonus'
+              post 'bonus', to: 'orders#create_bonus'
             end
           end
         end

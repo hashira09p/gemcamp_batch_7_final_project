@@ -33,10 +33,10 @@ class Admin::OrdersController < AdminApplicationController
     if @order.may_pay?
       @order.pay!
       flash[:notice] = 'Paid successfully'
-      redirect_to orders_path
+      redirect_to orders_path(page: params[:page])
     else
       flash[:alert] = 'Pay unsuccessful'
-      redirect_to orders_path
+      redirect_to orders_path(page: params[:page])
     end
   end
 
@@ -47,7 +47,7 @@ class Admin::OrdersController < AdminApplicationController
     else
       flash[:alert] = 'Submit Failed'
     end
-    redirect_to orders_path
+    redirect_to orders_path(page: params[:page])
   end
 
   def cancel
@@ -57,7 +57,7 @@ class Admin::OrdersController < AdminApplicationController
     else
       flash[:alert] = 'Cancel Failed'
     end
-    redirect_to orders_path
+    redirect_to orders_path(page: params[:page])
   end
 
   private
