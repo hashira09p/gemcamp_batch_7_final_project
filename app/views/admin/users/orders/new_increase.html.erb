@@ -22,6 +22,7 @@
         </li>
       </ul>
 
+
       <div class="tab-content mt-3" id="balanceTabContent">
         <!-- Increase Tab -->
         <div class="tab-pane fade show active" id="increase" role="tabpanel" aria-labelledby="increase-tab">
@@ -64,3 +65,50 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="alertModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="alertModalLabel">Notice</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p id="alertModalMessage">This is a sample alert message.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="modalOkButton">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const submitButton = document.getElementById("submitBonusForm");
+        const modalOkButton = document.getElementById("modalOkButton");
+        const form = document.getElementById("bonusForm");
+
+        const showAlertModal = (message) => {
+            const modalMessage = document.getElementById("alertModalMessage");
+            modalMessage.textContent = message;
+
+            const alertModal = new bootstrap.Modal(document.getElementById("alertModal"));
+            alertModal.show();
+        };
+
+        // Handle submit button click
+        if (submitButton) {
+            submitButton.addEventListener("click", function () {
+                showAlertModal("Are you sure you want to submit the form?");
+            });
+        }
+
+        // Handle modal "OK" button click
+        if (modalOkButton) {
+            modalOkButton.addEventListener("click", function () {
+                form.submit(); // Submit the form programmatically
+            });
+        }
+    });
+</script>
