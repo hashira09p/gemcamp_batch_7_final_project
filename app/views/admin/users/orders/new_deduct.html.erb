@@ -1,7 +1,10 @@
+<%= notice %>
+<%= alert %>
 <div class="container mt-5">
   <div class="card">
-    <div class="card-header">
+    <div class="card-header d-flex justify-content-between align-items-center">
       <h4>Balance Operate</h4>
+      <%= link_to "Back", admin_home_path, class: "btn btn-secondary" %>
     </div>
     <div class="card-body">
       <ul class="nav nav-tabs" id="balanceTabs" role="tablist">
@@ -22,7 +25,7 @@
       <div class="tab-content mt-3" id="balanceTabContent">
         <!-- Deduct Tab -->
         <div class="tab-pane fade show active" id="deduct" role="tabpanel" aria-labelledby="deduct-tab">
-          <%= form_with url: users_client_orders_path, method: :post, local: true do |form| %>
+          <%= form_with model: @order, url: deduct_users_client_orders_path, method: :post, local: true do |form| %>
             <div class="mb-3">
               <%= form.label :coin, 'Coins', class: 'form-label' %>
               <%= form.number_field :coin, class: 'form-control', placeholder: 'Enter coins', required: true %>

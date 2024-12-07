@@ -30,14 +30,17 @@ class Admin::OrdersController < AdminApplicationController
   end
 
   def pay
-    if @order.may_pay?
-      @order.pay!
-      flash[:notice] = 'Paid successfully'
-      redirect_to orders_path(page: params[:page])
+    if @order.deduct? && @order.user.coins < @order.coin
+      flash[:notice] = 'Cant deduct coins because the user coins cant be negative. You need to cancel the Order'
     else
-      flash[:alert] = 'Pay unsuccessful'
-      redirect_to orders_path(page: params[:page])
+      if @order.may_pay?
+        @order.pay!
+        flash[:notice] = 'Paid successfully'
+      else
+        flash[:alert] = 'Pay unsuccessful'
+      end
     end
+    redirect_to orders_path(page: params[:page])
   end
 
   def submit

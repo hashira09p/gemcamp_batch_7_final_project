@@ -9,6 +9,7 @@ class Order < ApplicationRecord
 
   validates :amount, presence: true, numericality: { greater_than: 0 }, if: :deposit?
   validates :coin, presence: true, numericality: { greater_than: 0 }, if: :deposit?
+  validates :remarks, presence: true, if: :increase?
 
   aasm column: :state do
     state :pending, initial: true
@@ -28,7 +29,9 @@ class Order < ApplicationRecord
     end
 
     event :pay do
-      transitions from: [:submitted, :pending], to: :paid, after: :user_coins_update_for_paid
+      transitions from: :pending, to: :paid, after: :user_coins_update_for_paid, if: -> {!deposit?}
+
+      transitions from: :submitted, to: :paid, after: :user_coins_update_for_paid
     end
   end
 
@@ -55,7 +58,7 @@ class Order < ApplicationRecord
   end
 
   def check_user_coins
-    user.coins > 0
+    user.coins < self.coin || user.coins > self.coin
   end
 
   def generate_serial_number

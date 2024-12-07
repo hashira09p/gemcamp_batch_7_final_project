@@ -26,7 +26,7 @@ class Admin::Users::OrdersController < AdminApplicationController
     @order.user_id = @client_user.id
     @order.amount = rand(1...9999)
     if @order.save
-      flash[:notice] = 'increase order has successfully created'
+      flash[:notice] = 'Deduct order has successfully created'
     else
       flash[:alert] = 'Failed to create order'
     end
