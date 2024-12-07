@@ -41,6 +41,7 @@ Rails.application.routes.draw do
         patch :remove_publish
       end
       resources :category
+      resources :invite_lists
       resources :tickets
       resources :offers
       resources :orders do
