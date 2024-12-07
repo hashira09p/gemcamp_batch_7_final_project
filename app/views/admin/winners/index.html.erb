@@ -1,5 +1,6 @@
 <%= notice %>
 <%= alert %>
+
 <div class="container-fluid vh-100">
   <div class="row h-100">
     <!-- Sidebar -->
@@ -8,12 +9,17 @@
     <!-- Main Content -->
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 d-flex flex-column">
 
-      <!-- Top Navbar -->
-      <%= render "partial/admin/top_navbar" %>
-
       <!-- Content Area -->
       <div class="container mt-4">
-        <h1 class="mb-4">Winner</h1>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div>
+            <h2 class="text-primary">Winner Management</h2>
+          </div>
+          <div class="d-flex align-items-center">
+            <button class="btn btn-outline-secondary me-2">Change Language</button>
+            <%= button_to 'Sign Out', destroy_admin_user_session_path, method: :delete, class: 'btn btn-danger' %>
+          </div>
+        </div>
 
         <!-- Search Filters -->
         <%= form_with url: winners_path, method: :get, class: 'row g-3 align-items-end mb-4' do |f| %>
@@ -48,70 +54,77 @@
         <% end %>
 
         <!-- Table -->
-        <table class="table table-striped table-hover">
-          <thead class="table-dark">
-          <tr>
-            <th>Item Name</th>
-            <th>Ticket Owner</th>
-            <th>User Email</th>
-            <th>Batch Count</th>
-            <th>State</th>
-            <th>Price</th>
-            <th>Paid At</th>
-            <th>Admin ID</th>
-            <th>Picture</th>
-            <th>Comment</th>
-            <th>Actions</th>
-          </tr>
-          </thead>
-          <tbody>
-          <% @winners.each do |winner| %>
+        <div class="table-responsive">
+          <table class="table table-striped table-hover table-bordered mb-4">
+            <thead class="table-dark">
             <tr>
-              <td><%= winner.item&.name %></td>
-              <td><%= winner.user.username %></td>
-              <td><%= winner.user.email %></td>
-              <td><%= winner.item_batch_count %></td>
-              <td><%= winner.state %></td>
-              <td><%= number_to_currency(winner.price) %></td>
-              <td><%= winner.paid_at&.strftime('%Y-%m-%d %H:%M:%S') %></td>
-              <td><%= winner.admin_id %></td>
-              <td>
-                <% if winner.image.present? %>
-                  <%= image_tag(winner.image.url, class: "img-thumbnail", style: "max-width: 50px;") %>
-                <% else %>
-                  <em>No Image</em>
-                <% end %>
-              </td>
-              <td><%= winner.comment %></td>
-              <td>
-                <% if winner.may_submit? %>
-                  <%= button_to 'Submit', winner_submit_path(winner), method: :patch, class: 'btn btn-warning' %>
-                <% end %>
-
-                <% if winner.may_pay? %>
-                  <%= button_to 'Pay', winner_pay_path(winner), method: :patch, class: 'btn btn-danger' %>
-                <% end %>
-
-                <% if winner.may_ship? %>
-                  <%= button_to 'Ship', winner_ship_path(winner), method: :patch, class: 'btn btn-danger' %>
-                <% end %>
-
-                <% if winner.may_deliver? %>
-                  <%= button_to 'Deliver', winner_deliver_path(winner), method: :patch, class: 'btn btn-danger' %>
-                <% end %>
-
-                <% if winner.may_publish? %>
-                  <%= button_to 'Publish', winner_publish_path(winner), method: :patch, class: 'btn btn-danger' %>
-                <% end %>
-
-                <% if winner.may_remove_publish? %>
-                  <%= button_to 'Remove_Publish', winner_remove_publish_path(winner), method: :patch, class: 'btn btn-danger' %>
-                <% end %>
-              </td>
+              <th>Item Name</th>
+              <th>Ticket Owner</th>
+              <th>User Email</th>
+              <th>Batch Count</th>
+              <th>State</th>
+              <th>Price</th>
+              <th>Paid At</th>
+              <th>Admin ID</th>
+              <th>Picture</th>
+              <th>Comment</th>
+              <th>Actions</th>
             </tr>
-          <% end %>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+            <% @winners.each do |winner| %>
+              <tr>
+                <td><%= winner.item&.name %></td>
+                <td><%= winner.user.username %></td>
+                <td><%= winner.user.email %></td>
+                <td><%= winner.item_batch_count %></td>
+                <td><%= winner.state %></td>
+                <td><%= number_to_currency(winner.price) %></td>
+                <td><%= winner.paid_at&.strftime('%Y-%m-%d %H:%M:%S') %></td>
+                <td><%= winner.admin_id %></td>
+                <td>
+                  <% if winner.image.present? %>
+                    <%= image_tag(winner.image.url, class: "img-thumbnail", style: "max-width: 50px;") %>
+                  <% else %>
+                    <em>No Image</em>
+                  <% end %>
+                </td>
+                <td><%= winner.comment %></td>
+                <td class="text-center">
+                  <% if winner.may_submit? %>
+                    <%= button_to 'Submit', winner_submit_path(winner), method: :patch, class: 'btn btn-warning btn-sm' %>
+                  <% end %>
+
+                  <% if winner.may_pay? %>
+                    <%= button_to 'Pay', winner_pay_path(winner), method: :patch, class: 'btn btn-danger btn-sm' %>
+                  <% end %>
+
+                  <% if winner.may_ship? %>
+                    <%= button_to 'Ship', winner_ship_path(winner), method: :patch, class: 'btn btn-success btn-sm' %>
+                  <% end %>
+
+                  <% if winner.may_deliver? %>
+                    <%= button_to 'Deliver', winner_deliver_path(winner), method: :patch, class: 'btn btn-info btn-sm' %>
+                  <% end %>
+
+                  <% if winner.may_publish? %>
+                    <%= button_to 'Publish', winner_publish_path(winner), method: :patch, class: 'btn btn-primary btn-sm' %>
+                  <% end %>
+
+                  <% if winner.may_remove_publish? %>
+                    <%= button_to 'Remove Publish', winner_remove_publish_path(winner), method: :patch, class: 'btn btn-secondary btn-sm' %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="d-flex justify-content-end">
+          <%= paginate @winners %>
+        </div>
       </div>
     </main>
   </div>

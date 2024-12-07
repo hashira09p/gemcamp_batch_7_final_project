@@ -1,57 +1,57 @@
-<nav class="col-md-3 col-lg-2 d-md-block bg-dark sidebar text-white p-0 h-100 overflow-auto">
+<nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar text-dark p-0 vh-100 overflow-auto shadow-sm">
   <div class="position-sticky pt-3">
     <!-- Admin Profile Section -->
-    <div class="text-center mb-4">
-      <div class="bg-light rounded-circle d-inline-block" style="width: 80px; height: 80px; overflow: hidden;">
+    <div class="text-center mb-4 py-3 bg-primary text-white">
+      <div class="rounded-circle d-inline-block overflow-hidden shadow" style="width: 80px; height: 80px;">
         <img src="/assets/admin_avatar.png" alt="Admin Avatar" class="img-fluid w-100 h-100" />
       </div>
-      <h5 class="mt-3 text-white">Admin</h5>
-      <p class="text-muted small">Administrator</p>
+      <h5 class="mt-3 fw-bold">Admin</h5>
+      <p class="text-white-50 small">Administrator</p>
     </div>
 
     <!-- Sidebar Navigation -->
-    <h6 class="px-3 text-uppercase text-muted small fw-bold border-bottom pb-2">Dashboard</h6>
+    <h6 class="px-3 text-uppercase text-secondary small fw-bold pb-2">Navigation</h6>
     <ul class="nav flex-column">
       <li class="nav-item">
-        <%= link_to home_index_path, class: 'nav-link text-white py-2 px-3 d-flex align-items-center' do %>
-          <i class="bi bi-house-door me-2"></i>
-          Clients Management
+        <%= link_to home_index_path, class: 'nav-link text-dark py-2 px-3 d-flex align-items-center' do %>
+          <i class="bi bi-house-door me-2 text-primary"></i>
+          <span>Clients Management</span>
         <% end %>
       </li>
       <li class="nav-item">
-        <%= link_to winners_path, class: 'nav-link text-white py-2 px-3 d-flex align-items-center' do %>
-          <i class="bi bi-people me-2"></i>
-          Winner Management
+        <%= link_to winners_path, class: 'nav-link text-dark py-2 px-3 d-flex align-items-center' do %>
+          <i class="bi bi-people me-2 text-primary"></i>
+          <span>Winner Management</span>
         <% end %>
       </li>
       <li class="nav-item">
-        <%= link_to item_index_path, class: 'nav-link text-white py-2 px-3 d-flex align-items-center' do %>
-          <i class="bi bi-folder me-2"></i>
-          Item Management
+        <%= link_to item_index_path, class: 'nav-link text-dark py-2 px-3 d-flex align-items-center' do %>
+          <i class="bi bi-folder me-2 text-primary"></i>
+          <span>Item Management</span>
         <% end %>
       </li>
       <li class="nav-item">
-        <%= link_to category_index_path, class: 'nav-link text-white py-2 px-3 d-flex align-items-center' do %>
-          <i class="bi bi-folder me-2"></i>
-          Category Management
+        <%= link_to category_index_path, class: 'nav-link text-dark py-2 px-3 d-flex align-items-center' do %>
+          <i class="bi bi-folder me-2 text-primary"></i>
+          <span>Category Management</span>
         <% end %>
       </li>
       <li class="nav-item">
-        <%= link_to tickets_path, class: 'nav-link text-white py-2 px-3 d-flex align-items-center' do %>
-          <i class="bi bi-ticket me-2"></i>
-          Ticket Management
+        <%= link_to tickets_path, class: 'nav-link text-dark py-2 px-3 d-flex align-items-center' do %>
+          <i class="bi bi-ticket me-2 text-primary"></i>
+          <span>Ticket Management</span>
         <% end %>
       </li>
       <li class="nav-item">
-        <%= link_to offers_path, class: 'nav-link text-white py-2 px-3 d-flex align-items-center' do %>
-          <i class="bi bi-box me-2"></i>
-          Offer Management
+        <%= link_to offers_path, class: 'nav-link text-dark py-2 px-3 d-flex align-items-center' do %>
+          <i class="bi bi-box me-2 text-primary"></i>
+          <span>Offer Management</span>
         <% end %>
       </li>
       <li class="nav-item">
-        <%= link_to orders_path, class: 'nav-link text-white py-2 px-3 d-flex align-items-center' do %>
-          <i class="bi bi-receipt me-2"></i>
-          Order Management
+        <%= link_to orders_path, class: 'nav-link text-dark py-2 px-3 d-flex align-items-center' do %>
+          <i class="bi bi-receipt me-2 text-primary"></i>
+          <span>Order Management</span>
         <% end %>
       </li>
     </ul>
@@ -60,27 +60,43 @@
 
 <style>
     .sidebar {
-        background-color: #2c3e50; /* Darker shade for modern look */
+        background: #f8f9fa; /* Light background for a clean design */
+        border-right: 1px solid #e7e7e7; /* Subtle border for separation */
     }
 
     .sidebar .nav-link {
-        color: rgba(255, 255, 255, 0.85); /* Slightly muted white text */
-        transition: all 0.3s ease; /* Smooth hover animation */
+        color: #333; /* Dark text for better readability */
+        border-radius: 6px; /* Soft rounded corners */
+        transition: all 0.3s ease-in-out; /* Smooth hover effect */
     }
 
     .sidebar .nav-link:hover,
     .sidebar .nav-link.active {
-        color: #fff; /* Bright white for active/hover state */
-        background-color: #34495e; /* Slightly lighter background for hover */
-        border-left: 4px solid #1abc9c; /* Accent border for active link */
-    }
-
-    .sidebar .text-muted {
-        font-size: 0.85rem;
+        background-color: #f1f1f1; /* Light hover background */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+        color: #007bff; /* Highlighted blue text */
     }
 
     .sidebar .nav-link i {
-        font-size: 1.2rem;
+        font-size: 1.2rem; /* Well-proportioned icons */
+        color: #007bff; /* Unified icon color */
     }
 
+    .sidebar h6 {
+        font-size: 0.85rem; /* Compact headers */
+        letter-spacing: 0.05rem; /* Subtle spacing for elegance */
+        color: #6c757d; /* Muted text color */
+    }
+
+    .sidebar .rounded-circle {
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Deep shadow for profile */
+    }
+
+    .bg-primary {
+        background-color: #007bff !important; /* Consistent branding color */
+    }
+
+    .text-primary {
+        color: #007bff !important; /* Primary theme color */
+    }
 </style>

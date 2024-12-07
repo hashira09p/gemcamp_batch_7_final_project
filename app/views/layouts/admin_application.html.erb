@@ -43,42 +43,22 @@
 
 
     /* Home Index */
-    .sidebar {
-        transition: background-color 0.3s;
+
+    .table th,
+    .table td {
+        text-align: center; /* Center align content */
+        vertical-align: middle; /* Vertically center align */
     }
 
-    .sidebar .nav-link {
-        transition: background-color 0.3s, color 0.3s;
+    .table th {
+        background: #343a40; /* Dark header background */
+        color: white; /* White header text */
+        font-weight: bold;
     }
 
-    .sidebar .nav-link:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-        color: #fff;
+    .table-hover tbody tr:hover {
+        background-color: #f1f1f1; /* Light gray hover effect */
     }
-
-    .content {
-        background: #f8f9fa;
-    }
-
-    h2 {
-        color: #343a40;
-    }
-
-    .navbar {
-        border-bottom: 1px solid #eaeaea;
-    }
-
-    .navbar-nav .btn {
-        transition: background-color 0.3s;
-    }
-
-    .navbar-nav .btn:hover {
-        background-color: #dc3545;
-        color: white;
-    }
-
-
-
 
     /* Item Index */
     /* Sidebar */
@@ -375,59 +355,27 @@
 
 
     /* Winners Index */
-    /* Sidebar */
-    .sidebar {
-        transition: background-color 0.3s;
-        height: 100vh;  /* Ensure full height of screen */
-        position: sticky;
-    }
-
-    .sidebar .nav-link {
-        transition: background-color 0.3s, color 0.3s;
-    }
-
-    .sidebar .nav-link:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-        color: #fff;
-    }
-
-    /* Content Area */
-    .content {
-        background: #f8f9fa;
-        height: 100vh; /* Fill the available space */
-        overflow: auto;
-    }
-
     .table th, .table td {
-        vertical-align: middle; /* Vertically center the table content */
+        text-align: center;
+        vertical-align: middle;
     }
 
-    .table img {
-        width: 50px; /* Ensure the image is small */
-        height: 50px; /* Keep the image square */
-        object-fit: cover; /* Ensure the image does not stretch */
+    .btn-sm {
+        padding: 5px 10px;
+        font-size: 0.875rem;
     }
 
-    .navbar {
-        border-bottom: 1px solid #eaeaea;
+    .table-hover tbody tr:hover {
+        background-color: #f1f1f1;
     }
 
-    .navbar-nav .btn {
-        transition: background-color 0.3s;
+    .container {
+        padding: 20px;
     }
 
-    .navbar-nav .btn:hover {
-        background-color: #dc3545;
-        color: white;
-    }
-
-    /* Ensure the content doesn't overflow */
-    .d-flex.flex-column {
-        flex: 1;
-    }
-
-    .table-bordered td, .table-bordered th {
-        border: 1px solid #dee2e6;
+    .table-responsive {
+        max-height: 500px;
+        overflow-y: auto;
     }
 </style>
 </body>

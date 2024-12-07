@@ -1,93 +1,102 @@
 <%= notice %>
 <%= alert %>
+
 <div class="container-fluid vh-100">
   <div class="row h-100">
-    <!-- Sidebar -->
+    <!-- Sidebar (Left) -->
     <%= render "partial/admin/aside" %>
 
     <!-- Main Content -->
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 d-flex flex-column">
-      <!-- Top Navbar -->
-      <%= render "partial/admin/top_navbar" %>
 
       <!-- Content Area -->
       <div class="content bg-white shadow p-4 rounded flex-grow-1 overflow-auto">
-        <p class="text-muted">Here’s your dashboard overview for items. Navigate using the sidebar to manage your tasks.</p>
-        <%= link_to 'Add', new_item_path, class: 'btn btn-success' %>
-        <div class="d-flex flex-column vh-100">
-          <div class="flex-grow-1 overflow-auto">
-            <table class="table table-hover table-bordered mb-0">
-              <thead class="table-dark">
-              <tr>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Quantity</th>
-                <th>Minimum Tickets</th>
-                <th>Categories</th>
-                <th>State</th>
-                <th>Batch Count</th>
-                <th>Online At</th>
-                <th>Offline At</th>
-                <th>Start At</th>
-                <th>Status</th>
-                <th>Actions</th>
-                <th>Change State</th>
-              </tr>
-              </thead>
-              <tbody>
-              <% @items.each do |item| %>
-                <tr>
-                  <td>
-                    <% if item.image.present? %>
-                      <%= image_tag item.image.url, size: "50x50" %>
-                    <% else %>
-                      None
-                    <% end %>
-                  </td>
 
-                  <td><%= item.name || "No name" %></td>
-                  <td><%= item.quantity %></td>
-                  <td><%= item.minimum_tickets %></td>
-                  <td><%= item.categories.pluck(:name).join(', ') %></td>
-                  <td><%= item.state %></td>
-                  <td><%= item.batch_count %></td>
-                  <td><%= item.online_at %></td>
-                  <td><%= item.offline_at %></td>
-                  <td><%= item.start_at %></td>
-                  <td><%= item.status %></td>
-                  <td>
-                    <%= link_to 'Edit', edit_item_path(item), class: 'btn btn-warning' %>
-                    <%= button_to 'Delete', item_path(item), method: :delete, class: 'btn btn-danger' %>
-                  </td>
-                  <td>
-                    <% if item.active? %>
-
-                      <% if item.may_start? %>
-                        <%= button_to 'Start', item_start_path(item), method: :patch, class: 'btn btn-warning' %>
-                      <% end %>
-
-                      <% if item.may_pause? %>
-                        <%= button_to 'Pause', item_pause_path(item), method: :patch, class: 'btn btn-danger' %>
-                      <% end %>
-
-                      <% if item.may_end? %>
-                        <%= button_to 'End', item_end_path(item), method: :patch, class: 'btn btn-danger' %>
-                      <% end %>
-
-                      <% if item.may_cancel? %>
-                        <%= button_to 'Cancel', item_cancel_path(item), method: :patch, class: 'btn btn-danger' %>
-                      <% end %>
-
-                    <% end %>
-                  </td>
-                </tr>
-              <% end %>
-              </tbody>
-            </table>
+        <!-- Action Buttons -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div>
+            <h2 class="text-primary">Item Management</h2>
           </div>
+          <div class="d-flex align-items-center">
+            <button class="btn btn-outline-secondary me-2">Change Language</button>
+            <%= button_to 'Sign Out', destroy_admin_user_session_path, method: :delete, class: 'btn btn-danger' %>
+          </div>
+        </div>
+
+        <!-- Add Item Button -->
+        <%= link_to 'Add Item', new_item_path, class: 'btn btn-success mb-4' %>
+
+        <!-- Table for Items -->
+        <div class="table-responsive">
+          <table class="table table-hover table-bordered mb-0">
+            <thead class="table-dark">
+            <tr>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Quantity</th>
+              <th>Minimum Tickets</th>
+              <th>Categories</th>
+              <th>State</th>
+              <th>Batch Count</th>
+              <th>Online At</th>
+              <th>Offline At</th>
+              <th>Start At</th>
+              <th>Status</th>
+              <th>Actions</th>
+              <th>Change State</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @items.each do |item| %>
+              <tr>
+                <td>
+                  <% if item.image.present? %>
+                    <%= image_tag item.image.url, size: "50x50", class: "img-thumbnail" %>
+                  <% else %>
+                    None
+                  <% end %>
+                </td>
+                <td><%= item.name || "No name" %></td>
+                <td><%= item.quantity %></td>
+                <td><%= item.minimum_tickets %></td>
+                <td><%= item.categories.pluck(:name).join(', ') %></td>
+                <td><%= item.state %></td>
+                <td><%= item.batch_count %></td>
+                <td><%= item.online_at %></td>
+                <td><%= item.offline_at %></td>
+                <td><%= item.start_at %></td>
+                <td><%= item.status %></td>
+                <td>
+                  <!-- Edit and Delete Buttons -->
+                  <%= link_to 'Edit', edit_item_path(item), class: 'btn btn-warning btn-sm' %>
+                  <%= button_to 'Delete', item_path(item), method: :delete, class: 'btn btn-danger btn-sm' %>
+                </td>
+                <td>
+                  <!-- State Change Buttons -->
+                  <% if item.active? %>
+                    <% if item.may_start? %>
+                      <%= button_to 'Start', item_start_path(item), method: :patch, class: 'btn btn-warning btn-sm' %>
+                    <% end %>
+
+                    <% if item.may_pause? %>
+                      <%= button_to 'Pause', item_pause_path(item), method: :patch, class: 'btn btn-danger btn-sm' %>
+                    <% end %>
+
+                    <% if item.may_end? %>
+                      <%= button_to 'End', item_end_path(item), method: :patch, class: 'btn btn-danger btn-sm' %>
+                    <% end %>
+
+                    <% if item.may_cancel? %>
+                      <%= button_to 'Cancel', item_cancel_path(item), method: :patch, class: 'btn btn-secondary btn-sm' %>
+                    <% end %>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
         </div>
       </div>
     </main>
   </div>
 </div>
-

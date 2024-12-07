@@ -2,22 +2,24 @@ class Admin::WinnersController < AdminApplicationController
   before_action :set_winner, only: [:submit, :pay, :ship, :deliver, :publish, :remove_publish]
   def index
     @winner_states = Winner.pluck(:state).uniq
-    @winners = Winner.includes(:user) # Eager load for performance
+    @winners = Winner.includes(:user).page(params[:page]).per(5) # Eager load for performance
 
     if params[:serial_number].present?
       @winners = @winners.where('LOWER(serial_number) LIKE ?', "%#{params[:serial_number].downcase}%")
+                         .page(params[:page]).per(5)
     end
 
     if params[:email].present?
       @winners = @winners.joins(:user).where('LOWER(users.email) LIKE ?', "%#{params[:email].downcase}%")
+                         .page(params[:page]).per(5)
     end
 
     if params[:state].present?
-      @winners = @winners.where(state: params[:state])
+      @winners = @winners.where(state: params[:state]).page(params[:page]).per(5)
     end
 
     if params[:start_date].present? && params[:end_date].present?
-      @winners = @tickets.where(created_at: params[:start_date]..params[:end_date])
+      @winners = @tickets.where(created_at: params[:start_date]..params[:end_date]).page(params[:page]).per(5)
     end
   end
 

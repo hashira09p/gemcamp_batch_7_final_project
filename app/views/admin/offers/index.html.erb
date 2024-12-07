@@ -7,16 +7,17 @@
 
     <!-- Main Content -->
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 d-flex flex-column">
-      <!-- Top Navbar -->
-      <%= render "partial/admin/top_navbar" %>
-
       <!-- Content Area -->
       <div class="content bg-white shadow p-4 rounded flex-grow-1 overflow-auto">
-        <header class="bg-light text-dark py-4 shadow-sm">
-          <div class="container text-center">
-            <h2 class="fw-semibold text-uppercase mb-2">Offer Management</h2>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div>
+            <h2 class="text-primary">Offer Management</h2>
           </div>
-        </header>
+          <div class="d-flex align-items-center">
+            <button class="btn btn-outline-secondary me-2">Change Language</button>
+            <%= button_to 'Sign Out', destroy_admin_user_session_path, method: :delete, class: 'btn btn-danger' %>
+          </div>
+        </div>
 
         <!-- Search Filters -->
         <%= form_with url: offers_path, method: :get, class: 'row g-3 align-items-end mb-4' do |f| %>
