@@ -1,0 +1,65 @@
+<%= notice %>
+<%= alert %>
+<div class="container-fluid vh-100">
+  <div class="row h-100">
+    <!-- Sidebar -->
+    <%= render "partial/admin/aside" %>
+
+    <!-- Main Content -->
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 d-flex flex-column">
+      <!-- Content Area -->
+      <div class="content bg-white shadow p-4 rounded flex-grow-1 overflow-auto">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div>
+            <h2 class="text-primary">Banners Management</h2>
+          </div>
+          <div class="d-flex align-items-center">
+            <button class="btn btn-outline-secondary me-2">Change Language</button>
+            <%= button_to 'Sign Out', destroy_admin_user_session_path, method: :delete, class: 'btn btn-danger' %>
+          </div>
+        </div>
+
+        <%= link_to 'Add Banner', new_banner_path, class: 'btn btn-success' %>
+        <div class="d-flex flex-column vh-100">
+          <div class="flex-grow-1 overflow-auto">
+            <table class="table table-striped table-bordered table-hover">
+              <thead class="table-dark">
+              <tr>
+                <th>Preview</th>
+                <th>Status</th>
+                <th>Online_at</th>
+                <th>Offline_at</th>
+                <th>Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @banners.each do |banner| %>
+                <tr>
+                  <td>
+                    <%= image_tag(banner.preview.url, size: "50x50", class: "rounded") if banner.preview.present? %>
+                  </td>
+                  <td>
+                    <span class="badge <%= banner.status == 'active' ? 'bg-success' : 'bg-secondary' %>">
+                    <%= banner.status.capitalize %>
+                    </span>
+                  </td>
+                  <td><%= banner.online_at %></td>
+                  <td><%= banner.offline_at %></td>
+                  <td>
+                    <%= link_to 'Edit', edit_banner_path(banner), class: "btn btn-sm btn-warning" %>
+                    <%= button_to 'Delete', banner_path(banner),
+                                  method: :delete,
+                                  data: { confirm: 'Are you sure?' },
+                                  class: "btn btn-sm btn-danger" %>
+                  </td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<%= notice %>
+<%= alert %>
+<div class="container-fluid vh-100">
+  <div class="row h-100">
+    <!-- Sidebar -->
+    <%= render "partial/admin/aside" %>
+
+    <!-- Main Content -->
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 d-flex flex-column">
+      <!-- Top Navbar -->
+      <%= render "partial/admin/top_navbar" %>
+
+      <!-- Content Area -->
+      <div class="content bg-white shadow p-4 rounded flex-grow-1 overflow-auto">
+        <header class="bg-light text-dark py-4 shadow-sm">
+          <div class="container text-center">
+            <h2 class="fw-semibold text-uppercase mb-2">Edit a banner</h2>
+          </div>
+        </header>
+        <div class="d-flex flex-column vh-100">
+          <div class="flex-grow-1 overflow-auto">
+            <%= form_with model: @banner, url: banner_path, method: :patch, local: true do |f| %>
+              <div class="mb-3">
+                <%= f.label :banner_image %>
+                <%= f.file_field :preview, class: "form-control" %>
+              </div>
+
+              <div class="mb-3">
+                <%= f.label :status, class: "form-label" %>
+                <%= f.select :status, NewsTicker.statuses.keys.map { |status| [status.capitalize, status] },
+                             { include_blank: "Select Status" },
+                             { class: "form-select", required: true } %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label :online_at %>
+                <%= f.datetime_local_field :online_at, class: "form-control", required: true %>
+              </div>
+
+              <div class="form-group">
+                <%= f.label :offline_at %>
+                <%= f.datetime_local_field :offline_at, class: "form-control" %>
+              </div>
+
+              <div class="d-grid">
+                <%= f.submit 'Update', class: "btn btn-primary" %>
+              </div>
+            <% end %>
+
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

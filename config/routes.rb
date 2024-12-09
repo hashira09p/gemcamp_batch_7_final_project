@@ -40,6 +40,7 @@ Rails.application.routes.draw do
         patch :publish
         patch :remove_publish
       end
+      resources :banners
       resources :category
       resources :invite_lists
       resources :news_tickers
