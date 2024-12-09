@@ -1,5 +1,5 @@
 class Admin::NewsTickersController < AdminApplicationController
-  before_action :set_news_ticker, only: [:edit, :destroy]
+  before_action :set_news_ticker, only: [:edit, :destroy, :update]
   before_action :set_params, only: [:create, :update]
   def index
     @news_tickers = NewsTicker.includes(:admin)
@@ -33,7 +33,7 @@ class Admin::NewsTickersController < AdminApplicationController
     if @news_ticker.destroy
       flash[:notice] = 'Succesfully deleted'
     else
-      flash[:alert] = @news_ticker.errors.messages
+      flash[:alert] = @news_ticker.errors.full_messages.to_sentence
     end
     redirect_to news_tickers_path
   end
