@@ -25,7 +25,7 @@
         <% end %>
       </li>
       <li class="nav-item">
-        <%= link_to item_index_path, class: 'nav-link text-dark py-2 px-3 d-flex align-items-center' do %>
+        <%= link_to items_path, class: 'nav-link text-dark py-2 px-3 d-flex align-items-center' do %>
           <i class="bi bi-folder me-2 text-primary"></i>
           <span>Item Management</span>
         <% end %>
@@ -58,6 +58,12 @@
         <%= link_to invite_lists_path, class: 'nav-link text-dark py-2 px-3 d-flex align-items-center' do %>
           <i class="bi bi-incognito me-2 text-primary"></i>
           <span>Invite List</span>
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link_to news_tickers_path, class: 'nav-link text-dark py-2 px-3 d-flex align-items-center' do %>
+          <i class="bi bi-newspaper me-2 text-primary"></i>
+          <span>News Tickers</span>
         <% end %>
       </li>
     </ul>

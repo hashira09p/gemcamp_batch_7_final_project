@@ -1,4 +1,4 @@
-class Admin::ItemController < AdminApplicationController
+class Admin::ItemsController < AdminApplicationController
   before_action :set_item, only: [:edit, :update, :destroy, :start, :pause, :end, :cancel]
 
   def index
@@ -14,28 +14,28 @@ class Admin::ItemController < AdminApplicationController
     item_size = Item.all.count
     @item.batch_count = item_size + 1
     if @item.save
-      redirect_to item_index_path, notice: 'Item was successfully created.'
+      redirect_to items_path, notice: 'Item was successfully created.'
     else
       render :show
     end
   end
 
-  def edit; end
+  def edit;end
 
   def update
     if @item.update(item_params)
       flash[:notice] = 'Succesfully updated'
-      redirect_to item_index_path
+      redirect_to items_path
     end
   end
 
   def destroy
     if @item.destroy
       flash[:notice] = 'Succesfully deleted'
-      redirect_to item_index_path
+      redirect_to items_path
     else
       flash[:alert] = @item.errors.messages
-      redirect_to item_index_path
+      redirect_to items_path
     end
   end
 
@@ -43,10 +43,10 @@ class Admin::ItemController < AdminApplicationController
     if @item.may_start?
       @item.start!
       flash[:notice] = 'Success'
-      redirect_to item_index_path
+      redirect_to items_path
     else
       flash[:alert] = @item.errors.full_messages.to_sentence
-      redirect_to item_index_path
+      redirect_to items_path
     end
   end
 
@@ -54,10 +54,10 @@ class Admin::ItemController < AdminApplicationController
     if @item.may_pause?
       @item.pause!
       flash[:notice] = 'Success'
-      redirect_to item_index_path
+      redirect_to items_path
     else
       flash[:alert] = @item.errors.full_messages.to_sentence
-      redirect_to item_index_path
+      redirect_to items_path
     end
   end
 
@@ -65,10 +65,10 @@ class Admin::ItemController < AdminApplicationController
     if @item.may_end?
       @item.end!
       flash[:notice] = 'Success'
-      redirect_to item_index_path
+      redirect_to items_path
     else
       flash[:alert] = @item.end!.errors.full_messages.to_sentence
-      redirect_to item_index_path
+      redirect_to items_path
     end
   end
 
@@ -76,10 +76,10 @@ class Admin::ItemController < AdminApplicationController
     if @item.may_cancel?
       @item.cancel!
       flash[:notice] = 'Success'
-      redirect_to item_index_path
+      redirect_to items_path
     else
       flash[:alert] = @item.errors.full_messages.to_sentence
-      redirect_to item_index_path
+      redirect_to items_path
     end
   end
 

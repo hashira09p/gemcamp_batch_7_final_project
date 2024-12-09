@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       }, as: :admin
 
       resources :home
-      resources :item do
+      resources :items do
         patch :start
         patch :pause
         patch :end
@@ -42,6 +42,7 @@ Rails.application.routes.draw do
       end
       resources :category
       resources :invite_lists
+      resources :news_tickers
       resources :tickets
       resources :offers
       resources :orders do

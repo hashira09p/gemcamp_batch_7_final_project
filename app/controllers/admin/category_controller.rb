@@ -37,7 +37,7 @@ class Admin::CategoryController < AdminApplicationController
       flash[:notice] = 'Delete Success'
       redirect_to category_index_path
     else
-      flash[:alert] = 'Failed because thie category used by item.'
+      flash[:alert] = 'Failed because the category used by items.'
       redirect_to category_index_path
     end
   end

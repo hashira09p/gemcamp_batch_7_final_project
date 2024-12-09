@@ -16,7 +16,7 @@ class Client::LotteryController < ApplicationController
     number_of_tickets = params[:minimum_tickets].to_i
     item = Item.find params[:item_id].to_i
     user = current_client_user
-    #item.update(quantity: item.quantity - number_of_tickets)
+    #items.update(quantity: items.quantity - number_of_tickets)
 
     if user.addresses.present?
       if item.quantity >= 0
