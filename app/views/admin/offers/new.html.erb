@@ -12,7 +12,11 @@
 
       <!-- Content Area -->
       <div class="content bg-white shadow p-4 rounded flex-grow-1 overflow-auto">
-        <p class="text-muted">Here’s your dashboard overview for items. Navigate using the sidebar to manage your tasks.</p>
+        <header class="bg-light text-dark py-4 shadow-sm">
+          <div class="container text-center">
+            <h2 class="fw-semibold text-uppercase mb-2">Add a new offer</h2>
+          </div>
+        </header>
         <div class="d-flex flex-column vh-100">
           <div class="flex-grow-1 overflow-auto">
             <%= form_with model: @offer, url: offers_path, local: true do |f| %>
