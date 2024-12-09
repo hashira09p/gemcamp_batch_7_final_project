@@ -2,7 +2,7 @@ class Admin::OrdersController < AdminApplicationController
   before_action :set_order, only: [:pay, :cancel, :submit]
   def index
     @offers = Offer.pluck(:name, :id)
-    @orders = Order.includes(:user, :offer).page(params[:page]).per(5)
+    @orders = Order.includes(:user, :offer).page(params[:page]).per(5).order(created_at: :desc)
     @amount_subtotal = @orders.map(&:amount).sum
     @amount_total = Order.all
 
