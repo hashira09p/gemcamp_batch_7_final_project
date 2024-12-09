@@ -4,6 +4,8 @@ class Client::LotteryController < ApplicationController
   before_action :authenticate_client_user!, except: :index
 
   def index
+    @news_tickers = NewsTicker.where(status: 'active').order(created_at: :desc).first(5)
+    @banners = Banner.where(status: 'active')
     filter
   end
 

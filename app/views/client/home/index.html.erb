@@ -1,27 +1,59 @@
 <%= render "partial/header" %>
 
 <!-- Banner Section -->
-<section class="banner-section text-center py-5 mb-5 bg-light shadow-sm rounded border position-relative">
-  <button
-    class="btn btn-arrow rounded-circle shadow-sm position-absolute start-0 top-50 translate-middle-y"
-    aria-label="Previous">
-    <i class="bi bi-chevron-left"></i>
-  </button>
-  <h2 class="text-primary display-4 fw-bold mb-0">✨ Banner Image</h2>
-  <button
-    class="btn btn-arrow rounded-circle shadow-sm position-absolute end-0 top-50 translate-middle-y"
-    aria-label="Next">
-    <i class="bi bi-chevron-right"></i>
-  </button>
+<section class="banner-section text-center py-3 mb-5 bg-light shadow-sm rounded border position-relative">
+  <!-- Bootstrap Carousel -->
+  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <!-- Carousel Indicators (optional) -->
+    <div class="carousel-indicators">
+      <% @banners.each_with_index do |banner, index| %>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<%= index %>" class="<%= 'active' if index == 0 %>" aria-current="true" aria-label="Slide <%= index + 1 %>"></button>
+      <% end %>
+    </div>
+
+    <!-- Carousel Inner (the images) -->
+    <div class="carousel-inner">
+      <% @banners.each_with_index do |banner, index| %>
+        <div class="carousel-item <%= 'active' if index == 0 %>">
+          <%= image_tag(
+                banner.preview.url,
+                class: "d-block w-100 img-fluid rounded shadow-lg",
+                alt: 'Banner Image',
+                style: "object-fit: cover; height: 250px;"
+                ) %>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Carousel Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
 </section>
+
 
 <!-- Announcement Section -->
 <section class="announcement-section py-4 mb-5 border-bottom">
   <div class="announcement-ticker bg-warning py-2 rounded shadow-sm overflow-hidden position-relative">
     <div
       class="announcement-scroll text-dark fw-bold d-inline-block"
-      style="animation: scrollLeft 10s linear infinite;">
-      🚨 Announcement: Stay tuned for upcoming events! 🚀 Special offers are on the way! ✨
+      style="animation: scrollLeft 40s linear infinite;">
+
+      <% @news_tickers.each do |newsticker| %>
+        <span><%= newsticker.content %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span>
+      <% end %>
     </div>
   </div>
 </section>

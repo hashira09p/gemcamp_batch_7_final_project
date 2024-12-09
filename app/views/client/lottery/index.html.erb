@@ -11,28 +11,53 @@
 
 <div class="container mt-5">
   <!-- Banner Section -->
-  <div class="d-flex justify-content-between align-items-center border py-5 mb-5 bg-light shadow-sm rounded position-relative">
-    <button class="btn btn-outline-primary rounded-circle shadow-sm px-3 py-2 position-absolute start-0 translate-middle-y">
-      <i class="bi bi-chevron-left"></i>
-    </button>
-    <div class="flex-grow-1 text-center">
-      <h2 class="text-primary display-5 fw-bold">Banner Image</h2>
+  <section class="banner-section text-center py-3 mb-5 bg-light shadow-sm rounded border position-relative">
+    <!-- Bootstrap Carousel -->
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+      <!-- Carousel Indicators (optional) -->
+      <div class="carousel-indicators">
+        <% @banners.each_with_index do |banner, index| %>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<%= index %>" class="<%= 'active' if index == 0 %>" aria-current="true" aria-label="Slide <%= index + 1 %>"></button>
+        <% end %>
+      </div>
+
+      <!-- Carousel Inner (the images) -->
+      <div class="carousel-inner">
+        <% @banners.each_with_index do |banner, index| %>
+          <div class="carousel-item <%= 'active' if index == 0 %>">
+            <%= image_tag(
+                  banner.preview.url,
+                  class: "d-block w-100 img-fluid rounded shadow-lg",
+                  alt: 'Banner Image',
+                  style: "object-fit: cover; height: 250px;"
+                ) %>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Carousel Controls -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
-    <button class="btn btn-outline-primary rounded-circle shadow-sm px-3 py-2 position-absolute end-0 translate-middle-y">
-      <i class="bi bi-chevron-right"></i>
-    </button>
-  </div>
+  </section>
+
 
   <!-- Announcement Section -->
-  <div class="my-4 position-relative overflow-hidden">
-    <div class="bg-warning py-2 shadow-sm rounded">
-      <div class="announcement-scroll d-flex align-items-center" style="animation: scrollLeft 10s linear infinite;">
-        <p class="mb-0 fw-bold text-dark px-5">
-          🚨 Announcement: More upcoming big prizes this week! Stay tuned!
-        </p>
+  <section class="announcement-section py-4 mb-5 border-bottom">
+    <div class="announcement-ticker bg-warning py-2 rounded shadow-sm overflow-hidden position-relative">
+      <div
+        class="announcement-scroll text-dark fw-bold d-inline-block"
+        style="animation: scrollLeft 40s linear infinite;">
       </div>
     </div>
-  </div>
+  </section>
+
 
   <!-- Category Buttons Section -->
   <%= form_with url: lottery_index_path, method: :get, local: true do %>
