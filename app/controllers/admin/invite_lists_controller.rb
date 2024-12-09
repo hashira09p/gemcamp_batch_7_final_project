@@ -4,7 +4,6 @@ class Admin::InviteListsController < AdminApplicationController
                    .where.not(parent: nil)
                    .order(created_at: :desc)
                    .page(params[:page]).per(10)
-
     if params[:parent_email].present?
       @clients = User.joins('INNER JOIN users parents ON users.parent_id = parents.id')
                      .where('LOWER(parents.email) LIKE ?', "%#{params[:parent_email].downcase}%")
