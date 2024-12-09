@@ -37,7 +37,7 @@
             </div>
             <div class="mb-3">
               <%= form.label :remarks, 'Remarks', class: 'form-label' %>
-              <%= form.text_area :remarks, class: 'form-control', rows: 2, placeholder: 'Enter remarks' %>
+              <%= form.text_area :remarks, class: 'form-control', rows: 2, placeholder: 'Enter remarks', required: true%>
             </div>
             <%= form.submit 'Submit', class: 'btn btn-primary' %>
           <% end %>
