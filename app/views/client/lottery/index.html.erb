@@ -10,11 +10,10 @@
 <% end %>
 
 <div class="container mt-5">
-  <!-- Banner Section -->
   <section class="banner-section text-center py-3 mb-5 bg-light shadow-sm rounded border position-relative">
     <!-- Bootstrap Carousel -->
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-      <!-- Carousel Indicators (optional) -->
+      <!-- Carousel Indicators -->
       <div class="carousel-indicators">
         <% @banners.each_with_index do |banner, index| %>
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<%= index %>" class="<%= 'active' if index == 0 %>" aria-current="true" aria-label="Slide <%= index + 1 %>"></button>
@@ -29,7 +28,7 @@
                   banner.preview.url,
                   class: "d-block w-100 img-fluid rounded shadow-lg",
                   alt: 'Banner Image',
-                  style: "object-fit: cover; height: 250px;"
+                  style: "object-fit: cover; width: 100%; height: 100%;"
                 ) %>
           </div>
         <% end %>
@@ -47,17 +46,25 @@
     </div>
   </section>
 
-
   <!-- Announcement Section -->
   <section class="announcement-section py-4 mb-5 border-bottom">
     <div class="announcement-ticker bg-warning py-2 rounded shadow-sm overflow-hidden position-relative">
       <div
         class="announcement-scroll text-dark fw-bold d-inline-block"
         style="animation: scrollLeft 40s linear infinite;">
+
+        <% @news_tickers.each do |newsticker| %>
+        <span><%= newsticker.content %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </span>
+        <% end %>
       </div>
     </div>
   </section>
-
 
   <!-- Category Buttons Section -->
   <%= form_with url: lottery_index_path, method: :get, local: true do %>
@@ -93,6 +100,11 @@
       <% end %>
     <% end %>
   </div>
+</div>
+
+<!-- Pagination Section -->
+<div class="mt-4 text-center">
+  <%= paginate @items %>
 </div>
 
 <%= render "partial/footer" %>

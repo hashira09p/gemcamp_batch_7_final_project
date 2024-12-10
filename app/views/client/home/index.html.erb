@@ -4,7 +4,7 @@
 <section class="banner-section text-center py-3 mb-5 bg-light shadow-sm rounded border position-relative">
   <!-- Bootstrap Carousel -->
   <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-    <!-- Carousel Indicators (optional) -->
+    <!-- Carousel Indicators -->
     <div class="carousel-indicators">
       <% @banners.each_with_index do |banner, index| %>
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<%= index %>" class="<%= 'active' if index == 0 %>" aria-current="true" aria-label="Slide <%= index + 1 %>"></button>
@@ -19,8 +19,8 @@
                 banner.preview.url,
                 class: "d-block w-100 img-fluid rounded shadow-lg",
                 alt: 'Banner Image',
-                style: "object-fit: cover; height: 250px;"
-                ) %>
+                style: "object-fit: cover; width: 100%; height: 100%;"
+              ) %>
         </div>
       <% end %>
     </div>
@@ -36,7 +36,6 @@
     </button>
   </div>
 </section>
-
 
 <!-- Announcement Section -->
 <section class="announcement-section py-4 mb-5 border-bottom">
@@ -69,13 +68,13 @@
             <% winners_group.each do |winner| %>
               <div class="col">
                 <div class="card shadow-sm border-0 text-center h-100">
+                  <%= image_tag(
+                        winner.image.url,
+                        class: "card-img-top rounded-top",
+                        style: "object-fit: cover; height: 150px;",
+                      alt: winner.user.username
+                      ) %>
                   <div class="card-body">
-                    <%= image_tag(
-                          winner.image.url,
-                          class: "img-fluid shadow-sm",
-                          style: "width: 100px; height: 100px; object-fit: cover;",
-                          alt: winner.user.username
-                        ) %>
                     <h5 class="fw-bold"><%= winner.user.username %></h5>
                     <p class="text-muted"><%= winner.comment %></p>
                   </div>
@@ -95,6 +94,9 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
+  <div class="text-center mt-3">
+    <button class="btn btn-outline-info">More Winners</button>
+  </div>
 </section>
 
 <!-- Coming Soon Section -->
@@ -109,13 +111,13 @@
               <% if item.quantity >= 0 %>
                 <div class="col">
                   <div class="card shadow-sm border-0 text-center h-100">
+                    <%= image_tag(
+                          item.image.url,
+                          class: "card-img-top rounded-top",
+                          style: "object-fit: cover; height: 150px;",
+                        alt: item.name
+                        ) %>
                     <div class="card-body">
-                      <%= image_tag(
-                            item.image.url,
-                            class: "img-fluid shadow-sm",
-                            style: "width: 100px; height: 100px; object-fit: cover;",
-                            alt: item.name
-                          ) %>
                       <h5 class="fw-bold"><%= item.name %></h5>
                       <p class="text-muted">Start At: <%= item.start_at %></p>
                     </div>
@@ -136,7 +138,11 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
+  <div class="text-center mt-3">
+    <%= link_to 'More Items', lottery_index_path, class: 'btn btn-outline-info' %>
+  </div>
 </section>
+
 
 <%= render "partial/footer" %>
 

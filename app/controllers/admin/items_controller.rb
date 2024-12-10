@@ -16,7 +16,8 @@ class Admin::ItemsController < AdminApplicationController
     if @item.save
       redirect_to items_path, notice: 'Item was successfully created.'
     else
-      render :show
+      flash[:alert] = 'Item was not created.'
+      redirect_to new_item_path
     end
   end
 

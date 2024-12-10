@@ -2,7 +2,7 @@ class Admin::WinnersController < AdminApplicationController
   before_action :set_winner, only: [:submit, :pay, :ship, :deliver, :publish, :remove_publish]
   def index
     @winner_states = Winner.pluck(:state).uniq
-    @winners = Winner.includes(:user).page(params[:page]).per(5) # Eager load for performance
+    @winners = Winner.includes(:user).order(created_at: :desc).page(params[:page]).per(5) # Eager load for performance
 
     if params[:serial_number].present?
       @winners = @winners.where('LOWER(serial_number) LIKE ?', "%#{params[:serial_number].downcase}%")

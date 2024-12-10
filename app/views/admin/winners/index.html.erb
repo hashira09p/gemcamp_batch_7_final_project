@@ -92,27 +92,27 @@
                 <td><%= winner.comment %></td>
                 <td class="text-center">
                   <% if winner.may_submit? %>
-                    <%= button_to 'Submit', winner_submit_path(winner), method: :patch, class: 'btn btn-warning btn-sm' %>
+                    <%= button_to 'Submit', winner_submit_path(winner, page: params[:page]), method: :patch, class: 'btn btn-warning btn-sm' %>
                   <% end %>
 
                   <% if winner.may_pay? %>
-                    <%= button_to 'Pay', winner_pay_path(winner), method: :patch, class: 'btn btn-danger btn-sm' %>
+                    <%= button_to 'Pay', winner_pay_path(winner, page: params[:page]), method: :patch, class: 'btn btn-danger btn-sm' %>
                   <% end %>
 
                   <% if winner.may_ship? %>
-                    <%= button_to 'Ship', winner_ship_path(winner), method: :patch, class: 'btn btn-success btn-sm' %>
+                    <%= button_to 'Ship', winner_ship_path(winner, page: params[:page]), method: :patch, class: 'btn btn-success btn-sm' %>
                   <% end %>
 
                   <% if winner.may_deliver? %>
-                    <%= button_to 'Deliver', winner_deliver_path(winner), method: :patch, class: 'btn btn-info btn-sm' %>
+                    <%= button_to 'Deliver', winner_deliver_path(winner, page: params[:page]), method: :patch, class: 'btn btn-info btn-sm' %>
                   <% end %>
 
                   <% if winner.may_publish? %>
-                    <%= button_to 'Publish', winner_publish_path(winner), method: :patch, class: 'btn btn-primary btn-sm' %>
+                    <%= button_to 'Publish', winner_publish_path(winner, page: params[:page]), method: :patch, class: 'btn btn-primary btn-sm' %>
                   <% end %>
 
                   <% if winner.may_remove_publish? %>
-                    <%= button_to 'Remove Publish', winner_remove_publish_path(winner), method: :patch, class: 'btn btn-secondary btn-sm' %>
+                    <%= button_to 'Remove Publish', winner_remove_publish_path(winner, page: params[:page]), method: :patch, class: 'btn btn-secondary btn-sm' %>
                   <% end %>
                 </td>
               </tr>

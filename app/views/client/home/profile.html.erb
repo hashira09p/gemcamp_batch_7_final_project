@@ -29,9 +29,8 @@
         <p class="text-muted mb-3">Coins: <%= current_client_user.coins %></p>
 
         <!-- Save Button -->
-        <button class="btn btn-primary w-100 mb-3" style="background: linear-gradient(to right, #ff9a9e, #fad0c4); border: none;">
-          Cash In
-        </button>
+        <%= link_to 'Cash In', shop_index_path, class: "btn btn-primary w-100 mb-3",
+                    style: 'background: linear-gradient(to right, #ff9a9e, #fad0c4); border: none;'  %>
 
         <!-- Navigation Links -->
         <div class="nav flex-column">

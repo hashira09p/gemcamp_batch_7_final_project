@@ -56,8 +56,11 @@ class Client::LotteryController < ApplicationController
   def filter
     if params[:category] == 'All' || params[:category].blank?
       @items = Item.where(status: 'active', state: 'starting')
+                   .page(params[:page]).per(8)
     else
-      @items = Item.includes(:categories).where(status: 'active', state: 'starting').where(categories: { name: params[:category] })
+      @items = Item.includes(:categories).where(status: 'active', state: 'starting')
+                   .where(categories: { name: params[:category] })
+                   .page(params[:page]).per(8)
     end
   end
 end
