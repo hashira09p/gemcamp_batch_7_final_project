@@ -1,9 +1,11 @@
-
 <div class="container-fluid px-3">
   <!-- Header Section -->
   <div class="d-flex justify-content-between align-items-center py-3">
     <div class="d-flex align-items-center">
-      <%= link_to 'Home', client_root_path, class: 'btn btn-light shadow-sm' %>
+      <%= link_to client_root_path, class: 'btn btn-light shadow-sm p-0 border-0 d-flex align-items-center hover-gray' do %>
+        <%= image_tag 'robo_logo.jpg', alt: 'Logo', class: 'img-fluid rounded-circle', style: 'height: 60px; width: 60px; object-fit: cover; margin-right: 10px;' %>
+        <span class="fw-bold text-dark">GizmoGold</span>
+      <% end %>
     </div>
     <div>
       <% if client_user_signed_in? %>
