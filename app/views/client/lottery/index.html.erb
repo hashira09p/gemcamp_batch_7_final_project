@@ -103,50 +103,8 @@
 </div>
 
 <!-- Pagination Section -->
-<div class="mt-4 text-center">
+<div class="d-flex align-items-center justify-content-center mt-4">
   <%= paginate @items %>
 </div>
 
 <%= render "partial/footer" %>
-
-<!-- Custom CSS -->
-<style>
-    /* Announcement Scroll */
-    .announcement-scroll {
-        display: inline-block;
-        white-space: nowrap;
-    }
-
-    @keyframes scrollLeft {
-        from {
-            transform: translateX(100%);
-        }
-        to {
-            transform: translateX(-100%);
-        }
-    }
-
-    /* Product Card Hover Effect */
-    .product-card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .product-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    }
-
-    /* Item Name Styling */
-    .item-name {
-        font-family: 'Poppins', sans-serif;
-        font-size: 1.2rem;
-        color: #007bff;
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-        transition: color 0.3s ease, text-shadow 0.3s ease;
-    }
-
-    .item-name:hover {
-        color: #0056b3;
-        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    }
-</style>

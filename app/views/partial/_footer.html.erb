@@ -1,6 +1,6 @@
 <!-- Footer Navigation -->
 <div class="d-flex justify-content-around py-3 border-top mt-4">
-  <button class="btn btn-light">Share</button>
+  <%= link_to 'Share', shares_path, class: 'btn btn-light' %>
   <% if client_user_signed_in? %>
     <%= link_to 'Invite', new_home_path, class: 'btn btn-light' %>
   <% end %>

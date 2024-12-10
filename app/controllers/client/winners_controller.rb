@@ -11,7 +11,7 @@ class Client::WinnersController < ApplicationController
   def update_winner_to_shared
     winner = Winner.find(@winner_ticket.id)
     if winner.update(feedback_params)
-      flash[:notice] = "Successfully claimed the prize."
+      flash[:notice] = "Successfully shared your feedback!."
       winner.share!
       winner.save
       redirect_to client_winning_history_path
