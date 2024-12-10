@@ -19,7 +19,7 @@ class Admin::WinnersController < AdminApplicationController
     end
 
     if params[:start_date].present? && params[:end_date].present?
-      @winners = @tickets.where(created_at: params[:start_date]..params[:end_date]).page(params[:page]).per(5)
+      @winners = @winners.where(paid_at: params[:start_date]..params[:end_date]).page(params[:page]).per(5)
     end
   end
 
