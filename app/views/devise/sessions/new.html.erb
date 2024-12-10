@@ -1,83 +1,112 @@
-<div class="container">
-  <div class="row justify-content-center">
+<div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center" style="background: #ffffff;">
+  <div class="row justify-content-center w-100">
     <div class="col-md-6">
-      <div class="card shadow-sm mt-5">
-        <div class="card-body">
+      <div class="card shadow-lg border-0" style="border-radius: 15px;">
+        <div class="card-body p-5 bg-white" style="border-radius: 15px;">
+
           <% if request.domain == 'admin.com' %>
-          <%# if ['admin.com'].include?(request.domain) %>
             <!-- Admin Login Design -->
-            <h2 class="text-center">Admin Log in</h2>
+            <h2 class="text-center text-dark mb-4">Admin Log in</h2>
             <%= alert %>
             <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "needs-validation", novalidate: true }) do |f| %>
-              <div class="form-group">
+              <div class="form-group mb-3">
                 <%= f.label :email, class: "form-label" %>
-                <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", required: true %>
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control form-control-lg", required: true %>
               </div>
 
-              <div class="form-group">
+              <div class="form-group mb-3">
                 <%= f.label :password, class: "form-label" %>
-                <%= f.password_field :password, autocomplete: "current-password", class: "form-control", required: true %>
+                <%= f.password_field :password, autocomplete: "current-password", class: "form-control form-control-lg", required: true %>
               </div>
-
-              <%# if devise_mapping.rememberable? %>
-                <!--<div class="form-check">
-                  <%#= f.check_box :remember_me, class: "form-check-input" %>
-                  <%#= f.label :remember_me, class: "form-check-label" %>
-                </div>-->
-              <%# end %>
 
               <div class="text-center mt-3">
-                <%= f.submit "Admin Log in", class: "btn btn-success w-100" %>
+                <%= f.submit "Admin Log in", class: "btn btn-gradient-primary btn-lg w-100" %>
               </div>
             <% end %>
-            <% elsif request.domain == 'ngrok-free.app' || request.domain == 'client.com' %>
-          <%# elsif ['client.com', 'ngrok-free.app'].include?(request.domain) %>
+
+          <% elsif request.domain == 'ngrok-free.app' || request.domain == 'client.com' %>
             <!-- Client Login Design -->
-            <h2 class="text-center">Client Log in</h2>
+            <h2 class="text-center text-dark mb-4">Client Log in</h2>
             <%= alert %>
 
-            <div class="container">
-              <div class="row justify-content-center">
-                <div class="col-md-10">
-
-                  <%= form_for(@client_user || User.client.new, as: :client_user, url: session_path(:client_user) , html: { class: "needs-validation", novalidate: true }) do |f| %>
-                <!-- Login/Register Tabs -->
-                    <div class="btn-group w-100 mb-3" role="group">
-                      <button type="button" class="btn btn-warning active">Login</button>
-                      <%= link_to "Sign up", new_client_user_registration_path, class: "btn btn-outline-secondary w-100", type: "button" %>
-                    </div>
-
-                    <!-- Email Field -->
-                    <div class="form-group mb-3">
-                      <%= f.label :email, "Email", class: "form-label" %>
-                      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", required: true %>
-                    </div>
-
-                    <!-- Password Field -->
-                    <div class="form-group mb-3">
-                      <%= f.label :password, "Password", class: "form-label" %>
-                      <%= f.password_field :password, autocomplete: "current-password", class: "form-control", required: true %>
-                    </div>
-
-                    <!-- Remember Me Checkbox -->
-
-                    <!-- Submit Button -->
-                    <div class="text-center mt-3">
-                      <%= f.submit "Login", class: "btn btn-primary w-100" %>
-                    </div>
-                  <% end %>
-                </div>
+            <%= form_for(@client_user || User.client.new, as: :client_user, url: session_path(:client_user), html: { class: "needs-validation", novalidate: true }) do |f| %>
+              <!-- Login/Register Tabs -->
+              <div class="btn-group w-100 mb-4" role="group">
+                <button type="button" class="btn btn-warning active w-50">Login</button>
+                <%= link_to "Sign up", new_client_user_registration_path, class: "btn btn-outline-secondary w-50", type: "button" %>
               </div>
-            </div>
 
-            <%#= render "devise/shared/links" %>
+              <!-- Email Field -->
+              <div class="form-group mb-3">
+                <%= f.label :email, "Email", class: "form-label" %>
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control form-control-lg", required: true %>
+              </div>
+
+              <!-- Password Field -->
+              <div class="form-group mb-3">
+                <%= f.label :password, "Password", class: "form-label" %>
+                <%= f.password_field :password, autocomplete: "current-password", class: "form-control form-control-lg", required: true %>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="text-center mt-3">
+                <%= f.submit "Login", class: "btn btn-gradient-primary btn-lg w-100" %>
+              </div>
+            <% end %>
+
           <% else %>
             <!-- Handle unknown domains or provide a default login -->
-            <h2 class="text-center">Log in</h2>
+            <h2 class="text-center text-dark mb-4">Log in</h2>
             <p class="text-center">Invalid domain for login.</p>
           <% end %>
+
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<style>
+    /* Background for the entire container */
+    .container-fluid {
+        background: #ffffff; /* plain background for the container */
+    }
+
+    /* Gradient Button for "Admin" and "Client" Login */
+    .btn-gradient-primary {
+        background: linear-gradient(135deg, #ff7e5f, #feb47b);
+        color: #fff;
+        border: none;
+        transition: background 0.3s ease;
+        border-radius: 10px;
+    }
+
+    .btn-gradient-primary:hover {
+        background: linear-gradient(135deg, #feb47b, #ff7e5f);
+    }
+
+    /* Gradient Background for input fields */
+    .form-control {
+        background: #f3f4f7;
+        border: 1px solid transparent;
+        border-radius: 10px;
+        transition: background-color 0.3s ease;
+    }
+
+    .form-control:focus {
+        background: #e3e4e8;
+        border-color: #2575fc;
+        box-shadow: 0 0 8px rgba(37, 117, 252, 0.6);
+    }
+
+    /* Customizing the form container */
+    .card-body {
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+        border-radius: 15px;
+    }
+
+    /* Button with no border radius */
+    .btn-outline-warning, .btn-outline-secondary {
+        border-radius: 10px;
+    }
+</style>
