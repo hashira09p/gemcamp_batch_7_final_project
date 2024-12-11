@@ -9,5 +9,7 @@ class Admin::InviteListsController < AdminApplicationController
                      .where('LOWER(parents.email) LIKE ?', "%#{params[:parent_email].downcase}%")
                      .page(params[:page]).per(5)
     end
+
+    @clients_order_coins = User.client
   end
 end

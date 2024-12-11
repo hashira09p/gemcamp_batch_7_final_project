@@ -49,7 +49,12 @@
                 <td><%= client.total_deposit %></td>
                 <td><%= client.children.sum(:total_deposit) %></td>
                 <td><%= client.coins %></td>
-                <td><%= total_used_coins(client.total_deposit, client.coins) %> </td>
+                <td><%= total_used_coins(
+                          client.total_deposit,
+                          client.coins,
+                          client.orders.where(genre: ['increase', 'bonus', 'share', 'member_level'], state: 'paid')
+                                .sum(:coin))
+                %></td>
                 <td><%= client.children_members %></td>
               </tr>
             <% end %>

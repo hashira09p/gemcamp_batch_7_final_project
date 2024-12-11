@@ -8,7 +8,7 @@ class Admin::Users::OrdersController < AdminApplicationController
   def create_increase
     @order = Order.new(set_params)
     @order.user_id = @client_user.id
-    @order.amount = rand(1...9999)
+    @order.amount = params[:order][:coin].to_i * 20
     if @order.save
       flash[:notice] = 'increase order has successfully created'
     else
