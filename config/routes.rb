@@ -43,6 +43,7 @@ Rails.application.routes.draw do
       resources :banners
       resources :category
       resources :invite_lists
+      resources :member_levels
       resources :news_tickers
       resources :tickets
       resources :offers

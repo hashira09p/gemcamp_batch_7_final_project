@@ -1,6 +1,6 @@
 class Order < ApplicationRecord
   include AASM
-  enum genre: { deposit: 0, increase: 1, deduct: 2, bonus: 3, share: 4 }
+  enum genre: { deposit: 0, increase: 1, deduct: 2, bonus: 3, share: 4, member_level: 5 }
 
   belongs_to :user
   belongs_to :offer, optional: true

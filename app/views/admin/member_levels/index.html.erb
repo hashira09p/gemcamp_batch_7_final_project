@@ -1,0 +1,60 @@
+<%= notice %>
+<%= alert %>
+<div class="container-fluid vh-100">
+  <div class="row h-100">
+    <!-- Sidebar -->
+    <%= render "partial/admin/aside" %>
+
+    <!-- Main Content -->
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 d-flex flex-column">
+      <!-- Content Area -->
+      <div class="content bg-white shadow p-4 rounded flex-grow-1 overflow-auto">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <div>
+            <h2 class="text-primary">Member Level Management</h2>
+          </div>
+          <div class="d-flex align-items-center">
+            <button class="btn btn-outline-secondary me-2">Change Language</button>
+            <%= button_to 'Sign Out', destroy_admin_user_session_path, method: :delete, class: 'btn btn-danger' %>
+          </div>
+        </div>
+
+        <%= link_to 'Add Member Level', new_member_level_path, class: 'btn btn-success' %>
+        <div class="d-flex flex-column vh-100">
+          <div class="flex-grow-1 overflow-auto">
+            <table class="table table-striped table-bordered table-hover">
+              <thead class="table-dark">
+              <tr>
+                <th>Level</th>
+                <th>Client</th>
+                <th>Required Members</th>
+                <th>Online_at</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @member_levels.each do |member_level| %>
+                <tr>
+                  <td>
+                  <td><%= member_level.level %></td>
+                  </td>
+                  <td><%= member_level.client.username %></td>
+                  <td><%= member_level.required_members %></td>
+                  <td><%= member_level.online_at %></td>
+                  <td>
+                    <%= link_to 'Edit', edit_member_level_path(member_level), class: "btn btn-sm btn-warning" %>
+                    <%= button_to 'Delete', member_level_path(member_level),
+                                  method: :delete,
+                                  data: { confirm: 'Are you sure?' },
+                                  class: "btn btn-sm btn-danger" %>
+                  </td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
