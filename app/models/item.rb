@@ -58,8 +58,7 @@ class Item < ApplicationRecord
     winner = tickets.where(state: 'pending').sample
     if winner.may_win?
       winner.win!
-      address = winner.user.addresses.find_by(is_default: true)
-      winner = Winner.new(item_id: winner.item_id, ticket_id: winner.id, user_id: winner.user_id, address_id: address.id,
+      winner = Winner.new(item_id: winner.item_id, ticket_id: winner.id, user_id: winner.user_id, address_id: nil,
                           image: nil, item_batch_count: winner.batch_count)
       winner.save
 

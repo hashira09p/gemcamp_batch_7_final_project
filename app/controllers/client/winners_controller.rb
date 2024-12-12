@@ -23,7 +23,7 @@ class Client::WinnersController < ApplicationController
 
   def update
     winner = Winner.find(@winner_ticket.id)
-    if winner.update(address_id: set_params)
+    if winner.update(set_params)
       flash[:notice] = "Successfully claimed the prize."
       winner.claim!
       winner.save
@@ -41,7 +41,7 @@ class Client::WinnersController < ApplicationController
   end
 
   def set_params
-    params.require(:address_id)
+    params.require(:winner).permit(:address_id)
   end
 
   def feedback_params

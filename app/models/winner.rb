@@ -3,7 +3,7 @@ class Winner < ApplicationRecord
   mount_uploader :image, ImageUploader
   belongs_to :item
   belongs_to :ticket
-  belongs_to :address
+  belongs_to :address, optional: true
   belongs_to :user
 
   before_create :set_default_address_id
