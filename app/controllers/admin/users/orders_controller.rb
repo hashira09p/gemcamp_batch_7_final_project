@@ -10,11 +10,13 @@ class Admin::Users::OrdersController < AdminApplicationController
     @order.user_id = @client_user.id
     @order.amount = params[:order][:coin].to_i * 20
     if @order.save
+      @order.pay!
       flash[:notice] = 'increase order has successfully created'
+      redirect_to admin_home_path
     else
       flash[:alert] = 'Failed to create order'
+      redirect_to new_increase_users_client_orders_path
     end
-    redirect_to new_increase_users_client_orders_path
   end
 
   def new_deduct
@@ -26,11 +28,13 @@ class Admin::Users::OrdersController < AdminApplicationController
     @order.user_id = @client_user.id
     @order.amount = rand(1...9999)
     if @order.save
+      @order.pay!
       flash[:notice] = 'Deduct order has successfully created'
+      redirect_to admin_home_path
     else
       flash[:alert] = 'Failed to create order'
+      redirect_to new_increase_users_client_orders_path
     end
-    redirect_to new_increase_users_client_orders_path
   end
 
   def new_bonus
