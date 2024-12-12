@@ -51,9 +51,10 @@
 <div class="mt-4">
   <% if @item.tickets.where(state: 'pending').count == @item.minimum_tickets %>
     <div class="alert alert-info text-center shadow-sm">
-      <h4 class="mb-0"><i class="bi bi-trophy-fill"></i> Tickets required has been reached for this item and ready to roll!</h4>
+      <h4 class="mb-0"><i class="bi bi-trophy-fill">
+      </i> Tickets required has been reached for this item and ready to roll in any minute!
+      </h4>
     </div>
-  <% else %>
     <%= form_with url: lottery_index_path, local: true, class: "row g-3 needs-validation", id: "ticket-form", novalidate: true do |f| %>
       <%= f.hidden_field :item_id, value: @item.id %>
       <div class="col-12">
@@ -62,6 +63,26 @@
                            class: "form-control shadow-sm",
                            id: "minimum-tickets",
                            max: (@item.minimum_tickets - @item.tickets.where(state: 'pending').count).to_i,
+                           min: 0,
+                           value: 0,
+                           required: true %>
+        <div class="invalid-feedback">Please enter a valid number of tickets.</div>
+      </div>
+      <div class="col-12">
+        <!-- Trigger the confirmation modal -->
+        <button type="button" class="btn btn-primary w-100 shadow-sm" data-bs-toggle="modal" data-bs-target="#confirmationModal">
+          <i class="bi bi-ticket-fill"></i> Submit
+        </button>
+      </div>
+    <% end %>
+  <% else %>
+    <%= form_with url: lottery_index_path, local: true, class: "row g-3 needs-validation", id: "ticket-form", novalidate: true do |f| %>
+      <%= f.hidden_field :item_id, value: @item.id %>
+      <div class="col-12">
+        <%= f.label :minimum_tickets, "How many tickets do you want to buy?", class: "form-label fw-bold" %>
+        <%= f.number_field :minimum_tickets,
+                           class: "form-control shadow-sm",
+                           id: "minimum-tickets",
                            min: 0,
                            value: 0,
                            required: true %>
@@ -123,7 +144,6 @@
     }
 </style>
 
-<%# JavaScript for dynamic updates %>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const numberField = document.getElementById("minimum-tickets");
@@ -133,30 +153,35 @@
         const ticketForm = document.getElementById("ticket-form");
         let isFormSubmitted = false;  // Flag to track if the form is already submitted
 
-        // Update progress bar dynamically
-        numberField.addEventListener("input", () => {
-            if (isFormSubmitted) return; // Prevent updates if form is submitted already
+        // Ensure the Ruby code outputs correct values
+        const initialTicketCount = <%= @item.tickets.where(state: 'pending').count %>;
+        const minimumTickets = <%= @item.minimum_tickets %>;
 
-            const value = parseInt(numberField.value) || 0;
-            const progress = Math.min(Math.floor(((value + <%= @item.tickets.where(state: 'pending').count %>) / <%= @item.minimum_tickets %>) * 100), 100);
-
-            // Update the progress bar
+        // Function to update progress bar
+        const updateProgressBar = (value) => {
+            const progress = Math.min(Math.floor(((value + initialTicketCount) / minimumTickets) * 100), 100);
             progressBar.style.width = `${progress}%`;
             progressBar.setAttribute("aria-valuenow", progress);
             progressBar.textContent = `${progress}%`;
-
-            // Update ticket count in modal
             ticketCountSpan.textContent = value;
+        };
+
+        // Immediately update progress bar when page loads
+        updateProgressBar(initialTicketCount);
+
+        // Update progress bar dynamically when the number field changes
+        numberField.addEventListener("input", () => {
+            if (isFormSubmitted) return;
+            const value = parseInt(numberField.value) || 0;
+            updateProgressBar(value);
         });
 
         // Handle confirmation modal submission
         confirmSubmitButton.addEventListener("click", () => {
-            if (isFormSubmitted) return; // Prevent multiple submissions
-            isFormSubmitted = true; // Set the flag to prevent further interactions
-            ticketForm.submit();  // Submit the form
+            if (isFormSubmitted) return;
+            isFormSubmitted = true;
+            ticketForm.submit();
         });
     });
-
 </script>
-
 <%= render "partial/footer" %>
