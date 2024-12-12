@@ -2,7 +2,7 @@ class Admin::OrdersController < AdminApplicationController
   before_action :set_order, only: [:pay, :cancel, :submit]
   def index
     @offers = Offer.pluck(:name, :id)
-    @orders = Order.includes(:user, :offer).page(params[:page]).per(5).order(created_at: :desc)
+    @orders = Order.includes(:user, :offer).page(params[:page]).per(10).order(created_at: :desc)
     @amount_subtotal = @orders.map(&:amount).sum
     @amount_total = Order.all
 
@@ -10,19 +10,19 @@ class Admin::OrdersController < AdminApplicationController
     @coins_total = Order.all
 
     @orders = @orders.where(serial_number: params[:serial_number])
-                     .page(params[:page]).per(5) if params[:serial_number].present?
+                     .page(params[:page]).per(10) if params[:serial_number].present?
 
     @orders = @orders.where(user: { email: params[:email] })
-                     .page(params[:page]).per(5) if params[:email].present?
+                     .page(params[:page]).per(10) if params[:email].present?
 
     @orders = @orders.where(genre: params[:genre])
-                     .page(params[:page]).per(5) if params[:genre].present?
+                     .page(params[:page]).per(10) if params[:genre].present?
 
     @orders = @orders.where(state: params[:state])
-                     .page(params[:page]).per(5) if params[:state].present?
+                     .page(params[:page]).per(10) if params[:state].present?
 
     @orders = @orders.where(offer: params[:offer])
-                     .page(params[:page]).per(5) if params[:offer].present?
+                     .page(params[:page]).per(10) if params[:offer].present?
 
     if params[:start_date].present? && params[:end_date].present?
       @orders = @orders.where(created_at: params[:start_date]..params[:end_date])
