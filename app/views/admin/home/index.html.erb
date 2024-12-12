@@ -23,7 +23,7 @@
             <thead class="table-dark">
             <tr>
               <th>Parent Email</th>
-              <th>Username</th>
+              <th>Email</th>
               <th>Total Deposit</th>
               <th>Member Total Deposits</th>
               <th>Coins</th>
@@ -36,7 +36,7 @@
             <% @clients.each do |client| %>
               <tr>
                 <td><%= client.parent&.email || "None" %></td>
-                <td><%= client.username.present? ? client.username : "No username" %></td>
+                <td><%= client.email %></td>
                 <td><%= client.total_deposit %></td>
                 <td><%= client.children.sum(:total_deposit) %></td>
                 <td><%= client.coins %></td>
