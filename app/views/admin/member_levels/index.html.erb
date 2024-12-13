@@ -26,20 +26,17 @@
               <thead class="table-dark">
               <tr>
                 <th>Level</th>
-                <th>Client</th>
-                <th>Required Members</th>
-                <th>Online_at</th>
+                <th>Required members to level up</th>
+                <th>Reward for level up</th>
+                <th>Actions</th>
               </tr>
               </thead>
               <tbody>
               <% @member_levels.each do |member_level| %>
                 <tr>
-                  <td>
                   <td><%= member_level.level %></td>
-                  </td>
-                  <td><%= member_level.client.username %></td>
                   <td><%= member_level.required_members %></td>
-                  <td><%= member_level.online_at %></td>
+                  <td><%= member_level.coins %></td>
                   <td>
                     <%= link_to 'Edit', edit_member_level_path(member_level), class: "btn btn-sm btn-warning" %>
                     <%= button_to 'Delete', member_level_path(member_level),

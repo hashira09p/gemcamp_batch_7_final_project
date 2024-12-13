@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_12_10_155237) do
+ActiveRecord::Schema[7.0].define(version: 2024_12_12_060920) do
   create_table "address_barangays", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "city_id"
     t.string "code"
@@ -111,10 +111,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_10_155237) do
     t.integer "level"
     t.integer "required_members"
     t.integer "coins"
-    t.bigint "client_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["client_id"], name: "index_member_levels_on_client_id"
   end
 
   create_table "news_tickers", charset: "utf8mb4", force: :cascade do |t|
@@ -182,6 +180,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_10_155237) do
     t.datetime "reset_password_sent_at"
     t.string "image"
     t.integer "parent_id"
+    t.bigint "member_level_id", default: 1
+    t.index ["member_level_id"], name: "index_users_on_member_level_id"
   end
 
   create_table "winners", charset: "utf8mb4", force: :cascade do |t|
@@ -205,7 +205,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_10_155237) do
     t.index ["user_id"], name: "index_winners_on_user_id"
   end
 
-  add_foreign_key "member_levels", "users", column: "client_id"
   add_foreign_key "news_tickers", "users", column: "admin_id"
   add_foreign_key "tickets", "items"
   add_foreign_key "tickets", "users"

@@ -24,6 +24,8 @@ Rails.application.routes.draw do
               post 'deduct', to: 'orders#create_deduct'
               get 'bonus/new', to: 'orders#new_bonus', as: 'new_bonus'
               post 'bonus', to: 'orders#create_bonus'
+              get 'member_level/new', to: 'orders#new_member_level', as: 'new_member_level'
+              post 'member_level', to: 'orders#create_member_level'
             end
           end
         end

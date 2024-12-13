@@ -24,12 +24,12 @@
       <div class="content bg-white shadow p-4 rounded flex-grow-1 overflow-auto">
         <header class="bg-light text-dark py-4 shadow-sm">
           <div class="container text-center">
-            <h2 class="fw-semibold text-uppercase mb-2">Add a member level</h2>
+            <h2 class="fw-semibold text-uppercase mb-2">Edit a member level</h2>
           </div>
         </header>
         <div class="d-flex flex-column vh-100">
           <div class="flex-grow-1 overflow-auto">
-            <%= form_with model: @member_level, url: member_levels_path, method: :post, local: true do |f| %>
+            <%= form_with model: @member_level, url: member_level_path, method: :patch, local: true do |f| %>
               <div class="mb-3">
                 <%= f.label :level %>
                 <%= f.number_field :level, class: "form-control", required: true  %>

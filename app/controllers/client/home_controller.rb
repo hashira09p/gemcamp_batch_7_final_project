@@ -8,6 +8,8 @@ class Client::HomeController < ApplicationController
   end
 
   def new
+    @max_level = MemberLevel.last.level
+    @current_user = current_client_user
     @user = User.new
     @qrcode = RQRCode::QRCode.new(invitation_link)
 

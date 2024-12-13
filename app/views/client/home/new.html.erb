@@ -14,6 +14,20 @@
     </div>
   </div>
 
+  <!-- Share to Friends Section -->
+  <div class="text-center mb-5">
+    <div class="bg-light shadow-sm rounded p-4">
+      <% if @current_user.member_level.level == @max_level %>
+        <p class="fw-bold fs-5 mb-3 text-success">Congratulations! You are now at the Max Level!</p>
+      <% else %>
+        <p class="fw-bold fs-5 mb-3 text-primary">Your Current Level: <span class="text-dark"><%= @current_user.member_level.level %></span></p>
+        <p class="fw-bold fs-6 mb-3 text-secondary">Share with <span class="text-danger fw-bold">
+        <%= @current_user.member_level.required_members - @current_user.children_members %></span> more friends to level up!</p>
+        <p class="text-muted">Earn <span class="fw-bold text-primary"><%= @current_user.member_level.coins %> coins</span> as a reward for leveling up.</p>
+      <% end %>
+    </div>
+  </div>
+
   <!-- Signup Link Section -->
   <div class="text-center mt-4">
     <p class="lead fw-semibold mb-3 text-secondary">Or use the link below to sign up:</p>
