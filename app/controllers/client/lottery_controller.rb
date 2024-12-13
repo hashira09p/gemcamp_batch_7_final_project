@@ -10,29 +10,51 @@ class Client::LotteryController < ApplicationController
   end
 
   def show
+    @total_tickets = @item.tickets.where(state: 'pending').count
     @item
     @item_serial_numbers = @user.tickets.where(item_id: params[:id], state: 'pending' )
   end
 
   def create
     number_of_tickets = params[:minimum_tickets].to_i
-    item = Item.find params[:item_id].to_i
+    item = Item.find_by(id: params[:item_id].to_i)
 
-    if item.quantity >= 0
-      number_of_tickets.times do
-        ticket = Ticket.new(item: item, user: current_client_user, batch_count: item.batch_count)
-        if ticket.save
-          flash[:notice] = 'Ticket Created'
-        else
-          flash[:alert] = ticket.errors.full_messages.join(', ')
-        end
-      end
-      redirect_to lottery_path(item)
-    else
-      redirect_to lottery_path(item)
-      flash[:notice] = 'Invalid input'
+    if item.nil?
+      flash[:alert] = 'Item not found'
+      return redirect_to shop_index_path
     end
+
+    if item.quantity <= 0
+      flash[:notice] = 'Invalid input'
+      return redirect_to lottery_path(item)
+    end
+
+    tickets_created = 0
+    number_of_tickets.times do
+      ticket = Ticket.new(item: item, user: current_client_user, batch_count: item.batch_count)
+      if ticket.save
+        tickets_created += 1
+        flash[:notice] = "#{tickets_created} ticket(s) created successfully"
+        return redirect_to lottery_index_path
+      else
+        flash[:alert] = ticket.errors.full_messages.join(', ') + ". Please Top-Up First!"
+        return redirect_to shop_index_path
+      end
+    end
+
+    if tickets_created > 0
+      flash[:notice] = "#{tickets_created} ticket(s) created successfully"
+    else
+      flash[:alert] = "No tickets were created."
+    end
+
+    redirect_to lottery_path(item)
   end
+
+
+  def top_up;end
+
+  def create_top_up;end
 
   private
 

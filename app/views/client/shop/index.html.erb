@@ -1,19 +1,25 @@
 <%= render "partial/header" %>
 
-<div class="container my-4">
+<div class="container my-5">
 
   <!-- Announcement Section -->
-  <div class="row mb-4">
+  <div class="row mb-5">
     <div class="col-12 text-center">
-      <h2 class="fw-bold text-primary">Announcements</h2>
-      <p class="text-muted">Stay updated with the latest offers and announcements.</p>
+      <h2 class="fw-bold text-primary display-5">Announcements</h2>
+      <p class="text-muted fs-5">Stay updated with the latest offers and announcements.</p>
     </div>
   </div>
 
-  <!-- Notice Section with Design -->
+  <!-- Notice Section -->
   <% if notice.present? %>
     <div class="alert alert-info text-center shadow-sm fw-bold py-3 rounded mb-4" role="alert">
       <%= notice %>
+    </div>
+  <% end %>
+
+  <% if alert.present? %>
+    <div class="alert alert-warning text-center shadow-sm fw-bold py-3 rounded mb-4" role="alert">
+      <%= alert %>
     </div>
   <% end %>
 
@@ -21,14 +27,14 @@
   <div class="row g-4">
     <% @offers.each do |offer| %>
       <div class="col-md-6 col-lg-4">
-        <div class="card h-100 shadow-lg border-0 rounded-3">
+        <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
           <%= image_tag offer.image.url, class: "card-img-top img-fluid rounded-top", alt: offer.name %>
           <div class="card-body text-center">
             <h5 class="card-title fw-bold text-primary"><%= offer.name %></h5>
-            <p class="card-text text-muted">$<%= offer.amount %> only for <%= offer.coin %></p>
+            <p class="card-text text-muted fs-6">$<%= offer.amount %> only for <%= offer.coin %></p>
             <!-- Trigger the modal -->
-            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#confirmModal-<%= offer.id %>">
-              Buy now
+            <button type="button" class="btn btn-primary btn-sm px-4 py-2 mt-2" data-bs-toggle="modal" data-bs-target="#confirmModal-<%= offer.id %>">
+              Buy Now
             </button>
           </div>
         </div>
@@ -37,7 +43,7 @@
       <!-- Modal -->
       <div class="modal fade" id="confirmModal-<%= offer.id %>" tabindex="-1" aria-labelledby="modalLabel-<%= offer.id %>" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content rounded-3 shadow-lg">
+          <div class="modal-content rounded-4 shadow-lg">
             <div class="modal-header bg-primary text-white">
               <h5 class="modal-title" id="modalLabel-<%= offer.id %>">Confirm Purchase</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -46,8 +52,8 @@
               Are you sure you want to buy <strong><%= offer.name %></strong> for <strong>$<%= offer.amount %></strong>?
             </div>
             <div class="modal-footer">
-              <%= button_to 'Yes, Buy now', shop_index_path(offer_id: offer), method: :post, class: 'btn btn-primary' %>
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+              <%= button_to 'Yes, Buy Now', shop_index_path(offer_id: offer), method: :post, class: 'btn btn-primary px-4' %>
+              <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Cancel</button>
             </div>
           </div>
         </div>
@@ -57,28 +63,42 @@
 
 </div>
 
-<!-- Custom Styles for Design Enhancements -->
+<!-- Custom Styles for Enhanced Design -->
 <style>
-    /* Style for Notice Section */
+    /* General Spacing */
+    .container {
+        padding: 2rem;
+    }
+
+    /* Notice Section */
     .alert {
-        background-color: #f0f8ff; /* Light blue background */
-        border-left: 5px solid #007bff; /* Blue left border */
+        border-left: 5px solid #007bff;
         font-weight: bold;
         font-size: 1.1rem;
         border-radius: 0.5rem;
+        padding: 1.5rem;
     }
 
-    /* Card Hover Effect */
+    .alert-warning {
+        background-color: #fff3cd;
+        border-left-color: #ffc107;
+    }
+
+    /* Card Styling */
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+        border-radius: 1rem;
+    }
+
     .card:hover {
         transform: scale(1.05);
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .card-img-top {
         max-height: 200px;
         object-fit: cover;
-        border-radius: 0.5rem 0.5rem 0 0;
     }
 
     /* Modal Styles */
@@ -88,13 +108,24 @@
 
     .modal-header {
         border-bottom: none;
+        padding: 1.5rem;
     }
 
     .modal-footer {
         border-top: none;
+        padding: 1.5rem;
     }
 
-    /* Button Style */
+    /* Typography */
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    .card-text {
+        font-size: 1rem;
+    }
+
     .btn-primary {
         background-color: #007bff;
         border-color: #007bff;
@@ -113,18 +144,6 @@
     .btn-secondary:hover {
         background-color: #5a6268;
         border-color: #5a6268;
-    }
-
-    /* Typography Styling */
-    .card-title {
-        font-size: 1.25rem;
-        font-weight: bold;
-        color: #007bff;
-    }
-
-    .card-text {
-        font-size: 1rem;
-        color: #6c757d;
     }
 </style>
 

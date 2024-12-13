@@ -1,0 +1,41 @@
+<%= render "partial/header" %>
+
+<!-- Notice Section -->
+<% if notice.present? %>
+  <div class="container my-4">
+    <div class="alert alert-info text-center shadow-sm fw-bold py-3 rounded" role="alert">
+      <%= notice %>
+    </div>
+  </div>
+<% end %>
+
+<div class="container py-5">
+  <h1 class="text-center mb-4 text-primary display-4">Quick Top Up</h1>
+
+  <div class="alert alert-warning text-center shadow-sm rounded mb-4" role="alert">
+    <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+    <span class="fw-bold">Insufficient coins?</span> Top Up now and continue playing!
+  </div>
+
+  <h2 class="text-center mb-4">Quick Increase Bet Coins</h2>
+
+  <div class="d-flex flex-wrap justify-content-center gap-3">
+    <%= button_to 'Add 1 Coin', client_create_top_up_path(amount: 1),
+                  method: :post, class: 'btn btn-outline-primary btn-lg shadow-sm px-4 py-3' %>
+
+    <%= button_to 'Add 5 Coins', client_create_top_up_path(amount: 5),
+                  method: :post, class: 'btn btn-outline-success btn-lg shadow-sm px-4 py-3' %>
+
+    <%= button_to 'Add 10 Coins', client_create_top_up_path(amount: 10),
+                  method: :post, class: 'btn btn-outline-warning btn-lg shadow-sm px-4 py-3' %>
+
+    <%= button_to 'Add 20 Coins', client_create_top_up_path(amount: 20),
+                  method: :post, class: 'btn btn-outline-danger btn-lg shadow-sm px-4 py-3' %>
+  </div>
+
+<!--  <div class="text-center mt-5">-->
+<!--    <p class="text-muted">Need help? <a href="/support" class="text-decoration-none text-info fw-bold">Contact Support</a></p>-->
+<!--  </div>-->
+</div>
+
+<%= render "partial/footer" %>

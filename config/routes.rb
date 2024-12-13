@@ -82,6 +82,8 @@ Rails.application.routes.draw do
     patch 'winners/:id/share', to: 'client/winners#update_winner_to_shared'
     patch 'profile/:order_id/cancel', to: 'client/orders#cancel', as: :cancel_order
     get 'users/edit', to: 'client/registrations#edit', as: :edit_client_user_registration_path
+    get 'client/top_up', to: 'client/lottery#top_up'
+    post 'client/create_top_up', to: 'client/lottery#create_top_up'
 
     namespace :api do
       namespace :v1 do

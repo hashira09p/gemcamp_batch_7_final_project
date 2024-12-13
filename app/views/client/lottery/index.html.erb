@@ -2,11 +2,32 @@
 
 <!-- Notice Section -->
 <% if notice.present? %>
-  <div class="container my-4">
-    <div class="alert alert-info text-center shadow-sm fw-bold py-3 rounded" role="alert">
-      <%= notice %>
+
+  <!-- Modal for notice -->
+  <div class="modal fade" id="noticeModal" tabindex="-1" aria-labelledby="noticeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="noticeModalLabel">Notice</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <%= notice %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+        </div>
+      </div>
     </div>
   </div>
+
+  <!-- Triggering the modal via JavaScript -->
+  <script>
+      var myModal = new bootstrap.Modal(document.getElementById('noticeModal'), {
+          keyboard: false
+      });
+      myModal.show();
+  </script>
 <% end %>
 
 <div class="container mt-5">

@@ -13,7 +13,7 @@ class Client::ShopController < ApplicationController
     @order = Order.new(user: current_client_user, offer: @offer, amount: @offer.amount, coin: @offer.coin)
     if @order.save
       @order.submit!
-      flash[:notice] = 'Order Success! Please wait 2 minutes before you receive your coins.'
+      flash[:notice] = 'Order Success! Please wait any seconds before you receive your coins.'
       redirect_to shop_index_path
     else
       flash[:alert] = @order.errors.full_messages.join(', ')

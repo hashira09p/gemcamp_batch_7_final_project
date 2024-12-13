@@ -48,6 +48,7 @@
 </div>
 
 <%# Form for minimum tickets input with improved layout and validation %>
+
 <div class="mt-4">
   <% if @item.tickets.where(state: 'pending').count == @item.minimum_tickets %>
     <div class="alert alert-info text-center shadow-sm">
@@ -87,7 +88,14 @@
                            value: 0,
                            required: true %>
         <div class="invalid-feedback">Please enter a valid number of tickets.</div>
+        <div class="btn-group mt-2" role="group" aria-label="Quick ticket selection">
+          <button type="button" class="btn btn-outline-primary" onclick="document.getElementById('minimum-tickets').stepUp(1);">1</button>
+          <button type="button" class="btn btn-outline-primary" onclick="document.getElementById('minimum-tickets').stepUp(5);">5</button>
+          <button type="button" class="btn btn-outline-primary" onclick="document.getElementById('minimum-tickets').stepUp(10);">10</button>
+          <button type="button" class="btn btn-outline-primary" onclick="document.getElementById('minimum-tickets').stepUp(20);">20</button>
+        </div>
       </div>
+
       <div class="col-12">
         <!-- Trigger the confirmation modal -->
         <button type="button" class="btn btn-primary w-100 shadow-sm" data-bs-toggle="modal" data-bs-target="#confirmationModal">
@@ -147,6 +155,7 @@
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const numberField = document.getElementById("minimum-tickets");
+
         const progressBar = document.getElementById("progress-bar");
         const ticketCountSpan = document.getElementById("ticket-count");
         const confirmSubmitButton = document.getElementById("confirm-submit");
