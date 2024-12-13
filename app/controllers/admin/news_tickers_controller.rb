@@ -13,9 +13,11 @@ class Admin::NewsTickersController < AdminApplicationController
     @news_ticker = NewsTicker.new(set_params)
     @news_ticker.admin = current_admin_user
     if @news_ticker.save
-      redirect_to news_tickers_path, notice: 'News Ticker was successfully created.'
+      flash[:notice] = 'News Ticker was successfully created.'
+      redirect_to news_tickers_path
     else
-      render :new, alert: 'Failed to Create News Ticker'
+      flash[:alert] = 'Failed to Create News Ticker'
+      redirect_to new_news_ticker_path
     end
   end
 
