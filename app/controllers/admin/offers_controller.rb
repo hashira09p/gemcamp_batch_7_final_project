@@ -2,7 +2,7 @@ class Admin::OffersController < AdminApplicationController
   before_action :set_offer, only: [:edit, :update, :destroy]
   def index
     @offer_status = Offer.pluck(:status).uniq
-    @offers = Offer.all
+    @offers = Offer.all.page(params[:page]).per(10)
 
     if params[:status].present?
       @offers = @offers.where(status: params[:status])
@@ -50,6 +50,6 @@ class Admin::OffersController < AdminApplicationController
   end
 
   def offer_params
-    params.require(:offer).permit(:name, :status, :amount, :coin, :image)
+    params.require(:offer).permit(:name, :status, :genre, :amount, :coin, :image)
   end
 end

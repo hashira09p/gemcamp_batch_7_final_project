@@ -10,13 +10,66 @@ class Client::ShopController < ApplicationController
   def show;end
 
   def create
-    @order = Order.new(user: current_client_user, offer: @offer, amount: @offer.amount, coin: @offer.coin)
-    if @order.save
+    case @offer.genre
+
+    when 'one_time'
+      if Order.where(user: current_client_user, offer: @offer, state: [:pending, :submitted, :paid]).exists?
+        flash[:alert] = 'You can only purchase once in this offer!'
+      else
+        @order = Order.new(user: current_client_user, offer: @offer, amount: @offer.amount, coin: @offer.coin)
+        @order.save
+        @order.submit!
+        flash[:notice] = 'Order Success! Please wait any seconds before you receive your coins.'
+      end
+      redirect_to shop_index_path
+
+    when 'monthly'
+      if Order.where(user: current_client_user, offer: @offer, state: [:pending, :submitted, :paid])
+              .where('created_at >= ?', Time.current.beginning_of_month).exists?
+
+        flash[:alert] = 'You can only purchase once per month in this offer!'
+      else
+        @order = Order.new(user: current_client_user, offer: @offer, amount: @offer.amount, coin: @offer.coin)
+        @order.save
+        @order.submit!
+        flash[:notice] = 'Order Success! Please wait any seconds before you receive your coins.'
+      end
+      redirect_to shop_index_path
+
+    when 'weekly'
+      if Order.where(user: current_client_user, offer: @offer, state: [:pending, :submitted, :paid])
+              .where('created_at >= ?', Time.current.beginning_of_week).exists?
+
+        flash[:alert] = 'You can only purchase once per week in this offer!'
+      else
+        @order = Order.new(user: current_client_user, offer: @offer, amount: @offer.amount, coin: @offer.coin)
+        @order.save
+        @order.submit!
+        flash[:notice] = 'Order Success! Please wait any seconds before you receive your coins.'
+      end
+      redirect_to shop_index_path
+
+    when 'daily'
+      if Order.where(user: current_client_user, offer: @offer, state: [:pending, :submitted, :paid])
+              .where('created_at >= ?', Time.current.beginning_of_day).exists?
+
+        flash[:alert] = 'You can only purchase once per day in this offer!'
+      else
+        @order = Order.new(user: current_client_user, offer: @offer, amount: @offer.amount, coin: @offer.coin)
+        @order.save
+        @order.submit!
+        flash[:notice] = 'Order Success! Please wait any seconds before you receive your coins.'
+      end
+      redirect_to shop_index_path
+
+    when 'regular'
+      @order = Order.new(user: current_client_user, offer: @offer, amount: @offer.amount, coin: @offer.coin)
+      @order.save
       @order.submit!
       flash[:notice] = 'Order Success! Please wait any seconds before you receive your coins.'
       redirect_to shop_index_path
     else
-      flash[:alert] = @order.errors.full_messages.join(', ')
+      flash[:alert] = "Failed to purchse offer"
       redirect_to shop_index_path
     end
   end

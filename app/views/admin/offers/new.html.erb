@@ -33,6 +33,13 @@
               </div>
 
               <div class="mb-3">
+                <%= f.label :genre, class: "form-label" %>
+                <%= f.select :genre, Offer.genres.keys.map { |genre| [genre.capitalize, genre] },
+                             { include_blank: "Select Genre" },
+                             { class: "form-select", required: true } %>
+              </div>
+
+              <div class="mb-3">
                 <%= f.label :amount, class: "form-label" %>
                 <%= f.number_field :amount, class: "form-control", placeholder: "Enter amount", step: 0.01, required: true %>
               </div>

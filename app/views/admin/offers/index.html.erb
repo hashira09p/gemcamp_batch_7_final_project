@@ -41,22 +41,35 @@
                 <th>Image</th>
                 <th>Name</th>
                 <th>Status</th>
+                <th>Genre</th>
                 <th>Amount</th>
                 <th>Coin</th>
                 <th>Actions</th>
               </tr>
               </thead>
               <tbody>
+              <tbody>
               <% @offers.each do |offer| %>
                 <tr>
-                  <td>
-                    <%= image_tag(offer.image.url, size: "50x50", class: "rounded") if offer.image.present? %>
+                  <td class="text-center">
+                    <%= image_tag(offer.image.url, size: "50x50", class: "rounded img-fluid") if offer.image.present? %>
                   </td>
                   <td><%= offer.name %></td>
                   <td>
-          <span class="badge <%= offer.status == 'active' ? 'bg-success' : 'bg-secondary' %>">
-            <%= offer.status.capitalize %>
-          </span>
+                        <span class="badge <%= offer.status == 'active' ? 'bg-success' : 'bg-secondary' %>">
+                          <%= offer.status.capitalize %>
+                        </span>
+                  </td>
+                  <td>
+                    <%= case offer.genre
+                        when 'one_time' then 'One-Time'
+                        when 'monthly' then 'Monthly'
+                        when 'weekly' then 'Weekly'
+                        when 'daily' then 'Daily'
+                        when 'regular' then 'Regular'
+                        else
+                          'Unknown'
+                        end %>
                   </td>
                   <td><%= number_to_currency(offer.amount) %></td>
                   <td><%= offer.coin %></td>
@@ -71,7 +84,10 @@
               <% end %>
               </tbody>
             </table>
-
+            <!-- Pagination -->
+            <div class="mt-3 d-flex justify-content-end">
+              <%= paginate @offers %>
+            </div>
           </div>
         </div>
       </div>
