@@ -1,8 +1,10 @@
 class Admin::NewsTickersController < AdminApplicationController
+  before_action :set_params, only: [:create]
+  before_action :set_params_for_update, only: [:update]
   before_action :set_news_ticker, only: [:edit, :destroy, :update]
   before_action :set_params, only: [:create, :update]
   def index
-    @news_tickers = NewsTicker.includes(:admin)
+    @news_tickers = NewsTicker.where.not(sort: nil).order(sort: :asc).page(params[:page]).per(6)
   end
 
   def new
@@ -11,6 +13,8 @@ class Admin::NewsTickersController < AdminApplicationController
 
   def create
     @news_ticker = NewsTicker.new(set_params)
+    @last_news_ticker_sort = NewsTicker.maximum(:sort) || 0
+    @news_ticker.sort = @last_news_ticker_sort + 1
     @news_ticker.admin = current_admin_user
     if @news_ticker.save
       flash[:notice] = 'News Ticker was successfully created.'
@@ -24,7 +28,7 @@ class Admin::NewsTickersController < AdminApplicationController
   def edit;end
 
   def update
-    if @news_ticker.update(set_params)
+    if @news_ticker.update(set_params_for_update)
       redirect_to news_tickers_path, notice: 'News Ticker was successfully created.'
     else
       render :new, alert: 'Failed to Create News Ticker'
@@ -48,5 +52,9 @@ class Admin::NewsTickersController < AdminApplicationController
 
   def set_params
     params.require(:news_ticker).permit(:content, :status)
+  end
+
+  def set_params_for_update
+    params.require(:news_ticker).permit(:content, :status, :sort)
   end
 end

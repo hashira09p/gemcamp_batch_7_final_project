@@ -3,8 +3,8 @@ class Client::HomeController < ApplicationController
   def index
     @winners = Winner.includes(:item, :user).where(state: 'published').order(updated_at: :desc).first(5)
     @items = Item.where(status: ['active', 'starting']).order(created_at: :desc).first(8)
-    @news_tickers = NewsTicker.where(status: 'active').order(created_at: :desc).first(5)
-    @banners = Banner.where(status: 'active')
+    @news_tickers = NewsTicker.where(status: 'active').order(sort: :asc).first(5)
+    @banners = Banner.where(status: 'active').order(sort: :asc)
   end
 
   def new

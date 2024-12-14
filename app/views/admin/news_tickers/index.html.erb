@@ -27,6 +27,7 @@
               <tr>
                 <th>Content</th>
                 <th>Status</th>
+                <th>Sort Number</th>
                 <th>Admin</th>
                 <th>Action</th>
               </tr>
@@ -42,6 +43,7 @@
                     <%= news_ticker.status.capitalize %>
                     </span>
                   </td>
+                  <td><%= news_ticker.sort %></td>
                   <td><%= news_ticker.admin.username %></td>
                   <td>
                     <%= link_to 'Edit', edit_news_ticker_path(news_ticker), class: "btn btn-sm btn-warning" %>
@@ -54,7 +56,9 @@
               <% end %>
               </tbody>
             </table>
-
+            <div class="mt-3 d-flex justify-content-end">
+              <%= paginate @news_tickers %>
+            </div>
           </div>
         </div>
       </div>
