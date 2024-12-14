@@ -5,6 +5,7 @@ class Admin::OrdersController < AdminApplicationController
     @orders = Order.includes(:user, :offer).page(params[:page]).per(10).order(created_at: :desc)
     @amount_subtotal = @orders.map(&:amount).sum
     @amount_total = Order.all
+    @all_orders = Order.all
 
     @coins_subtotal = @orders.map(&:coin).sum
     @coins_total = Order.all
@@ -27,6 +28,41 @@ class Admin::OrdersController < AdminApplicationController
     if params[:start_date].present? && params[:end_date].present?
       @orders = @orders.where(created_at: params[:start_date]..params[:end_date])
     end
+
+    respond_to do |format|
+      format.html
+      format.csv do
+        csv_string = CSV.generate do |csv|
+          csv << [
+            Order.human_attribute_name(:ID),
+            Order.human_attribute_name(:user_email),
+            Order.human_attribute_name(:offer_name),
+            Order.human_attribute_name(:serial_number),
+            Order.human_attribute_name(:state),
+            Order.human_attribute_name(:coin),
+            Order.human_attribute_name(:amount),
+            Order.human_attribute_name(:remarks),
+            Order.human_attribute_name(:genre)
+          ]
+
+          @all_orders.each do |order|
+            csv << [
+              order.id,
+              order.user.email,
+              order.offer&.name,
+              order.serial_number,
+              order.state,
+              order.coin,
+              order.amount,
+              order&.remarks,
+              order.genre
+            ]
+          end
+        end
+
+        render plain: csv_string
+      end
+    end
   end
 
   def pay
@@ -40,7 +76,7 @@ class Admin::OrdersController < AdminApplicationController
         flash[:alert] = 'Pay unsuccessful'
       end
     end
-    redirect_to orders_path(page: params[:page])
+    redirect_to orders_path(params[:page])
   end
 
   def submit
@@ -50,7 +86,7 @@ class Admin::OrdersController < AdminApplicationController
     else
       flash[:alert] = 'Submit Failed'
     end
-    redirect_to orders_path(page: params[:page])
+    redirect_to orders_path(params[:page])
   end
 
   def cancel
@@ -60,7 +96,7 @@ class Admin::OrdersController < AdminApplicationController
     else
       flash[:alert] = 'Cancel Failed'
     end
-    redirect_to orders_path(page: params[:page])
+    redirect_to orders_path(params[:page])
   end
 
   private
