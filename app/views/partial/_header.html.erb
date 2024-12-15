@@ -9,10 +9,16 @@
     </div>
     <div>
       <% if client_user_signed_in? %>
-        <button class="btn btn-outline-secondary me-2">Coins</button>
+        <button class="btn btn-outline-secondary me-2"><%= t('coins') %></button>
         <%= link_to 'Claim', client_winning_history_path, class: "btn btn-outline-secondary me-2" %>
       <% end %>
-      <button class="btn btn-outline-secondary me-2">Language</button>
+
+      <% if @params.present? %>
+        <%= link_to 'Tagalog', client_root_path(locale: :tg), class: "btn btn-outline-secondary me-2" %>
+      <% else %>
+        <%= link_to 'English', client_root_path(locale: :en), class: "btn btn-outline-secondary me-2" %>
+      <% end %>
+
       <% if client_user_signed_in? %>
         <%= link_to 'Menu', client_profile_path, class: "btn btn-outline-secondary me-2" %>
       <% else %>
