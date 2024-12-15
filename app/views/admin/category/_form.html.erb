@@ -1,0 +1,59 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8 col-sm-12">
+
+      <%# Flash Messages %>
+      <% flash.each do |key, message| %>
+        <div class="alert <%= flash_class(key) %> alert-dismissible fade show" role="alert">
+          <%= message %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <% end %>
+
+      <%# Back Button %>
+      <div class="mb-3">
+        <%= link_to "Back", request.referer || categories_path, class: "btn btn-secondary" %>
+      </div>
+
+      <div class="card shadow-sm border-0">
+        <div class="card-header bg-info text-white">
+          <h5><%= @category.new_record? ? 'New Category' : 'Edit Category' %></h5>
+        </div>
+        <div class="card-body p-4">
+          <%# Form with Validation %>
+          <%= form_with model: @category, url: @category.new_record? ? category_index_path : category_path(@category),
+                        local: true, html: { class: "needs-validation", novalidate: true } do |f| %>
+
+            <%# Display error messages if validation fails %>
+            <% if @category.errors.any? %>
+              <div class="alert alert-danger mb-4">
+                <strong><%= pluralize(@category.errors.count, "error") %> prohibited this category from being saved:</strong>
+                <ul class="mb-0">
+                  <% @category.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <div class="mb-3">
+              <%= f.label :name, "Category Name", class: "form-label fw-bold" %>
+              <%= f.text_field :name, class: "form-control", placeholder: "Enter category name", required: true %>
+            </div>
+
+            <div class="mb-3">
+              <%= f.label :sort, "Sort Order", class: "form-label fw-bold" %>
+              <%= f.number_field :sort, class: "form-control", placeholder: "Enter sort value", step: 0.01, required: true %>
+            </div>
+
+            <div class="d-flex justify-content-between">
+              <%= link_to "Back", request.referer || categories_path, class: "btn btn-outline-secondary" %>
+              <%= f.submit @category.new_record? ? "Create Category" : "Update Category", class: "btn btn-primary" %>
+            </div>
+
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

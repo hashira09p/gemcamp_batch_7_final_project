@@ -15,9 +15,9 @@ class Users::SessionsController < Devise::SessionsController
      if user
        super
        flash[:notice] = "Welcome, #{user.username}"
-     elsif user.nil?
+     else
        flash[:alert] = 'Invalid Input or account is not an client.'
-       render :new
+       redirect_to new_client_user_session_path
      end
    end
 

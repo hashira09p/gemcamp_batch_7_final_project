@@ -1,12 +1,17 @@
 <%= render "partial/header" %>
-<%= alert %>
-
 <div class="container my-5">
   <!-- Header -->
   <h2 class="text-center mb-4 text-primary fw-bold">Edit Client User</h2>
 
   <%= form_for(resource, as: resource_name, url: client_user_registration_path(resource_name), html: { method: :put, class: "bg-light p-5 rounded shadow-lg mx-auto", style: "max-width: 500px;" }) do |f| %>
     <!-- Error Messages -->
+    <% if alert %>
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <%= alert %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
+
     <%= render "devise/shared/error_messages", resource: resource %>
 
     <!-- Image Upload -->

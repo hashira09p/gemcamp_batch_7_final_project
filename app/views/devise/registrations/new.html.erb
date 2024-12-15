@@ -1,4 +1,3 @@
-<%= alert %>
 <!-- Remove Gradient Background for the entire section -->
 <div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center" style="background: #ffffff;">
   <div class="row justify-content-center w-100">
@@ -20,7 +19,12 @@
                 <%= f.text_field :username, value: @promoter.username, autofocus: true, autocomplete: "username", class: "form-control", disabled: true %>
               </div>
             <% end %>
-
+            <% if alert %>
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <%= alert %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            <% end %>
             <!-- Email Field -->
             <div class="form-group mb-3">
               <%= f.label :email, "Email", class: "form-label" %>

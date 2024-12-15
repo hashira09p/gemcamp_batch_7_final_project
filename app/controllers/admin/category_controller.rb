@@ -1,6 +1,5 @@
 class Admin::CategoryController < AdminApplicationController
-  before_action :set_params, only: [:create]
-  before_action :set_params_for_update, only: [:update]
+  before_action :set_params, only: [:create, :update]
   before_action :set_category, only: [:update, :destroy, :edit]
 
   def index
@@ -13,8 +12,8 @@ class Admin::CategoryController < AdminApplicationController
 
   def create
     @category = Category.new(set_params)
-    @last_category_sort = Category.maximum(:sort) || 0
-    @category.sort = @last_category_sort + 1
+    # @last_category_sort = Category.maximum(:sort) || 0
+    # @category.sort = @last_category_sort + 1
     if @category.save
       flash[:notice] = 'Success'
       redirect_to category_index_path
@@ -27,7 +26,7 @@ class Admin::CategoryController < AdminApplicationController
   def edit;end
 
   def update
-    if @category.update(set_params_for_update)
+    if @category.update(set_params)
       flash[:notice] = 'Update Successful'
       redirect_to category_index_path
     else
@@ -53,10 +52,6 @@ class Admin::CategoryController < AdminApplicationController
   end
 
   def set_params
-    params.require(:category).permit(:name)
-  end
-
-  def set_params_for_update
     params.require(:category).permit(:name, :sort)
   end
 end

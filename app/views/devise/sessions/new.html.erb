@@ -7,7 +7,12 @@
           <% if request.domain == 'admin.com' %>
             <!-- Admin Login Design -->
             <h2 class="text-center text-dark mb-4">Admin Log in</h2>
-            <%= alert %>
+            <% if alert %>
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <%= alert %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            <% end %>
             <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "needs-validation", novalidate: true }) do |f| %>
               <div class="form-group mb-3">
                 <%= f.label :email, class: "form-label" %>
@@ -27,8 +32,12 @@
           <% elsif request.domain == 'ngrok-free.app' || request.domain == 'client.com' %>
             <!-- Client Login Design -->
             <h2 class="text-center text-dark mb-4">Client Log in</h2>
-            <%= alert %>
-
+            <% if alert %>
+              <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <%= alert %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            <% end %>
             <%= form_for(@client_user || User.client.new, as: :client_user, url: session_path(:client_user), html: { class: "needs-validation", novalidate: true }) do |f| %>
               <!-- Login/Register Tabs -->
               <div class="btn-group w-100 mb-4" role="group">

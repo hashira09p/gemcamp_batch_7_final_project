@@ -1,0 +1,126 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10 col-sm-12">
+      <!-- Back Button -->
+      <div class="mb-3">
+        <%= link_to "Back", request.referer || items_path, class: "btn btn-outline-secondary" %>
+      </div>
+
+      <!-- Card for the Form -->
+      <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white text-center">
+          <h3><%= @item.new_record? ? 'New Item' : 'Edit Item' %></h3>
+        </div>
+        <div class="card-body p-4">
+          <!-- Form -->
+          <%= form_with model: @item, url: @item.new_record? ? items_path : item_path(@item),
+                        local: true, html: { class: "needs-validation", novalidate: true } do |f| %>
+
+            <!-- Display Validation Errors -->
+            <% if @item.errors.any? %>
+              <div class="alert alert-danger mb-4">
+                <h5><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h5>
+                <ul class="mb-0">
+                  <% @item.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <!-- File Upload -->
+            <div class="mb-3">
+              <%= f.label :image, "Upload Image", class: "form-label fw-bold" %>
+              <%= f.file_field :image, class: "form-control", required: true %>
+            </div>
+
+            <!-- Categories -->
+            <div class="mb-3">
+              <%= f.label :categories, "Select Categories", class: "form-label fw-bold" %>
+              <%= f.collection_check_boxes :category_ids, Category.all, :id, :name do |b| %>
+                <div class="form-check">
+                  <%= b.check_box(class: "form-check-input") %>
+                  <%= b.label(class: "form-check-label") %>
+                </div>
+              <% end %>
+            </div>
+
+            <!-- Name -->
+            <div class="mb-3">
+              <%= f.label :name, "Item Name", class: "form-label fw-bold" %>
+              <%= f.text_field :name, class: "form-control", placeholder: "Enter item name", required: true %>
+            </div>
+
+            <!-- Quantity -->
+            <div class="mb-3">
+              <%= f.label :quantity, "Quantity", class: "form-label fw-bold" %>
+              <%= f.number_field :quantity, class: "form-control", placeholder: "Enter quantity", required: true %>
+            </div>
+
+            <!-- Minimum Tickets -->
+            <div class="mb-3">
+              <%= f.label :minimum_tickets, "Minimum Tickets", class: "form-label fw-bold" %>
+              <%= f.number_field :minimum_tickets, class: "form-control", placeholder: "Enter minimum tickets", required: true %>
+            </div>
+
+            <!-- Online At -->
+            <div class="mb-3">
+              <%= f.label :online_at, "Online At", class: "form-label fw-bold" %>
+              <%= f.datetime_local_field :online_at, class: "form-control", required: true %>
+            </div>
+
+            <!-- Offline At -->
+            <div class="mb-3">
+              <%= f.label :offline_at, "Offline At", class: "form-label fw-bold" %>
+              <%= f.datetime_local_field :offline_at, class: "form-control", required: true%>
+            </div>
+
+            <!-- Start At -->
+            <div class="mb-3">
+              <%= f.label :start_at, "Start At", class: "form-label fw-bold" %>
+              <%= f.datetime_local_field :start_at, class: "form-control", required: true %>
+            </div>
+
+            <!-- Status -->
+            <div class="mb-3">
+              <%= f.label :status, "Status", class: "form-label fw-bold" %>
+              <%= f.select :status, ['active', 'inactive'], {}, class: "form-control", required: true %>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="d-flex justify-content-between">
+              <%= link_to "Back", request.referer || items_path, class: "btn btn-outline-secondary" %>
+              <%= f.submit "Submit", class: "btn btn-primary" %>
+            </div>
+
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+    .card-header {
+        border-bottom: 1px solid #eaeaea;
+    }
+
+    .form-label {
+        font-weight: 500;
+        font-size: 1rem;
+    }
+
+    .btn-outline-secondary {
+        transition: all 0.3s;
+    }
+
+    .btn-outline-secondary:hover {
+        background-color: #6c757d;
+        color: #fff;
+    }
+
+    .alert {
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+</style>

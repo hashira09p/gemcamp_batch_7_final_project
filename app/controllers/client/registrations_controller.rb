@@ -9,31 +9,34 @@ class Client::RegistrationsController < Devise::RegistrationsController
    end
 
   # POST /resource
-   def create
-     super do |user|
-       if cookies[:promoter].present?
-         last_level = MemberLevel.last.level
-         promoter = User.find_by(email: cookies[:promoter])
+  def create
+    super do |user|
+      if user.persisted? # Check if the user was successfully saved
+        if cookies[:promoter].present?
+          last_level = MemberLevel.last.level
+          promoter = User.find_by(email: cookies[:promoter])
 
-         if promoter.children_members == promoter.member_level.required_members - 1 && promoter.member_level.level != last_level
-           promoter_reward_coins = promoter.member_level.coins
-           promoter_level = promoter.member_level.level
+          if promoter.children_members == promoter.member_level.required_members - 1 && promoter.member_level.level != last_level
+            promoter_reward_coins = promoter.member_level.coins
+            promoter_level = promoter.member_level.level
 
-           next_level = MemberLevel.find_by(level: promoter_level + 1)
-           promoter.member_level_id = next_level.id
+            next_level = MemberLevel.find_by(level: promoter_level + 1)
+            promoter.member_level_id = next_level.id
 
-           order = Order.new(user: promoter, amount: 0, coin: promoter_reward_coins, genre: :member_level)
-           order.save
-           order.pay!
+            order = Order.new(user: promoter, amount: 0, coin: promoter_reward_coins, genre: :member_level)
+            order.save
+            order.pay!
 
-           promoter.save
-         end
-         user.update(parent_id: promoter.id) if promoter
-
-         cookies.delete(:promoter)
-       end
-     end
-   end
+            promoter.save
+          end
+          user.update(parent_id: promoter.id) if promoter
+          cookies.delete(:promoter)
+        end
+      else
+        flash[:alert] = "Account existed. Please check the details and try again."
+      end
+    end
+  end
 
   # def create
   #   @user_client = User.client.new(user_params)
