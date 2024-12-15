@@ -32,10 +32,10 @@
   <div class="text-center mt-4">
     <p class="lead fw-semibold mb-3 text-secondary">Or use the link below to sign up:</p>
     <div class="bg-light p-3 shadow-sm rounded d-inline-block">
-      <a href="<%= "https://3ef2-175-176-38-130.ngrok-free.app/users/sign_up?promoter=#{current_client_user.email}" %>"
+      <a href="<%= "#{request.base_url}/users/sign_up?promoter=#{current_client_user.email}" %>"
          class="text-primary fw-bold text-decoration-none"
          target="_blank">
-        <%= "https://3ef2-175-176-38-130.ngrok-free.app/users/sign_up?promoter=#{current_client_user.email}" %>
+        <%= "#{request.base_url}/users/sign_up?promoter=#{current_client_user.email}" %>
       </a>
     </div>
   </div>
