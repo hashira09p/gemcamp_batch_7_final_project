@@ -10,14 +10,23 @@
     <div>
       <% if client_user_signed_in? %>
         <button class="btn btn-outline-secondary me-2"><%= t('coins') %></button>
-        <%= link_to 'Claim', client_winning_history_path, class: "btn btn-outline-secondary me-2" %>
-      <% end %>
+        <%= link_to t('claim'), client_winning_history_path, class: "btn btn-outline-secondary me-2" %>
+    <% end %>
 
-      <% if @params.present? %>
-        <%= link_to 'Tagalog', client_root_path(locale: :tg), class: "btn btn-outline-secondary me-2" %>
-      <% else %>
-        <%= link_to 'English', client_root_path(locale: :en), class: "btn btn-outline-secondary me-2" %>
-      <% end %>
+      <!-- Language Button -->
+      <div class="btn-group me-2">
+        <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          Language
+        </button>
+        <ul class="dropdown-menu">
+          <li><a href="<%= url_for(params.permit!.merge(locale: 'en')) %>" class="dropdown-item">
+            English
+          </a></li>
+          <li><a href="<%= url_for(params.permit!.merge(locale: 'tg')) %>" class="dropdown-item">
+            Tagalog
+          </a></li>
+        </ul>
+      </div>
 
       <% if client_user_signed_in? %>
         <%= link_to 'Menu', client_profile_path, class: "btn btn-outline-secondary me-2" %>

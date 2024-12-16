@@ -59,7 +59,7 @@
 
 <!-- Winners Feedback Section -->
 <section class="winners-section mt-5">
-  <h5 class="text-info fw-bold text-center mb-4">🏆 Winners Feedback</h5>
+  <h5 class="text-info fw-bold text-center mb-4">🏆 <%= t('winners feedback') %></h5>
   <div id="winnersCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
       <% @winners.each_slice(3).with_index do |winners_group, index| %>
@@ -95,13 +95,13 @@
     </button>
   </div>
   <div class="text-center mt-3">
-    <%= link_to 'More Winners', shares_path, class: 'btn btn-outline-info' %>
+    <%= link_to t('more winners'), shares_path, class: 'btn btn-outline-info' %>
   </div>
 </section>
 
 <!-- Coming Soon Section -->
 <section class="coming-soon-section mt-5">
-  <h5 class="text-info fw-bold text-center mb-4">🎉 Coming Soon</h5>
+  <h5 class="text-info fw-bold text-center mb-4">🎉 <%= t('coming soon') %></h5>
   <div id="comingSoonCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
       <% @items.each_slice(3).with_index do |items_group, index| %>
@@ -139,7 +139,7 @@
     </button>
   </div>
   <div class="text-center mt-3">
-    <%= link_to 'More Items', lottery_index_path, class: 'btn btn-outline-info' %>
+    <%= link_to t('more items'), lottery_index_path, class: 'btn btn-outline-info' %>
   </div>
 </section>
 
