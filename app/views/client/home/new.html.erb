@@ -3,8 +3,8 @@
 <div class="container py-5">
   <!-- Page Title -->
   <div class="text-center mb-5">
-    <h1 class="display-4 text-primary fw-bold">Scan This QR</h1>
-    <p class="text-muted">Quick and easy access to sign up!</p>
+    <h1 class="display-4 text-primary fw-bold"><%= t('scan this qr') %></h1>
+    <p class="text-muted"><%= t('quick and easy access to sign up!') %></p>
   </div>
 
   <!-- QR Code Section -->
@@ -18,19 +18,19 @@
   <div class="text-center mb-5">
     <div class="bg-light shadow-sm rounded p-4">
       <% if @current_user.member_level.level == @max_level %>
-        <p class="fw-bold fs-5 mb-3 text-success">Congratulations! You are now at the Max Level!</p>
+        <p class="fw-bold fs-5 mb-3 text-success"><%= t('congratulations! You are now at the Max Level!') %></p>
       <% else %>
-        <p class="fw-bold fs-5 mb-3 text-primary">Your Current Level: <span class="text-dark"><%= @current_user.member_level.level %></span></p>
-        <p class="fw-bold fs-6 mb-3 text-secondary">Share with <span class="text-danger fw-bold">
-        <%= @current_user.member_level.required_members - @current_user.children_members %></span> more friends to level up!</p>
-        <p class="text-muted">Earn <span class="fw-bold text-primary"><%= @current_user.member_level.coins %> coins</span> as a reward for leveling up.</p>
+        <p class="fw-bold fs-5 mb-3 text-primary"><%= t('your Current Level') %>: <span class="text-dark"><%= @current_user.member_level.level %></span></p>
+        <p class="fw-bold fs-6 mb-3 text-secondary"><%= t('share with') %> <span class="text-danger fw-bold">
+        <%= @current_user.member_level.required_members - @current_user.children_members %></span> <%= t('more friends to level up!') %></p>
+        <p class="text-muted"><%= t('earn') %><span class="fw-bold text-primary"> <%= @current_user.member_level.coins %> coins</span> <%= t('as a reward for leveling up') %>.</p>
       <% end %>
     </div>
   </div>
 
   <!-- Signup Link Section -->
   <div class="text-center mt-4">
-    <p class="lead fw-semibold mb-3 text-secondary">Or use the link below to sign up:</p>
+    <p class="lead fw-semibold mb-3 text-secondary"><%= t('or use the link below to sign up') %>:</p>
     <div class="bg-light p-3 shadow-sm rounded d-inline-block">
       <a href="<%= "#{request.base_url}/users/sign_up?promoter=#{current_client_user.email}" %>"
          class="text-primary fw-bold text-decoration-none"
