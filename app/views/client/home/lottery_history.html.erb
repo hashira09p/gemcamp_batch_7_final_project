@@ -3,14 +3,6 @@
 <%= alert %>
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
   <div class="row w-100" style="max-width: 700px;">
-    <!-- Sidebar -->
-    <div class="col-auto d-flex flex-column align-items-center py-4 bg-gradient" style="background: linear-gradient(180deg, #ff9a9e, #fad0c4); border-radius: 10px 0 0 10px;">
-      <a href="#" class="text-white my-3"><i class="bi bi-person-fill" style="font-size: 1.5rem;"></i></a>
-      <a href="#" class="text-white my-3"><i class="bi bi-lock-fill" style="font-size: 1.5rem;"></i></a>
-      <a href="#" class="text-white my-3"><i class="bi bi-bell-fill" style="font-size: 1.5rem;"></i></a>
-      <a href="#" class="text-white my-3"><i class="bi bi-arrow-repeat" style="font-size: 1.5rem;"></i></a>
-    </div>
-
     <!-- Profile Card -->
     <div class="col bg-white shadow-sm p-4" style="border-radius: 0 10px 10px 0;">
       <div class="text-center">
@@ -21,30 +13,29 @@
 
         <!-- User Info -->
         <% if current_client_user.username.blank? %>
-          <h5 class="mt-2">Welcome, Newbie</h5>
+          <h5 class="mt-2"><%= t('welcome') %> Newbie</h5>
         <% else %>
-          <h5 class="mt-2">Welcome, <%= current_client_user.username %></h5>
+          <h5 class="mt-2"><%= t('welcome') %> <%= current_client_user.username %></h5>
         <% end %>
         <p class="text-muted mb-1">Email: <%= current_client_user.email %></p>
-        <p class="text-muted mb-3">Coins: <%= current_client_user.coins %></p>
+        <p class="text-muted mb-3"><%= t('coins') %>: <%= current_client_user.coins %></p>
 
         <!-- Save Button -->
-        <button class="btn btn-primary w-100 mb-3" style="background: linear-gradient(to right, #ff9a9e, #fad0c4); border: none;">
-          Cash In
-        </button>
+        <%= link_to t('cash in'), shop_index_path, class: "btn btn-primary w-100 mb-3",
+                    style: 'background: linear-gradient(to right, #ff9a9e, #fad0c4); border: none;'  %>
 
         <!-- Navigation Links -->
         <div class="nav flex-column">
-          <a href="#" class="btn btn-outline-secondary d-block mb-2">Contact Us</a>
-          <%= link_to 'Edit Profile', edit_client_user_registration_path, class: "btn btn-outline-secondary d-block mb-2" %>
-          <%= button_to 'Sign Out', destroy_client_user_session_path, method: :delete, class: 'btn btn-outline-danger d-block mb-2' %>
+          <a href="#" class="btn btn-outline-secondary d-block mb-2"><%= t('contact us') %></a>
+          <%= link_to t('edit profile'), edit_client_user_registration_path, class: "btn btn-outline-secondary d-block mb-2" %>
+          <%= button_to t('sign out'), destroy_client_user_session_path, method: :delete, class: 'btn btn-outline-danger d-block mb-2' %>
         </div>
       </div>
 
       <%= render 'partial/buttons_for_client_profile/profile_client_buttons' %>
 
       <!-- History Table -->
-      <h6 class="text-center mb-3"> Lottery History</h6>
+      <h6 class="text-center mb-3"><%= t('lottery history') %></h6>
       <div style=" max-height: 400px; overflow-y: auto; border: 1px solid #ddd; border-radius: 5px; padding: 15px;">
         <% @client_tickets.each do |client_ticket| %>
           <div class="border rounded p-3 mb-3">
