@@ -1,6 +1,19 @@
 <%= render "partial/header" %>
-<%= notice %>
-<%= alert %>
+
+<% if notice %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= notice %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
+<% if alert %>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <%= alert %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
 <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
   <div class="row w-100" style="max-width: 700px;">
     <!-- Profile Card -->

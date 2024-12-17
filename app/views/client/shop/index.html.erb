@@ -52,7 +52,7 @@
                   </div>
                 </div>
 
-                <!-- Modal -->
+                <!-- Modal for Confirmation -->
                 <div class="modal fade" id="confirmModal-<%= offer.id %>" tabindex="-1" aria-labelledby="modalLabel-<%= offer.id %>" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content rounded-4 shadow-lg">
@@ -60,10 +60,10 @@
                         <h5 class="modal-title" id="modalLabel-<%= offer.id %>">Confirm Purchase</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
-                      <div class="modal-body">
-                        Are you sure you want to buy <strong><%= offer.name %></strong> for <strong>$<%= offer.amount %></strong>?
+                      <div class="modal-body text-center">
+                        <p>Are you sure you want to buy <strong><%= offer.name %></strong> for <strong>$<%= offer.amount %></strong>?</p>
                       </div>
-                      <div class="modal-footer">
+                      <div class="modal-footer justify-content-center">
                         <%= button_to 'Yes, Buy Now', shop_index_path(offer_id: offer), method: :post, class: 'btn btn-primary px-4' %>
                         <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Cancel</button>
                       </div>
@@ -109,45 +109,28 @@
             </div>
           </div>
         </div>
+
+        <!-- Modal for Confirmation -->
+        <div class="modal fade" id="confirmModal-<%= offer.id %>" tabindex="-1" aria-labelledby="modalLabel-<%= offer.id %>" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 shadow-lg">
+              <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="modalLabel-<%= offer.id %>">Confirm Purchase</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body text-center">
+                <p>Are you sure you want to buy <strong><%= offer.name %></strong> for <strong>$<%= offer.amount %></strong>?</p>
+              </div>
+              <div class="modal-footer justify-content-center">
+                <%= button_to 'Yes, Buy Now', shop_index_path(offer_id: offer), method: :post, class: 'btn btn-primary px-4' %>
+                <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
       <% end %>
     </div>
   <% end %>
 </div>
-
-<!-- Custom Styles -->
-<style>
-    .badge {
-        font-size: 0.75rem; /* Smaller font size */
-        text-transform: capitalize;
-        display: inline-block;
-        padding: 0.3rem 0.6rem;
-        max-width: 120px;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
-    }
-
-    .card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        overflow: hidden;
-        border-radius: 1rem;
-    }
-
-    .card:hover {
-        transform: scale(1.05);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .card-img-top {
-        max-height: 200px;
-        object-fit: cover;
-    }
-
-    .carousel-control-prev-icon,
-    .carousel-control-next-icon {
-        background-color: rgba(0, 0, 0, 0.5);
-        border-radius: 50%;
-    }
-</style>
 
 <%= render "partial/footer" %>
