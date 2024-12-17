@@ -1,8 +1,22 @@
+<% if notice %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= notice %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
+<% if alert %>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <%= alert %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
+
 <%= render "partial/header" %>
 <div class="d-flex flex-column vh-100">
   <!-- Add button at the top -->
   <div class="d-flex justify-content-end p-3 bg-light">
-    <%= link_to 'Add', new_address_path, class: 'btn btn-success' %>
+    <%= link_to t('add'), new_address_path, class: 'btn btn-success' %>
   </div>
 
   <!-- Bootstrap table with full-screen height -->
@@ -10,15 +24,15 @@
     <table class="table table-hover table-bordered mb-0">
       <thead class="table-dark">
       <tr>
-        <th>Street Address</th>
-        <th>Phone Number</th>
-        <th>Remark</th>
-        <th>Region</th>
-        <th>Province</th>
-        <th>City</th>
-        <th>Barangay</th>
-        <th>Default Address</th>
-        <th>Actions</th>
+        <th><%= t('street address') %></th>
+        <th><%= t('phone number') %></th>
+        <th><%= t('remark') %></th>
+        <th><%= t('region') %></th>
+        <th><%= t('province') %></th>
+        <th><%= t('city') %></th>
+        <th><%= t('barangay') %></th>
+        <th><%= t('default') %></th>
+        <th><%= t('actions') %></th>
       </tr>
       </thead>
       <tbody>
@@ -37,8 +51,8 @@
             <td>Not Default Address</td>
           <% end %>
           <td>
-            <%= link_to 'Edit', edit_address_path(info), class: 'btn btn-warning btn-sm me-2' %>
-            <%= button_to 'Delete', address_path(info), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+            <%= link_to t('edit'), edit_address_path(info), class: 'btn btn-warning btn-sm me-2' %>
+            <%= button_to t('delete'), address_path(info), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
           </td>
         </tr>
       <% end %>

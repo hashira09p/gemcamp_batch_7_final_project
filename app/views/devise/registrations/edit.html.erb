@@ -1,7 +1,7 @@
 <%= render "partial/header" %>
 <div class="container my-5">
   <!-- Header -->
-  <h2 class="text-center mb-4 text-primary fw-bold">Edit Client User</h2>
+  <h2 class="text-center mb-4 text-primary fw-bold"><%= t('edit client user') %></h2>
 
   <%= form_for(resource, as: resource_name, url: client_user_registration_path(resource_name), html: { method: :put, class: "bg-light p-5 rounded shadow-lg mx-auto", style: "max-width: 500px;" }) do |f| %>
     <!-- Error Messages -->
@@ -16,19 +16,19 @@
 
     <!-- Image Upload -->
     <div class="mb-4">
-      <%= f.label :image, class: "form-label fw-bold text-muted" %>
+      <%= f.label :image, t('image'), class: "form-label fw-bold text-muted" %>
       <%= f.file_field :image, class: "form-control form-control-lg" %>
     </div>
 
     <!-- Username -->
     <div class="mb-4">
-      <%= f.label :username, class: "form-label fw-bold text-muted" %>
+      <%= f.label :username, t('username'), class: "form-label fw-bold text-muted" %>
       <%= f.text_field :username, class: "form-control form-control-lg", placeholder: "Enter your username" %>
     </div>
 
     <!-- Phone Number -->
     <div class="mb-4">
-      <%= f.label :phone_number, class: "form-label fw-bold text-muted" %>
+      <%= f.label :phone_number, t('phone number'), class: "form-label fw-bold text-muted" %>
       <%= f.text_field :phone_number, class: "form-control form-control-lg", placeholder: "Enter your phone number" %>
     </div>
 
@@ -41,7 +41,7 @@
 
     <!-- Password -->
     <div class="mb-4">
-      <%= f.label :password, class: "form-label fw-bold text-muted" %>
+      <%= f.label :password, t('password'), class: "form-label fw-bold text-muted" %>
       <span class="text-muted">(Leave blank if you don’t want to change it)</span>
       <%= f.password_field :password, class: "form-control form-control-lg", placeholder: "Enter new password" %>
       <% if @minimum_password_length %>
@@ -51,25 +51,25 @@
 
     <!-- Password Confirmation -->
     <div class="mb-4">
-      <%= f.label :password_confirmation, class: "form-label fw-bold text-muted" %>
+      <%= f.label :password_confirmation, t('password confirmation'), class: "form-label fw-bold text-muted" %>
       <%= f.password_field :password_confirmation, class: "form-control form-control-lg", placeholder: "Confirm your password" %>
     </div>
 
     <!-- Current Password -->
     <div class="mb-4">
-      <%= f.label :current_password, class: "form-label fw-bold text-muted" %>
+      <%= f.label :current_password, t('current password'), class: "form-label fw-bold text-muted" %>
       <span class="text-muted">(Required to confirm changes)</span>
       <%= f.password_field :current_password, class: "form-control form-control-lg", placeholder: "Enter current password" %>
     </div>
 
     <!-- Submit Button -->
     <div class="d-grid mb-3">
-      <%= f.submit "Update", class: "btn btn-primary btn-lg fw-bold" %>
+      <%= f.submit 'Update', class: "btn btn-primary btn-lg fw-bold" %>
     </div>
 
     <!-- Additional Links -->
     <div class="d-grid mb-3">
-      <%= link_to "Address", addresses_path, class: "btn btn-outline-primary btn-lg fw-bold" %>
+      <%= link_to 'Address', addresses_path, class: "btn btn-outline-primary btn-lg fw-bold" %>
     </div>
   <% end %>
 
