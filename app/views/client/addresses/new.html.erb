@@ -16,7 +16,7 @@
 <div class="container py-5">
   <div class="card shadow-lg border-0 mx-auto" style="width: 100%; max-width: 600px;">
     <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-      <%= link_to 'Back', addresses_path, class: "btn btn-outline-light btn-sm" %>
+      <%= link_to t('back'), addresses_path, class: "btn btn-outline-light btn-sm" %>
       <h4 class="card-title text-center mb-0 flex-grow-1">Address Form</h4>
     </div>
 
@@ -24,22 +24,22 @@
       <%= form_with model: @address, data: { controller: :location, turbo: false } do |form| %>
 
         <div class="mb-3">
-          <%= form.label :name, class: "form-label fw-bold" %>
+          <%= form.label :name, t('name'), class: "form-label fw-bold" %>
           <%= form.text_field :name, class: "form-control", placeholder: "Enter your name", required: true %>
         </div>
 
         <div class="mb-3">
-          <%= form.label :street_address, class: "form-label fw-bold" %>
+          <%= form.label :street_address, t('street address'), class: "form-label fw-bold" %>
           <%= form.text_field :street_address, class: "form-control", placeholder: "123 Main St", required: true %>
         </div>
 
         <div class="mb-3">
-          <%= form.label :phone_number, class: "form-label fw-bold" %>
+          <%= form.label :phone_number, t('phone number'), class: "form-label fw-bold" %>
           <%= form.number_field :phone_number, class: "form-control", placeholder: "09123456789", required: true %>
         </div>
 
         <div class="mb-3">
-          <%= form.label :remark, class: "form-label fw-bold" %>
+          <%= form.label :remark, t('remark'), class: "form-label fw-bold" %>
           <%= form.text_field :remark, class: "form-control", placeholder: "Additional details" %>
         </div>
 
@@ -49,7 +49,7 @@
         </div>
 
         <div class="mb-3">
-          <%= form.label :genre, class: "form-label fw-bold" %>
+          <%= form.label :genre, t('genre'), class: "form-label fw-bold" %>
           <div class="form-check">
             <%= form.radio_button :genre, 'home', class: "form-check-input" %>
             <%= form.label :genre_home, "Home", class: "form-check-label" %>
@@ -61,7 +61,7 @@
         </div>
 
         <div class="mb-3">
-          <%= form.label :address_region_id, class: "form-label fw-bold" %>
+          <%= form.label :address_region_id, t('region'), class: "form-label fw-bold" %>
           <%= form.collection_select :address_region_id,
                                      Address::Region.all, :id, :name,
                                      { prompt: 'Please select region' },
@@ -69,7 +69,7 @@
         </div>
 
         <div class="mb-3">
-          <%= form.label :address_province_id, class: "form-label fw-bold" %>
+          <%= form.label :address_province_id, t('province'), class: "form-label fw-bold" %>
           <%= form.collection_select :address_province_id,
                                      [], nil, nil,
                                      { prompt: 'Please select province' },
@@ -77,7 +77,7 @@
         </div>
 
         <div class="mb-3">
-          <%= form.label :address_city_id, class: "form-label fw-bold" %>
+          <%= form.label :address_city_id, t('city'), class: "form-label fw-bold" %>
           <%= form.collection_select :address_city_id,
                                      [], nil, nil,
                                      { prompt: 'Please select city' },
@@ -85,7 +85,7 @@
         </div>
 
         <div class="mb-3">
-          <%= form.label :address_barangay_id, class: "form-label fw-bold" %>
+          <%= form.label :address_barangay_id, t('barangay'), class: "form-label fw-bold" %>
           <%= form.collection_select :address_barangay_id,
                                      [], nil, nil,
                                      { prompt: 'Please select barangay' },
@@ -93,7 +93,7 @@
         </div>
 
         <div class="text-center">
-          <%= form.submit "Submit", class: "btn btn-primary w-100 py-2" %>
+          <%= form.submit t('submit'), class: "btn btn-primary w-100 py-2" %>
         </div>
 
       <% end %>

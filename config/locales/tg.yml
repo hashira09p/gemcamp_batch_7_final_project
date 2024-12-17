@@ -80,4 +80,7 @@ tg:
   add: "Magdagdag"
   edit: "I-edit"
   delete: "I-delete"
-  
+  name: "Pangalan"
+  genre: "Uri"
+  back: 'Bumalik'
+  submit: "Ipasa"
