@@ -1,11 +1,9 @@
 MemberLevel.create([
-                     { level: 1, required_members: 0, coins: 10 },
+                     { level: 1, required_members: 3, coins: 7 },
                      { level: 2, required_members: 5, coins: 25 },
-                     { level: 3, required_members: 10, coins: 50 },
-                     { level: 4, required_members: 20, coins: 100 },
-                     { level: 5, required_members: 30, coins: 200 },
-                     { level: 6, required_members: 40, coins: 500 },
-                     { level: 7, required_members: 50, coins: 1000 }
+                     { level: 3, required_members: 7, coins: 50 },
+                     { level: 4, required_members: 9, coins: 100 },
+                     { level: 5, required_members: 12, coins: 200 }
                    ])
 
 3.times do |i|
