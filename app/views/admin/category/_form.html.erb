@@ -43,7 +43,7 @@
             </div>
 
             <div class="d-flex justify-content-between">
-              <%= link_to "Back", request.referer || category_index_path, class: "btn btn-outline-secondary" %>
+              <%= link_to "Back", category_index_path || request.referer, class: "btn btn-outline-secondary" %>
               <%= f.submit @category.new_record? ? "Create Category" : "Update Category", class: "btn btn-primary" %>
             </div>
 

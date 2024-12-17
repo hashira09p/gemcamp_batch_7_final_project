@@ -1,10 +1,14 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-lg-8 col-md-10 col-sm-12">
-      <!-- Back Button -->
-      <div class="mb-3">
-        <%= link_to "Back", request.referer || items_path, class: "btn btn-outline-secondary" %>
-      </div>
+
+      <%# Flash Messages %>
+      <% flash.each do |key, message| %>
+        <div class="alert <%= flash_class(key) %> alert-dismissible fade show" role="alert">
+          <%= message %>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <% end %>
 
       <!-- Card for the Form -->
       <div class="card shadow-sm border-0">
@@ -54,13 +58,13 @@
             <!-- Quantity -->
             <div class="mb-3">
               <%= f.label :quantity, "Quantity", class: "form-label fw-bold" %>
-              <%= f.number_field :quantity, class: "form-control", placeholder: "Enter quantity", required: true %>
+              <%= f.number_field :quantity, min: 0, class: "form-control", placeholder: "Enter quantity", required: true %>
             </div>
 
             <!-- Minimum Tickets -->
             <div class="mb-3">
               <%= f.label :minimum_tickets, "Minimum Tickets", class: "form-label fw-bold" %>
-              <%= f.number_field :minimum_tickets, class: "form-control", placeholder: "Enter minimum tickets", required: true %>
+              <%= f.number_field :minimum_tickets, min: 0, class: "form-control", placeholder: "Enter minimum tickets", required: true %>
             </div>
 
             <!-- Online At -->
@@ -89,7 +93,7 @@
 
             <!-- Submit Button -->
             <div class="d-flex justify-content-between">
-              <%= link_to "Back", request.referer || items_path, class: "btn btn-outline-secondary" %>
+              <%= link_to "Back", items_path || request.referer, class: "btn btn-outline-secondary" %>
               <%= f.submit "Submit", class: "btn btn-primary" %>
             </div>
 
