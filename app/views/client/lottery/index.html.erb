@@ -1,33 +1,21 @@
 <%= render "partial/header" %>
 
-<!-- Notice Section -->
-<% if notice.present? %>
-
-  <!-- Modal for notice -->
-  <div class="modal fade" id="noticeModal" tabindex="-1" aria-labelledby="noticeModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="noticeModalLabel">Notice</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <%= notice %>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
-        </div>
+<%# Display notices and alerts using Bootstrap alerts with better spacing and visuals %>
+<% if notice.present? || alert.present? %>
+  <div class="mt-4">
+    <% if notice %>
+      <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+        <i class="bi bi-check-circle-fill"></i> <%= notice %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
-    </div>
+    <% end %>
+    <% if alert %>
+      <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+        <i class="bi bi-exclamation-circle-fill"></i> <%= alert %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
   </div>
-
-  <!-- Triggering the modal via JavaScript -->
-  <script>
-      var myModal = new bootstrap.Modal(document.getElementById('noticeModal'), {
-          keyboard: false
-      });
-      myModal.show();
-  </script>
 <% end %>
 
 <div class="container mt-5">

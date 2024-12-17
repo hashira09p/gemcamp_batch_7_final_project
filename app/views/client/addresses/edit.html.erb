@@ -1,62 +1,129 @@
+<% if notice %>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <%= notice %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
 
+<% if alert %>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <%= alert %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% end %>
 
+<%= render "partial/header" %>
+<div class="container py-5">
+  <div class="card shadow-lg border-0 mx-auto" style="width: 100%; max-width: 600px;">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+      <%= link_to 'Back', addresses_path, class: "btn btn-outline-light btn-sm" %>
+      <h4 class="card-title text-center mb-0 flex-grow-1">Edit Address Form</h4>
+    </div>
 
-<div class="container d-flex flex-column justify-content-between" style="min-height: 20vh;">
-  <!-- Header Section -->
-  <%= render "partial/header" %>
-  <%= alert %>
+    <!-- Card Body -->
+    <div class="card-body">
+      <%= form_with model: @address, url: address_path(@address), data: { controller: :location, turbo: true } do |form| %>
 
-  <!-- Main Form Section -->
-  <div class="card shadow-lg border-0" style="width: 100%; max-width: 800px; flex-grow: 1; overflow-y: auto;">
-    <div class="card-body p-2">
-
-      <%= form_with model: @address, data: { controller: :location, turbo: false } do |form| %>
-
-        <div class="row mb-1">
-          <div class="col-12 col-md-6">
-            <%= form.label :name, "Full Name", class: "form-label fw-bold text-muted" %>
-            <%= form.text_field :name, class: "form-control form-control-sm", placeholder: "Enter your full name" %>
-          </div>
-
-          <div class="col-12 col-md-6">
-            <%= form.label :street_address, "Street Address", class: "form-label fw-bold text-muted" %>
-            <%= form.text_field :street_address, class: "form-control form-control-sm", placeholder: "Enter your street address" %>
-          </div>
+        <!-- Full Name -->
+        <div class="mb-3">
+          <%= form.label :name, "Full Name", class: "form-label fw-bold" %>
+          <%= form.text_field :name, class: "form-control", placeholder: "Enter your name" %>
         </div>
 
-        <div class="row mb-1">
-          <div class="col-12 col-md-6">
-            <%= form.label :phone_number, "Phone Number", class: "form-label fw-bold text-muted" %>
-            <%= form.text_field :phone_number, class: "form-control form-control-sm", placeholder: "Enter phone number" %>
-          </div>
-
-          <div class="col-12 col-md-6">
-            <div class="form-check">
-              <%= form.check_box :is_default, { class: "form-check-input" }, true, false %>
-              <%= form.label :is_default, "Set as Default", class: "form-check-label text-muted fw-bold" %>
-            </div>
-          </div>
+        <!-- Street Address -->
+        <div class="mb-3">
+          <%= form.label :street_address, "Street Address", class: "form-label fw-bold" %>
+          <%= form.text_field :street_address, class: "form-control", placeholder: "123 Main St" %>
         </div>
 
-        <div class="row mb-1">
-          <div class="col-12 col-md-6">
-            <%= form.label :address_region_id, "Region", class: "form-label fw-bold text-muted" %>
-            <%= form.collection_select :address_region_id, Address::Region.all, :id, :name,
-                                       { prompt: 'Select Region' }, class: "form-select form-select-sm" %>
-          </div>
+        <!-- Phone Number -->
+        <div class="mb-3">
+          <%= form.label :phone_number, "Phone Number", class: "form-label fw-bold" %>
+          <%= form.number_field :phone_number, class: "form-control", placeholder: "09123456789" %>
         </div>
 
-        <div class="text-center mt-2">
-          <%= form.submit "Save Changes", class: "btn btn-primary btn-sm w-100" %>
+        <!-- Default Checkbox -->
+        <div class="form-check mb-3">
+          <%= form.check_box :is_default, { class: "form-check-input" }, true, false %>
+          <%= form.label :is_default, "Set as Default", class: "form-check-label fw-bold" %>
+        </div>
+
+        <!-- Region -->
+        <div class="mb-3">
+          <%= form.label :address_region_id, "Region", class: "form-label fw-bold" %>
+          <%= form.collection_select :address_region_id,
+                                     Address::Region.all, :id, :name,
+                                     { prompt: 'Please select region', selected: @address.address_region_id },
+                                     data: { location_target: 'selectedRegionId', action: 'change->location#fetchProvinces' }, class: "form-select" %>
+        </div>
+
+        <!-- Province -->
+        <div class="mb-3">
+          <%= form.label :address_province_id, "Province", class: "form-label fw-bold" %>
+          <%= form.collection_select :address_province_id,
+                                     Address::Province.where(region_id: @address.address_region_id), :id, :name,
+                                     { prompt: 'Please select province', selected: @address.address_province_id },
+                                     data: { location_target: 'selectedProvinceId', action: 'change->location#fetchCities' }, class: "form-select" %>
+        </div>
+
+        <!-- City -->
+        <div class="mb-3">
+          <%= form.label :address_city_id, "City", class: "form-label fw-bold" %>
+          <%= form.collection_select :address_city_id,
+                                     Address::City.where(province_id: @address.address_province_id), :id, :name,
+                                     { prompt: 'Please select city', selected: @address.address_city_id },
+                                     data: { location_target: 'selectedCityId', action: 'change->location#fetchBarangays' }, class: "form-select" %>
+        </div>
+
+        <!-- Barangay -->
+        <div class="mb-3">
+          <%= form.label :address_barangay_id, "Barangay", class: "form-label fw-bold" %>
+          <%= form.collection_select :address_barangay_id,
+                                     Address::Barangay.where(city_id: @address.address_city_id), :id, :name,
+                                     { prompt: 'Please select barangay', selected: @address.address_barangay_id },
+                                     data: { location_target: 'selectedBarangayId' }, class: "form-select" %>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center">
+          <%= form.submit "Submit", class: "btn btn-primary w-100 py-2" %>
         </div>
 
       <% end %>
-
     </div>
   </div>
-
-  <%= render "partial/footer" %>
 </div>
 
+<%= render "partial/footer" %>
 
+<!-- Styling -->
+<style>
+    body {
+        background-color: #f9f9f9;
+        font-family: Arial, sans-serif;
+    }
 
+    .card {
+        border-radius: 12px;
+    }
+
+    .card-header {
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+    }
+
+    .form-label {
+        font-size: 1rem;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+</style>

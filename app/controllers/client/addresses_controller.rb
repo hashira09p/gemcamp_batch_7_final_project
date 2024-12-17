@@ -16,7 +16,7 @@ class Client::AddressesController < ApplicationController
 
   def create
     if @addresses.count == 5
-      flash[:alert] = 'you have reached 5 address input'
+      flash[:alert] = 'You have reached 5 address input'
       redirect_to new_address_path
     else
       address = Address.new(address_params)

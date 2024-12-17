@@ -11,6 +11,7 @@ class Admin::TicketsController < AdminApplicationController
 
     if params[:item_name].present?
       @tickets = @tickets.joins(:item).where('LOWER(items.name) LIKE ?', "%#{params[:item_name].downcase}%")
+                         .order(created_at: :desc)
                          .page(params[:page]).per(5)
     end
 
