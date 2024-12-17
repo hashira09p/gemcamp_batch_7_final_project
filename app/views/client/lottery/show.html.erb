@@ -56,7 +56,7 @@
       </i> Tickets required has been reached for this item and ready to roll in any minute!
       </h4>
     </div>
-    <%= form_with url: lottery_index_path, local: true, class: "row g-3 needs-validation", id: "ticket-form", novalidate: true do |f| %>
+    <%= form_with url: lottery_index_path(@item), local: true, class: "row g-3 needs-validation", id: "ticket-form", novalidate: true do |f| %>
       <%= f.hidden_field :item_id, value: @item.id %>
       <div class="col-12">
         <%= f.label :minimum_tickets, "How many tickets do you want to buy?", class: "form-label fw-bold" %>
@@ -77,7 +77,7 @@
       </div>
     <% end %>
   <% else %>
-    <%= form_with url: lottery_index_path, local: true, class: "row g-3 needs-validation", id: "ticket-form", novalidate: true do |f| %>
+    <%= form_with url: lottery_index_path(@item), local: true, class: "row g-3 needs-validation", id: "ticket-form", novalidate: true do |f| %>
       <%= f.hidden_field :item_id, value: @item.id %>
       <div class="col-12">
         <%= f.label :minimum_tickets, "How many tickets do you want to buy?", class: "form-label fw-bold" %>
@@ -155,42 +155,51 @@
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const numberField = document.getElementById("minimum-tickets");
-
         const progressBar = document.getElementById("progress-bar");
         const ticketCountSpan = document.getElementById("ticket-count");
         const confirmSubmitButton = document.getElementById("confirm-submit");
         const ticketForm = document.getElementById("ticket-form");
-        let isFormSubmitted = false;  // Flag to track if the form is already submitted
 
-        // Ensure the Ruby code outputs correct values
         const initialTicketCount = <%= @item.tickets.where(state: 'pending').count %>;
         const minimumTickets = <%= @item.minimum_tickets %>;
 
+        // Function to calculate progress percentage
+        const calculateProgress = (additionalTickets) => {
+            const totalTickets = initialTicketCount + additionalTickets;
+            return Math.min(Math.floor((totalTickets / minimumTickets) * 100), 100);
+        };
+
         // Function to update progress bar
-        const updateProgressBar = (value) => {
-            const progress = Math.min(Math.floor(((value + initialTicketCount) / minimumTickets) * 100), 100);
+        const updateProgressBar = (additionalTickets) => {
+            const progress = calculateProgress(additionalTickets);
             progressBar.style.width = `${progress}%`;
             progressBar.setAttribute("aria-valuenow", progress);
             progressBar.textContent = `${progress}%`;
-            ticketCountSpan.textContent = value;
         };
 
-        // Immediately update progress bar when page loads
-        updateProgressBar(initialTicketCount);
+        // Immediately update progress bar when the page loads
+        updateProgressBar(parseInt(numberField.value) || 0);
 
-        // Update progress bar dynamically when the number field changes
+        // Dynamically update the progress bar on input change
         numberField.addEventListener("input", () => {
-            if (isFormSubmitted) return;
-            const value = parseInt(numberField.value) || 0;
-            updateProgressBar(value);
+            const additionalTickets = parseInt(numberField.value) || 0;
+            updateProgressBar(additionalTickets);
+            ticketCountSpan.textContent = additionalTickets; // Update ticket count in the modal
         });
 
-        // Handle confirmation modal submission
+        // Handle form submission via modal confirmation
         confirmSubmitButton.addEventListener("click", () => {
-            if (isFormSubmitted) return;
-            isFormSubmitted = true;
             ticketForm.submit();
+        });
+
+        // Reset progress bar and ticket count after form submission or modal close
+        const modal = document.getElementById("confirmationModal");
+        modal.addEventListener("hidden.bs.modal", () => {
+            numberField.value = 0;
+            updateProgressBar(0);
+            ticketCountSpan.textContent = 0;
         });
     });
 </script>
+
 <%= render "partial/footer" %>
