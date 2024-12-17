@@ -18,8 +18,8 @@ class Admin::CategoryController < AdminApplicationController
       flash[:notice] = 'Success'
       redirect_to category_index_path
     else
-      flash[:alert] = 'Failed'
-      render :new
+      flash[:alert] = @category.errors.full_messages.to_sentence || 'Category already exists!'
+      redirect_to new_category_path
     end
   end
 
